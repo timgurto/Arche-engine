@@ -25,7 +25,7 @@ Public unitType(10) As typUnitType
 
 Public unit(100) As typUnit
 
-Public unitCount As Integer
+Public activeUnits As Integer
 
 Public i As Integer
 
@@ -34,5 +34,8 @@ Public mouseDown As Boolean
 
 Public selectionRectangleLoc1 As typCoords
 Public selectionRectangleLoc2 As typCoords
-Public selectionRectangleShadow As Boolean
+
+'***GAME OPTIONS - USE THESE TO CUSTOMIZE YOUR GAME***
+Public selectionRectangleShadow As Boolean 'whether the selection rectangle has a shadow
+Public keepWalkingOnCollision As Boolean 'whether units continue their walking animation while waiting for an obstructin to be removed
 

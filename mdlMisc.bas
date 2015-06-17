@@ -35,30 +35,59 @@ addCoords.x = a.x + b.x
 addCoords.y = a.y + b.y
 End Function
 
-Public Function findPath(ByRef movingUnit As typUnit) As typCoords
+Public Function collision(loc1 As typCoords, dim1 As typCoords, loc2 As typCoords, dim2 As typCoords)
+collision = _
+((loc1.x <= loc2.x + dim2.x) And _
+(loc2.x <= loc1.x + dim1.x)) And _
+((loc1.y <= loc2.y + dim2.y) And _
+(loc2.y <= loc1.y + dim1.y))
+
+End Function
+
+'Public Function collidesWithUnit(loc As typCoords, dimensions As typCoords)
+
+Public Function screenCoords(dudeInQuestion As typUnit) As typCoords
+screenCoords = makeCoords(dudeInQuestion.location.x - 0.5 * unitType(dudeInQuestion.type).dimensions.x, dudeInQuestion.location.y - 0.875 * unitType(dudeInQuestion.type).dimensions.y)
+End Function
+
+Public Function findPath(n As Integer) As typCoords
+Dim i As Integer
+i = 0
 
 'move horizontally
-If Abs(movingUnit.location.x - movingUnit.target.x) >= unitType(movingUnit.type).speed Then
-   If movingUnit.location.x < movingUnit.target.x Then
-      movingUnit.direction = dirR
-      findPath = moveRight(unitType(movingUnit.type).speed)
+If Abs(unit(n).location.x - unit(n).target.x) >= unitType(unit(n).type).speed Then
+   If unit(n).location.x < unit(n).target.x Then
+      unit(n).direction = dirR
+      findPath = moveRight(unitType(unit(n).type).speed)
    Else
-      movingUnit.direction = dirL
-      findPath = moveLeft(unitType(movingUnit.type).speed)
+      unit(n).direction = dirL
+      findPath = moveLeft(unitType(unit(n).type).speed)
    End If
 
 'move vertically
-ElseIf Abs(movingUnit.location.y - movingUnit.target.y) >= unitType(movingUnit.type).speed Then
-   If movingUnit.location.y < movingUnit.target.y Then
-      movingUnit.direction = dirD
-      findPath = moveDown(unitType(movingUnit.type).speed)
+ElseIf Abs(unit(n).location.y - unit(n).target.y) >= unitType(unit(n).type).speed Then
+   If unit(n).location.y < unit(n).target.y Then
+      unit(n).direction = dirD
+      findPath = moveDown(unitType(unit(n).type).speed)
    Else
-      movingUnit.direction = dirU
-      findPath = moveUp(unitType(movingUnit.type).speed)
+      unit(n).direction = dirU
+      findPath = moveUp(unitType(unit(n).type).speed)
    End If
 End If
 
+'other checks
 
+For i = 0 To activeUnits - 1
+   If i <> n Then
+      If collision(addCoords(screenCoords(unit(n)), findPath), unitType(unit(n).type).dimensions, screenCoords(unit(i)), unitType(unit(i).type).dimensions) Then
+         'unit(n).frame = 0
+         If Not keepWalkingOnCollision Then unit(n).freezeFrame = True 'unit(n).frame = unit(n).frame - 1
+         findPath = makeCoords(0, 0)
+         
+      End If
+   End If
+Next i
+      
 
 End Function
 

@@ -12,7 +12,7 @@ Begin VB.Form frmGame
    StartUpPosition =   3  'Windows Default
    Begin VB.PictureBox picGame 
       AutoRedraw      =   -1  'True
-      BackColor       =   &H0000C000&
+      BackColor       =   &H00008000&
       Height          =   5172
       Left            =   720
       ScaleHeight     =   5115
@@ -86,12 +86,12 @@ Private Sub Form_Unload(Cancel As Integer)
 End
 End Sub
 
-Private Sub picGame_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub picGame_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
 If Button = 2 Then 'RMB
-   For i = 0 To unitCount - 1
+   For i = 0 To activeUnits - 1
       If unit(i).selected Then
-         unit(i).target.X = X / Screen.TwipsPerPixelX
-         unit(i).target.Y = Y / Screen.TwipsPerPixelY
+         unit(i).target.x = x / Screen.TwipsPerPixelX
+         unit(i).target.y = y / Screen.TwipsPerPixelY
          unit(i).moving = True
       End If
    Next i
@@ -103,35 +103,35 @@ ElseIf Button = 1 Then 'LMB
 End If
 End Sub
 
-Private Sub picGame_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub picGame_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 If Not mouseDown Then
-   selectionRectangleLoc1.X = X / Screen.TwipsPerPixelX
-   selectionRectangleLoc1.Y = Y / Screen.TwipsPerPixelY
+   selectionRectangleLoc1.x = x / Screen.TwipsPerPixelX
+   selectionRectangleLoc1.y = y / Screen.TwipsPerPixelY
 End If
-selectionRectangleLoc2.X = X / Screen.TwipsPerPixelX
-selectionRectangleLoc2.Y = Y / Screen.TwipsPerPixelY
+selectionRectangleLoc2.x = x / Screen.TwipsPerPixelX
+selectionRectangleLoc2.y = y / Screen.TwipsPerPixelY
 
-frmGame.selectionx1 = selectionRectangleLoc1.X
-frmGame.selectionx2 = selectionRectangleLoc2.X
-frmGame.selectiony1 = selectionRectangleLoc1.Y
-frmGame.selectiony2 = selectionRectangleLoc2.Y
+frmGame.selectionx1 = selectionRectangleLoc1.x
+frmGame.selectionx2 = selectionRectangleLoc2.x
+frmGame.selectiony1 = selectionRectangleLoc1.y
+frmGame.selectiony2 = selectionRectangleLoc2.y
 
 drawEverything
 
 End Sub
 
-Private Sub picGame_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub picGame_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
 If mouseDown Then
-   For i = 0 To unitCount - 1
+   For i = 0 To activeUnits - 1
       If Not ctrlDown Then unit(i).selected = False 'unselect, unless CTRL is being pressed
-      If (selectionRectangleLoc2.X >= unit(i).location.X - unitType(unit(i).type).dimensions.X / 2 And _
-          selectionRectangleLoc1.X <= unit(i).location.X + unitType(unit(i).type).dimensions.X / 2) Or _
-         (selectionRectangleLoc2.X <= unit(i).location.X + unitType(unit(i).type).dimensions.X / 2 And _
-          selectionRectangleLoc1.X >= unit(i).location.X - unitType(unit(i).type).dimensions.X / 2) Then
-         If (selectionRectangleLoc2.Y >= unit(i).location.Y - unitType(unit(i).type).dimensions.Y * (7 / 8) And _
-             selectionRectangleLoc1.Y <= unit(i).location.Y + unitType(unit(i).type).dimensions.Y * (1 / 8)) Or _
-            (selectionRectangleLoc2.Y <= unit(i).location.Y + unitType(unit(i).type).dimensions.Y * (7 / 8) And _
-             selectionRectangleLoc1.Y >= unit(i).location.Y - unitType(unit(i).type).dimensions.Y * (1 / 8)) Then
+      If (selectionRectangleLoc2.x >= unit(i).location.x - unitType(unit(i).type).dimensions.x / 2 And _
+          selectionRectangleLoc1.x <= unit(i).location.x + unitType(unit(i).type).dimensions.x / 2) Or _
+         (selectionRectangleLoc2.x <= unit(i).location.x + unitType(unit(i).type).dimensions.x / 2 And _
+          selectionRectangleLoc1.x >= unit(i).location.x - unitType(unit(i).type).dimensions.x / 2) Then
+         If (selectionRectangleLoc2.y >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (7 / 8) And _
+             selectionRectangleLoc1.y <= unit(i).location.y + unitType(unit(i).type).dimensions.y * (1 / 8)) Or _
+            (selectionRectangleLoc2.y <= unit(i).location.y + unitType(unit(i).type).dimensions.y * (7 / 8) And _
+             selectionRectangleLoc1.y >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (1 / 8)) Then
             unit(i).selected = Not (unit(i).selected = True And ctrlDown)
          End If
       End If

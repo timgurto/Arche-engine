@@ -19,8 +19,9 @@ Public Type typUnit
    target As typCoords
    type As Byte
    moving As Boolean
-   frame As Byte
+   frame As Integer
    direction As Byte
    selected As Boolean
+   freezeFrame As Boolean 'whether to freeze the next frame of animation
 End Type
 

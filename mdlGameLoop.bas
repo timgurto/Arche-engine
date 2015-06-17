@@ -4,16 +4,19 @@ Option Explicit
 Public Sub runGameLoop()
 refreshCount = refreshCount + 1
 If refreshCount = REFRESHES_PER_FRAME Then
-   For i = 0 To unitCount - 1
+   For i = 0 To activeUnits - 1
       refreshCount = 0
-      unit(i).frame = unit(i).frame + 1
-      If unit(i).frame >= unitType(unit(i).type).frames Then unit(i).frame = 0
+      If Not unit(i).freezeFrame Then
+         unit(i).frame = unit(i).frame + 1
+         If unit(i).frame >= unitType(unit(i).type).frames Then unit(i).frame = 0
+      Else: unit(i).freezeFrame = False
+      End If
    Next i
 End If
 
-For i = 0 To unitCount - 1
+For i = 0 To activeUnits - 1
    If unit(i).moving Then
-      unit(i).location = addCoords(unit(i).location, findPath(unit(i)))
+      unit(i).location = addCoords(unit(i).location, findPath(i))
    Else
       unit(i).frame = 0
    End If
@@ -31,7 +34,7 @@ frmGame.picGame.Cls
 
 
 
-For i = 0 To unitCount - 1
+For i = 0 To activeUnits - 1
    If unit(i).selected Then drawSelection unit(i)
    drawUnit unit(i)
 Next i
