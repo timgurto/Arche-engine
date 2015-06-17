@@ -25,6 +25,17 @@ Public Type typMap
    fog(100, 100) As Boolean
 End Type
 
+Public Type typCiv
+   name As String
+   color As Long
+End Type
+
+Public Type typPlayer
+   name As String
+   population As Integer
+   civ As Byte
+End Type
+
 Public Type typUnitType
    name As String
    speed As Integer
@@ -38,9 +49,10 @@ End Type
 Public Type typUnit
    location As typCoords
    target As typCoords
+   player As Byte
    type As Byte
    moving As Boolean
-   frame As Integer
+   frame As Byte
    direction As Byte
    selected As Boolean
    freezeFrame As Boolean 'whether to freeze the next frame of animation

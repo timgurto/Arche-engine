@@ -1,56 +1,60 @@
 Attribute VB_Name = "mdlMisc"
 Option Explicit
 
-Public Function makeCoords(X As Integer, Y As Integer) As typCoords
-makeCoords.X = X
-makeCoords.Y = Y
+Public Function increment(ByRef n As Variant)
+n = n + 1
+End Function
+
+Public Function makeCoords(x As Integer, y As Integer) As typCoords
+makeCoords.x = x
+makeCoords.y = y
 End Function
 
 Public Function distance(a As typCoords, b As typCoords) As Double
-distance = Sqr((a.X - b.X) ^ 2 + (a.Y - b.Y) ^ 2)
+distance = Sqr((a.x - b.x) ^ 2 + (a.y - b.y) ^ 2)
 End Function
 
 Public Function moveUp(n As Integer) As typCoords
-moveUp.X = 0
-moveUp.Y = -1 * n
+moveUp.x = 0
+moveUp.y = -1 * n
 End Function
 
 Public Function moveDown(n As Integer) As typCoords
-moveDown.X = 0
-moveDown.Y = 1 * n
+moveDown.x = 0
+moveDown.y = 1 * n
 End Function
 
 Public Function moveLeft(n As Integer) As typCoords
-moveLeft.X = -1 * n
-moveLeft.Y = 0
+moveLeft.x = -1 * n
+moveLeft.y = 0
 End Function
 
 Public Function moveRight(n As Integer) As typCoords
-moveRight.X = 1 * n
-moveRight.Y = 0
+moveRight.x = 1 * n
+moveRight.y = 0
 End Function
 
 Public Function addCoords(a As typCoords, b As typCoords) As typCoords
-addCoords.X = a.X + b.X
-addCoords.Y = a.Y + b.Y
+addCoords.x = a.x + b.x
+addCoords.y = a.y + b.y
 End Function
 
 Public Function subCoords(a As typCoords, b As typCoords) As typCoords
-subCoords.X = a.X - b.X
-subCoords.Y = a.Y - b.Y
+subCoords.x = a.x - b.x
+subCoords.y = a.y - b.y
 End Function
 
 Public Function muxCoords(a As typCoords, n As Integer) As typCoords
-muxCoords.X = a.X * n
-muxCoords.Y = a.Y * n
+muxCoords.x = a.x * n
+muxCoords.y = a.y * n
 End Function
 
 Public Function collision(loc1 As typCoords, dim1 As typCoords, loc2 As typCoords, dim2 As typCoords)
 collision = _
-((loc1.X <= loc2.X + dim2.X) And _
-(loc2.X <= loc1.X + dim1.X)) And _
-((loc1.Y <= loc2.Y + dim2.Y) And _
-(loc2.Y <= loc1.Y + dim1.Y))
+((loc1.x <= loc2.x + dim2.x) And _
+(loc2.x <= loc1.x + dim1.x)) And _
+((loc1.y <= loc2.y + dim2.y) And _
+(loc2.y <= loc1.y + dim1.y))
 
 End Function
 
@@ -65,5 +69,5 @@ Next u
 End Function
 
 Public Function screenCoords(dudeInQuestion As typUnit) As typCoords
-screenCoords = makeCoords(dudeInQuestion.location.X - 0.5 * unitType(dudeInQuestion.type).dimensions.X, dudeInQuestion.location.Y - 0.875 * unitType(dudeInQuestion.type).dimensions.Y)
+screenCoords = makeCoords(dudeInQuestion.location.x - 0.5 * unitType(dudeInQuestion.type).dimensions.x, dudeInQuestion.location.y - 0.875 * unitType(dudeInQuestion.type).dimensions.y)
 End Function

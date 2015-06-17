@@ -78,9 +78,25 @@ For i = 0 To 2
    unit(i).target = unit(i).location
    unit(i).freezeFrame = False
    unit(i).exploring = True
+   unit(i).player = 1
 Next i
 
 unit(1).type = 2
+unit(2).player = 2
+
+civ(1).name = "Rebel Alliance"
+civ(1).color = vbBlue
+
+civ(2).name = "Matak"
+civ(2).color = vbRed
+
+player(1).name = "Yoda"
+player(1).population = 2
+player(1).civ = 1
+
+player(2).name = "Roger Waters"
+player(2).population = 1
+player(2).civ = 2
 
 needReExplore = True
 

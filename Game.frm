@@ -47,7 +47,7 @@ Begin VB.Form frmGame
       ScaleHeight     =   10530
       ScaleWidth      =   15240
       TabIndex        =   0
-      Top             =   255
+      Top             =   45
       Width           =   15270
    End
    Begin VB.Shape shpExplore 
@@ -169,9 +169,9 @@ Begin VB.Form frmGame
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   15120
+      Left            =   6840
       TabIndex        =   6
-      Top             =   0
+      Top             =   11040
       Width           =   255
    End
    Begin VB.Label lblContextHelp 
@@ -223,11 +223,14 @@ If DEBUG_MODE Then lblUnits.Caption = "Units: " & activeUnits
 
 
 unit(n).type = Int(Rnd * (2) + 1)
+unit(n).player = Int(Rnd * (2) + 1)
 unit(n).moving = False
-unit(n).direction = Int(Rnd * (3))
+unit(n).direction = Int(Rnd * (4) + 1)
 unit(n).frame = 1
 unit(n).selected = False
 unit(n).freezeFrame = False
+
+increment player(unit(n).player).population
 
 Do
    unit(n).location.x = Int(Rnd * (gameMap.dimensions.x * 48) + 1)
@@ -340,9 +343,11 @@ Dim i As Integer
 If Button = 2 Then 'RMB
    For i = 0 To activeUnits - 1
       If unit(i).selected Then
-         unit(i).target.x = x / Screen.TwipsPerPixelX + gameMap.displacement.x
-         unit(i).target.y = y / Screen.TwipsPerPixelY + gameMap.displacement.y
-         unit(i).moving = True
+         If unit(i).player = you Then ' You can't move enemy units
+            unit(i).target.x = x / Screen.TwipsPerPixelX + gameMap.displacement.x
+            unit(i).target.y = y / Screen.TwipsPerPixelY + gameMap.displacement.y
+            unit(i).moving = True
+         End If
       End If
    Next i
 
@@ -382,16 +387,18 @@ Dim i As Integer
 
 If mouseDown Then
    For i = 0 To activeUnits - 1
-      If Not ctrlDown Then unit(i).selected = False 'unselect, unless CTRL is being pressed
-      If (selectionRectangleLoc2.x + gameMap.displacement.x >= unit(i).location.x - unitType(unit(i).type).dimensions.x / 2 And _
-          selectionRectangleLoc1.x + gameMap.displacement.x <= unit(i).location.x + unitType(unit(i).type).dimensions.x / 2) Or _
-         (selectionRectangleLoc2.x + gameMap.displacement.x <= unit(i).location.x + unitType(unit(i).type).dimensions.x / 2 And _
-          selectionRectangleLoc1.x + gameMap.displacement.x >= unit(i).location.x - unitType(unit(i).type).dimensions.x / 2) Then
-         If (selectionRectangleLoc2.y + gameMap.displacement.y >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (7 / 8) And _
-             selectionRectangleLoc1.y + gameMap.displacement.y <= unit(i).location.y + unitType(unit(i).type).dimensions.y * (1 / 8)) Or _
-            (selectionRectangleLoc2.y + gameMap.displacement.y <= unit(i).location.y + unitType(unit(i).type).dimensions.y * (1 / 8) And _
-             selectionRectangleLoc1.y + gameMap.displacement.y >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (7 / 8)) Then
-            unit(i).selected = Not (unit(i).selected = True And ctrlDown)
+      If ENEMIES_SELECTABLE Or unit(i).player = you Then
+         If Not ctrlDown Then unit(i).selected = False 'unselect, unless CTRL is being pressed
+         If (selectionRectangleLoc2.x + gameMap.displacement.x >= unit(i).location.x - unitType(unit(i).type).dimensions.x / 2 And _
+             selectionRectangleLoc1.x + gameMap.displacement.x <= unit(i).location.x + unitType(unit(i).type).dimensions.x / 2) Or _
+            (selectionRectangleLoc2.x + gameMap.displacement.x <= unit(i).location.x + unitType(unit(i).type).dimensions.x / 2 And _
+             selectionRectangleLoc1.x + gameMap.displacement.x >= unit(i).location.x - unitType(unit(i).type).dimensions.x / 2) Then
+            If (selectionRectangleLoc2.y + gameMap.displacement.y >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (7 / 8) And _
+                selectionRectangleLoc1.y + gameMap.displacement.y <= unit(i).location.y + unitType(unit(i).type).dimensions.y * (1 / 8)) Or _
+               (selectionRectangleLoc2.y + gameMap.displacement.y <= unit(i).location.y + unitType(unit(i).type).dimensions.y * (1 / 8) And _
+                selectionRectangleLoc1.y + gameMap.displacement.y >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (7 / 8)) Then
+               unit(i).selected = Not (unit(i).selected = True And ctrlDown)
+            End If
          End If
       End If
    Next i
