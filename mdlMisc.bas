@@ -5,51 +5,69 @@ Public Function increment(ByRef n As Variant)
 n = n + 1
 End Function
 
-Public Function makeCoords(x As Integer, y As Integer) As typCoords
+Public Function makeCoords(x As Integer, y As Integer) As typcoords
 makeCoords.x = x
 makeCoords.y = y
 End Function
 
-Public Function distance(a As typCoords, b As typCoords) As Double
+Public Function unitSize(i As Integer) As Integer
+Dim u As typUnit
+Dim t As typUnitType
+Dim tar As typcoords
+u = unit(i)
+t = unitType(u.type)
+tar = muxCoords(unitType(unit(u.targetUnit).type).dimensions, -1)
+unitSize = distance(t.dimensions, tar) / 2
+End Function
+
+Public Function min(x As Variant, y As Variant)
+min = IIf(x < y, x, y)
+End Function
+
+Public Function max(x As Variant, y As Variant)
+max = IIf(x > y, x, y)
+End Function
+
+Public Function distance(a As typcoords, b As typcoords) As Double
 distance = Sqr((a.x - b.x) ^ 2 + (a.y - b.y) ^ 2)
 End Function
 
-Public Function moveUp(n As Integer) As typCoords
+Public Function moveUp(n As Integer) As typcoords
 moveUp.x = 0
 moveUp.y = -1 * n
 End Function
 
-Public Function moveDown(n As Integer) As typCoords
+Public Function moveDown(n As Integer) As typcoords
 moveDown.x = 0
 moveDown.y = 1 * n
 End Function
 
-Public Function moveLeft(n As Integer) As typCoords
+Public Function moveLeft(n As Integer) As typcoords
 moveLeft.x = -1 * n
 moveLeft.y = 0
 End Function
 
-Public Function moveRight(n As Integer) As typCoords
+Public Function moveRight(n As Integer) As typcoords
 moveRight.x = 1 * n
 moveRight.y = 0
 End Function
 
-Public Function addCoords(a As typCoords, b As typCoords) As typCoords
+Public Function addCoords(a As typcoords, b As typcoords) As typcoords
 addCoords.x = a.x + b.x
 addCoords.y = a.y + b.y
 End Function
 
-Public Function subCoords(a As typCoords, b As typCoords) As typCoords
+Public Function subCoords(a As typcoords, b As typcoords) As typcoords
 subCoords.x = a.x - b.x
 subCoords.y = a.y - b.y
 End Function
 
-Public Function muxCoords(a As typCoords, n As Integer) As typCoords
+Public Function muxCoords(a As typcoords, n As Integer) As typcoords
 muxCoords.x = a.x * n
 muxCoords.y = a.y * n
 End Function
 
-Public Function collision(loc1 As typCoords, dim1 As typCoords, loc2 As typCoords, dim2 As typCoords)
+Public Function collision(loc1 As typcoords, dim1 As typcoords, loc2 As typcoords, dim2 As typcoords)
 collision = _
 ((loc1.x <= loc2.x + dim2.x) And _
 (loc2.x <= loc1.x + dim1.x)) And _
@@ -58,7 +76,7 @@ collision = _
 
 End Function
 
-Public Function pointCollidesWithUnit(loc As typCoords, ByRef u As Integer) As Boolean
+Public Function pointCollidesWithUnit(loc As typcoords, ByRef u As Integer) As Boolean
 pointCollidesWithUnit = False
 For u = 0 To activeUnits - 1
    If collision(loc, makeCoords(1, 1), screenCoords(unit(u)), unitType(unit(u).type).dimensions) Then
@@ -68,6 +86,6 @@ For u = 0 To activeUnits - 1
 Next u
 End Function
 
-Public Function screenCoords(dudeInQuestion As typUnit) As typCoords
+Public Function screenCoords(dudeInQuestion As typUnit) As typcoords
 screenCoords = makeCoords(dudeInQuestion.location.x - 0.5 * unitType(dudeInQuestion.type).dimensions.x, dudeInQuestion.location.y - 0.875 * unitType(dudeInQuestion.type).dimensions.y)
 End Function

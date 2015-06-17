@@ -1,7 +1,7 @@
 Attribute VB_Name = "mdlTypes"
 Option Explicit
 
-Public Type typCoords
+Public Type typcoords
    x As Integer
    y As Integer
 End Type
@@ -10,7 +10,7 @@ End Type
 Public Type typTarget
    dc As Long
    background As Long
-   dimensions As typCoords
+   dimensions As typcoords
 End Type
 
 Public Type typTerrain
@@ -18,8 +18,8 @@ Public Type typTerrain
 End Type
 
 Public Type typMap
-   dimensions As typCoords
-   displacement As typCoords
+   dimensions As typcoords
+   displacement As typcoords
    terrain(100, 100) As Integer
    explored(100, 100) As Boolean
    fog(100, 100) As Boolean
@@ -39,6 +39,7 @@ End Type
 Public Type typUnitType
    name As String
    speed As Integer
+   attackSpeed As Integer 'ms.  Multiple of 20.  Attacks every x ms.
    health As Integer
    armor As Integer
    attack As Integer
@@ -49,22 +50,26 @@ Public Type typUnitType
    lineOfSight As Integer
    dc As Long
    background As Long
-   dimensions As typCoords
+   dimensions As typcoords
    frames As Byte
 End Type
 
 Public Type typUnit
    health As Integer
    special As Integer
-   location As typCoords
-   target As typCoords
+   location As typcoords
+   targetUnit As Integer
+   targetBuilding As Integer
+   target As typcoords
    player As Byte
    type As Byte
    moving As Boolean
    frame As Byte
+   attackTimer As Integer
    direction As Byte
    selected As Boolean
    freezeFrame As Boolean 'whether to freeze the next frame of animation
    exploring As Boolean
+   combatMode As Boolean 'whether this unit is in the combat half of its attacking cycle
 End Type
 

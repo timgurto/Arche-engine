@@ -213,6 +213,15 @@ Begin VB.Form frmGame
       Top             =   45
       Width           =   15270
    End
+   Begin VB.Label lblTargetUnit 
+      Caption         =   "Label1"
+      Height          =   255
+      Left            =   7920
+      TabIndex        =   30
+      Top             =   10320
+      Visible         =   0   'False
+      Width           =   615
+   End
    Begin VB.Label lblSelected 
       Height          =   255
       Left            =   3000
@@ -408,6 +417,7 @@ unit(n).direction = Int(Rnd * (4))
 unit(n).frame = 1
 unit(n).selected = False
 unit(n).freezeFrame = False
+unit(n).targetUnit = -1
 
 increment player(unit(n).player).population
 
@@ -494,6 +504,8 @@ If KeyCode = KEY_CTRL Then ctrlDown = False
 End Sub
 
 Private Sub Form_Load()
+Randomize
+
 init
 
 If Not DEBUG_MODE Then Call ChangeRes(1024, 768)
@@ -507,6 +519,7 @@ If DEBUG_MODE Then
    lblUnits.Visible = True
    shpExplore.Visible = True
    lblSelected.Visible = True
+   lblTargetUnit.Visible = True
 End If
 
 gameLoop
@@ -527,6 +540,12 @@ If Button = 2 Then 'RMB
          If unit(i).player = you Then ' You can't move enemy units
             unit(i).target.x = x / Screen.TwipsPerPixelX + gameMap.displacement.x
             unit(i).target.y = y / Screen.TwipsPerPixelY + gameMap.displacement.y
+            unit(i).targetUnit = findUnit(unit(i).target)
+            If unit(i).targetUnit = i Then unit(i).targetUnit = -1
+            If DEBUG_MODE Then lblTargetUnit = unit(i).targetUnit
+            'If unit(i).targetUnit = -1 Then
+               'unit(i).targetBuilding = findBuilding(unit(i).target)
+            'End If
             unit(i).moving = True
          End If
       End If

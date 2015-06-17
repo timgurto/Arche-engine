@@ -40,8 +40,8 @@ Public fogDC As Long
 Public ctrlDown As Boolean
 Public mouseDown As Boolean
 
-Public selectionRectangleLoc1 As typCoords
-Public selectionRectangleLoc2 As typCoords
+Public selectionRectangleLoc1 As typcoords
+Public selectionRectangleLoc2 As typcoords
 
 Public needReExplore As Boolean
 

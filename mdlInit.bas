@@ -49,6 +49,7 @@ unitType(1).background = vbWhite
 unitType(1).dimensions.x = 48
 unitType(1).dimensions.y = 48
 unitType(1).speed = 3
+unitType(1).attackSpeed = 2500
 unitType(1).frames = 4
 unitType(1).lineOfSight = 150
 
@@ -62,6 +63,7 @@ unitType(2).background = vbGreen
 unitType(2).dimensions.x = 24
 unitType(2).dimensions.y = 26
 unitType(2).speed = 5
+unitType(2).attackSpeed = 1000
 unitType(2).frames = 3
 unitType(2).lineOfSight = 80
 
@@ -76,16 +78,22 @@ unit(2).location.x = 100
 unit(2).location.y = 130
 
 For i = 0 To 2
-   unit(i).type = 1
-   unit(i).moving = False
-   unit(i).direction = dirD
-   unit(i).frame = 1
-   unit(i).selected = False
-   unit(i).target = unit(i).location
-   unit(i).freezeFrame = False
-   unit(i).exploring = True
-   unit(i).player = 1
-   unit(i).health = Int(Rnd * (unitType(unit(i).type).health)) + 1
+   With unit(i)
+      .type = 1
+      .moving = False
+      .direction = dirD
+      .frame = 1
+      .attackTimer = Int(Rnd * (unitType(unit(i).type).attackSpeed / 20) + 1) * 20 'This formula will be used in the actual engine
+      .combatMode = False
+      .selected = False
+      .target = unit(i).location
+      .targetUnit = -1
+      .targetBuilding = -1
+      .freezeFrame = False
+      .exploring = True
+      .player = 1
+      .health = Int(Rnd * (unitType(unit(i).type).health)) + 1
+   End With
 Next i
 
 unit(1).type = 2

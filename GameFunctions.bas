@@ -1,6 +1,17 @@
 Attribute VB_Name = "mdlGameFunctions"
 Option Explicit
 
+Public Function findUnit(target As typcoords) As Integer
+Dim i As Integer
+findUnit = -1
+For i = 0 To activeUnits - 1
+   If collision(screenCoords(unit(i)), unitType(unit(i).type).dimensions, target, makeCoords(1, 1)) Then
+      findUnit = i
+      i = activeUnits
+   End If
+Next i
+End Function
+
 Public Sub swapUnits(a, b)
 Dim temp As typUnit
 temp = unit(a)
@@ -8,9 +19,20 @@ unit(a) = unit(b)
 unit(b) = temp
 End Sub
 
-Public Sub deleteUnit(n As Integer)
-swapUnits n, activeUnits - 1
+Public Sub killUnit(n As Integer)
+deleteUnit (n)
+End Sub
 
+Public Sub deleteUnit(n As Integer)
+Dim j As Integer
+      For j = 0 To activeUnits - 1
+         If unit(j).targetUnit = n Then
+            unit(j).targetUnit = -1
+            unit(j).target = unit(j).location
+         End If
+      Next j
+swapUnits n, activeUnits - 1
+activeUnits = activeUnits - 1
 End Sub
 
 Public Sub deleteUnits()
@@ -20,7 +42,6 @@ While i < activeUnits
 'For i = 0 To activeUnits - 1
    If unit(i).selected Then
       deleteUnit (i)
-      activeUnits = activeUnits - 1
       i = i - 1
    End If
 'Next i
@@ -28,7 +49,7 @@ i = i + 1
 Wend
 End Sub
 
-Public Function findPath(n As Integer) As typCoords
+Public Function findPath(n As Integer) As typcoords
 Dim i As Integer
 
 'move horizontally
@@ -85,9 +106,9 @@ Public Function exploreMap()
 Dim n As Integer
 Dim i As Integer
 Dim j As Integer
-Dim mid As typCoords 'the middle of each tile
+Dim mid As typcoords 'the middle of each tile
 Dim disX As Long 'the sub-squared X half of the distance equation
-Dim loc As typCoords
+Dim loc As typcoords
 Dim uT As typUnitType
 
 If FOG_OF_WAR Then
