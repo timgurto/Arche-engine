@@ -50,6 +50,13 @@ Begin VB.Form frmGame
       Top             =   45
       Width           =   15270
    End
+   Begin VB.Label lblFrame 
+      Height          =   255
+      Left            =   5880
+      TabIndex        =   17
+      Top             =   10800
+      Width           =   495
+   End
    Begin VB.Shape shpExplore 
       BackColor       =   &H0000FF00&
       BackStyle       =   1  'Opaque
@@ -226,7 +233,7 @@ unit(n).type = Int(Rnd * (2) + 1)
 unit(n).player = Int(Rnd * (2) + 1)
 unit(n).health = Int(Rnd * (unitType(unit(n).type).health) + 1)
 unit(n).moving = False
-unit(n).direction = Int(Rnd * (4) + 1)
+unit(n).direction = Int(Rnd * (4))
 unit(n).frame = 1
 unit(n).selected = False
 unit(n).freezeFrame = False
@@ -379,6 +386,9 @@ drawEverything
 writeContext ("")
 If pointCollidesWithUnit(addCoords(makeCoords(x / Screen.TwipsPerPixelX, y / Screen.TwipsPerPixelY), gameMap.displacement), u) Then
    writeContext IIf(DEBUG_MODE, "Unit " & u & ": ", "") & unitType(unit(u).type).name
+   If DEBUG_MODE Then lblFrame.Caption = unit(u).frame
+ElseIf DEBUG_MODE Then
+   lblFrame.Caption = ""
 End If
 
 End Sub
