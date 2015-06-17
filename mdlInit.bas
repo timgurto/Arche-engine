@@ -8,6 +8,8 @@ refreshCount = 0
 
 unitCount = 3
 
+ctrlDown = False
+
 unitType(1).dc = CreateCompatibleDC(0)
 unitType(1).dc = LoadGraphicDC(App.Path & "\Images\Standard.bmp")
 unitType(1).dimensions.x = 48

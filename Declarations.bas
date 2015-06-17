@@ -15,6 +15,8 @@ Public Const dirR = 1
 Public Const dirD = 2
 Public Const dirL = 3
 
+Public Const KEY_CTRL = 17
+
 Public Const REFRESHES_PER_FRAME As Integer = 6
 
 Public refreshCount As Integer
@@ -26,4 +28,6 @@ Public unit(100) As typUnit
 Public unitCount As Integer
 
 Public i As Integer
+
+Public ctrlDown As Boolean
 

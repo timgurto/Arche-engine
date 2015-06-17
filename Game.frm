@@ -37,6 +37,14 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
+Private Sub picGame_KeyDown(KeyCode As Integer, Shift As Integer)
+If KeyCode = KEY_CTRL Then ctrlDown = True
+End Sub
+
+Private Sub picGame_KeyUp(KeyCode As Integer, Shift As Integer)
+If KeyCode = KEY_CTRL Then ctrlDown = False
+End Sub
+
 Private Sub Form_Load()
 init
 Me.Show
@@ -60,12 +68,12 @@ If Button = 2 Then 'RMB
 ElseIf Button = 1 Then 'LMB
 
    For i = 0 To unitCount - 1
-      unit(i).selected = False
+      If Not ctrlDown Then unit(i).selected = False 'unselect, unless CTRL is being pressed
       If x / Screen.TwipsPerPixelX >= unit(i).location.x - unitType(unit(i).type).dimensions.x / 2 Then
          If x / Screen.TwipsPerPixelX <= unit(i).location.x + unitType(unit(i).type).dimensions.x / 2 Then
             If y / Screen.TwipsPerPixelY >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (7 / 8) Then
                If y / Screen.TwipsPerPixelY <= unit(i).location.y - unitType(unit(i).type).dimensions.y * (1 / 8) Then
-                  unit(i).selected = True
+                  unit(i).selected = Not (unit(i).selected = True And ctrlDown)
                End If
             End If
          End If
