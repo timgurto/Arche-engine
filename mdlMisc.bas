@@ -1,51 +1,56 @@
 Attribute VB_Name = "mdlMisc"
 Option Explicit
 
-Public Function makeCoords(x As Integer, y As Integer) As typCoords
-makeCoords.x = x
-makeCoords.y = y
+Public Function makeCoords(X As Integer, Y As Integer) As typCoords
+makeCoords.X = X
+makeCoords.Y = Y
 End Function
 
 Public Function distance(a As typCoords, b As typCoords) As Double
-distance = Sqr((a.x - b.x) ^ 2 + (a.y - b.y) ^ 2)
+distance = Sqr((a.X - b.X) ^ 2 + (a.Y - b.Y) ^ 2)
 End Function
 
 Public Function moveUp(n As Integer) As typCoords
-moveUp.x = 0
-moveUp.y = -1 * n
+moveUp.X = 0
+moveUp.Y = -1 * n
 End Function
 
 Public Function moveDown(n As Integer) As typCoords
-moveDown.x = 0
-moveDown.y = 1 * n
+moveDown.X = 0
+moveDown.Y = 1 * n
 End Function
 
 Public Function moveLeft(n As Integer) As typCoords
-moveLeft.x = -1 * n
-moveLeft.y = 0
+moveLeft.X = -1 * n
+moveLeft.Y = 0
 End Function
 
 Public Function moveRight(n As Integer) As typCoords
-moveRight.x = 1 * n
-moveRight.y = 0
+moveRight.X = 1 * n
+moveRight.Y = 0
 End Function
 
 Public Function addCoords(a As typCoords, b As typCoords) As typCoords
-addCoords.x = a.x + b.x
-addCoords.y = a.y + b.y
+addCoords.X = a.X + b.X
+addCoords.Y = a.Y + b.Y
+End Function
+
+Public Function subCoords(a As typCoords, b As typCoords) As typCoords
+subCoords.X = a.X - b.X
+subCoords.Y = a.Y - b.Y
 End Function
 
 Public Function muxCoords(a As typCoords, n As Integer) As typCoords
-muxCoords.x = a.x * n
-muxCoords.y = a.y * n
+muxCoords.X = a.X * n
+muxCoords.Y = a.Y * n
 End Function
 
 Public Function collision(loc1 As typCoords, dim1 As typCoords, loc2 As typCoords, dim2 As typCoords)
 collision = _
-((loc1.x <= loc2.x + dim2.x) And _
-(loc2.x <= loc1.x + dim1.x)) And _
-((loc1.y <= loc2.y + dim2.y) And _
-(loc2.y <= loc1.y + dim1.y))
+((loc1.X <= loc2.X + dim2.X) And _
+(loc2.X <= loc1.X + dim1.X)) And _
+((loc1.Y <= loc2.Y + dim2.Y) And _
+(loc2.Y <= loc1.Y + dim1.Y))
 
 End Function
 
@@ -60,83 +65,5 @@ Next u
 End Function
 
 Public Function screenCoords(dudeInQuestion As typUnit) As typCoords
-screenCoords = makeCoords(dudeInQuestion.location.x - 0.5 * unitType(dudeInQuestion.type).dimensions.x, dudeInQuestion.location.y - 0.875 * unitType(dudeInQuestion.type).dimensions.y)
-End Function
-
-Public Function findPath(n As Integer) As typCoords
-Dim i As Integer
-
-'move horizontally
-If Abs(unit(n).location.x - unit(n).target.x) >= unitType(unit(n).type).speed Then
-   If unit(n).location.x < unit(n).target.x Then
-      unit(n).direction = dirR
-      findPath = moveRight(unitType(unit(n).type).speed)
-   Else
-      unit(n).direction = dirL
-      findPath = moveLeft(unitType(unit(n).type).speed)
-   End If
-
-'move vertically
-ElseIf Abs(unit(n).location.y - unit(n).target.y) >= unitType(unit(n).type).speed Then
-   If unit(n).location.y < unit(n).target.y Then
-      unit(n).direction = dirD
-      findPath = moveDown(unitType(unit(n).type).speed)
-   Else
-      unit(n).direction = dirU
-      findPath = moveUp(unitType(unit(n).type).speed)
-   End If
-End If
-
-'***COLLISION CHECKS***
-
-'Map edges
-If Not collision(addCoords(unit(n).location, findPath), unitType(unit(n).type).dimensions, makeCoords(0, 0), muxCoords(gameMap.dimensions, TERRAIN_TILE_SIZE)) Then
-   If Not KEEP_WALKING_ON_COLLISION Then unit(n).freezeFrame = True 'unit(n).frame = unit(n).frame - 1
-   findPath = makeCoords(0, 0)
-   Exit Function
-End If
-
-'Units
-For i = 0 To activeUnits - 1
-   If i <> n Then
-      If collision(addCoords(screenCoords(unit(n)), findPath), unitType(unit(n).type).dimensions, screenCoords(unit(i)), unitType(unit(i).type).dimensions) Then
-         'unit(n).frame = 0
-         If Not KEEP_WALKING_ON_COLLISION Then unit(n).freezeFrame = True 'unit(n).frame = unit(n).frame - 1
-         findPath = makeCoords(0, 0)
-         Exit Function
-      End If
-   End If
-Next i
-
-'**********************
-End Function
-
-Public Function findPathA(ByRef movingUnit As typUnit) As typCoords 'broken; when working, makes shakey diagonals
-Dim u, d, l, r As Double
-Dim min As Double
-
-u = distance(addCoords(movingUnit.location, moveUp(unitType(movingUnit.type).speed)), movingUnit.target)
-d = distance(addCoords(movingUnit.location, moveDown(unitType(movingUnit.type).speed)), movingUnit.target)
-l = distance(addCoords(movingUnit.location, moveLeft(unitType(movingUnit.type).speed)), movingUnit.target)
-r = distance(addCoords(movingUnit.location, moveRight(unitType(movingUnit.type).speed)), movingUnit.target)
-
-min = u
-movingUnit.direction = dirU
-findPathA = moveUp(unitType(movingUnit.type).speed)
-If d < min Then
-   min = d
-   findPathA = moveDown(unitType(movingUnit.type).speed)
-   movingUnit.direction = dirD
-End If
-If l < min Then
-   min = l
-   findPathA = moveLeft(unitType(movingUnit.type).speed)
-   movingUnit.direction = dirL
-End If
-If r < min Then
-   min = r
-   findPathA = moveRight(unitType(movingUnit.type).speed)
-   movingUnit.direction = dirR
-End If
-
+screenCoords = makeCoords(dudeInQuestion.location.X - 0.5 * unitType(dudeInQuestion.type).dimensions.X, dudeInQuestion.location.Y - 0.875 * unitType(dudeInQuestion.type).dimensions.Y)
 End Function
