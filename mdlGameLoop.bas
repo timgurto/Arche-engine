@@ -22,17 +22,23 @@ For i = 0 To unitCount - 1
 
 Next i
 
-'***************************************
+drawEverything
+
+End Sub
+
+Public Sub drawEverything()
 frmGame.picGame.Cls
 
+
+
 For i = 0 To unitCount - 1
-   If unit(i).selected Then drawselection unit(i)
+   If unit(i).selected Then drawSelection unit(i)
    drawUnit unit(i)
 Next i
 
-frmGame.picGame.Refresh
-'***************************************
+drawSelectionRectangle
 
+frmGame.picGame.Refresh
 End Sub
 
 Public Sub gameLoop()

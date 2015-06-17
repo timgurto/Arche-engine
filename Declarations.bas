@@ -30,4 +30,9 @@ Public unitCount As Integer
 Public i As Integer
 
 Public ctrlDown As Boolean
+Public mouseDown As Boolean
+
+Public selectionRectangleLoc1 As typCoords
+Public selectionRectangleLoc2 As typCoords
+Public selectionRectangleShadow As Boolean
 
