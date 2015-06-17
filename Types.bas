@@ -1,4 +1,4 @@
-Attribute VB_Name = "Types"
+Attribute VB_Name = "mdlTypes"
 Option Explicit
 
 Public Type typCoords
@@ -19,6 +19,7 @@ End Type
 
 Public Type typMap
    dimensions As typCoords
+   displacement As typCoords
    terrain(100, 100) As Integer
 End Type
 

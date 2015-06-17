@@ -1,4 +1,4 @@
-Attribute VB_Name = "DrawingFunctions"
+Attribute VB_Name = "mdlDrawingFunctions"
 Option Explicit
 
 Public Sub drawMap(m As typMap)

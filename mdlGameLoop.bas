@@ -3,6 +3,7 @@ Option Explicit
 
 Public Sub runGameLoop()
 Dim i As Integer
+Dim j As Integer
 
 refreshCount = refreshCount + 1
 If refreshCount = REFRESHES_PER_FRAME Then
@@ -36,7 +37,7 @@ Dim i As Integer
 
 frmGame.picGame.Cls
 
-drawMap testMap
+drawMap gameMap
 
 For i = 0 To activeUnits - 1
    If unit(i).selected Then

@@ -1,6 +1,6 @@
 VERSION 5.00
 Begin VB.Form frmGame 
-   BackColor       =   &H00004040&
+   BackColor       =   &H00000040&
    BorderStyle     =   0  'None
    Caption         =   "Form1"
    ClientHeight    =   9000
@@ -72,7 +72,7 @@ Begin VB.Form frmGame
       End
    End
    Begin VB.Label lblContextHelp 
-      BackColor       =   &H00000040&
+      BackColor       =   &H00000060&
       Caption         =   "Test "
       BeginProperty Font 
          Name            =   "MS Sans Serif"

@@ -1,4 +1,4 @@
-Attribute VB_Name = "GameFunctions"
+Attribute VB_Name = "mdlGameFunctions"
 Option Explicit
 
 Public Sub swapUnits(a, b)

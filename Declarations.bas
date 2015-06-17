@@ -1,4 +1,4 @@
-Attribute VB_Name = "Declarations"
+Attribute VB_Name = "mdlDeclarations"
 Option Explicit
 
 Public Const DEBUG_MODE = False
@@ -31,7 +31,7 @@ Public activeUnits As Integer
 Public target As typTarget
 
 Public terrain(10) As typTerrain
-Public testMap As typMap
+Public gameMap As typMap
 
 
 

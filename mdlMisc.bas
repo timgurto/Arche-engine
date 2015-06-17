@@ -35,6 +35,11 @@ addCoords.x = a.x + b.x
 addCoords.y = a.y + b.y
 End Function
 
+Public Function muxCoords(a As typCoords, n As Integer) As typCoords
+muxCoords.x = a.x * n
+muxCoords.y = a.y * n
+End Function
+
 Public Function collision(loc1 As typCoords, dim1 As typCoords, loc2 As typCoords, dim2 As typCoords)
 collision = _
 ((loc1.x <= loc2.x + dim2.x) And _
@@ -82,20 +87,28 @@ ElseIf Abs(unit(n).location.y - unit(n).target.y) >= unitType(unit(n).type).spee
    End If
 End If
 
-'other checks
+'***COLLISION CHECKS***
 
+'Map edges
+If Not collision(addCoords(unit(n).location, findPath), unitType(unit(n).type).dimensions, makeCoords(0, 0), muxCoords(gameMap.dimensions, TERRAIN_TILE_SIZE)) Then
+   If Not KEEP_WALKING_ON_COLLISION Then unit(n).freezeFrame = True 'unit(n).frame = unit(n).frame - 1
+   findPath = makeCoords(0, 0)
+   Exit Function
+End If
+
+'Units
 For i = 0 To activeUnits - 1
    If i <> n Then
       If collision(addCoords(screenCoords(unit(n)), findPath), unitType(unit(n).type).dimensions, screenCoords(unit(i)), unitType(unit(i).type).dimensions) Then
          'unit(n).frame = 0
          If Not KEEP_WALKING_ON_COLLISION Then unit(n).freezeFrame = True 'unit(n).frame = unit(n).frame - 1
          findPath = makeCoords(0, 0)
-         
+         Exit Function
       End If
    End If
 Next i
-      
 
+'**********************
 End Function
 
 Public Function findPathA(ByRef movingUnit As typUnit) As typCoords 'broken; when working, makes shakey diagonals
