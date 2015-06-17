@@ -39,6 +39,7 @@ End Type
 Public Type typUnitType
    name As String
    speed As Integer
+   health As Integer
    lineOfSight As Integer
    dc As Long
    background As Long
@@ -47,6 +48,7 @@ Public Type typUnitType
 End Type
 
 Public Type typUnit
+   health As Integer
    location As typCoords
    target As typCoords
    player As Byte

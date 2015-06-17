@@ -48,7 +48,14 @@ frmGame.picGame.ForeColor = vbWhite
 frmGame.picGame.DrawWidth = SELECTION_ELLIPSE_WIDTH
 x = Ellipse(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y / 8 - gameMap.displacement.y, u.location.x + t.dimensions.x / 2 - gameMap.displacement.x, u.location.y + t.dimensions.y / 8 - gameMap.displacement.y)
 frmGame.picGame.DrawWidth = 1
-'x = Rectangle()
+frmGame.picGame.ForeColor = vbBlack
+frmGame.picGame.FillColor = vbBlack
+frmGame.picGame.FillStyle = 0
+x = Rectangle(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y - gameMap.displacement.y, u.location.x + t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y + HEALTH_BAR_WIDTH - gameMap.displacement.y)
+frmGame.picGame.ForeColor = HEALTH_BAR_COLOR
+frmGame.picGame.FillColor = HEALTH_BAR_COLOR
+x = Rectangle(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y - gameMap.displacement.y, u.location.x + (u.health / t.health - 0.5) * t.dimensions.x - gameMap.displacement.x, u.location.y - t.dimensions.y + HEALTH_BAR_WIDTH - gameMap.displacement.y)
+frmGame.picGame.FillStyle = 1
 End Sub
 
 Public Sub drawSelectionRectangle()

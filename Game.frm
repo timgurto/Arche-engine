@@ -224,6 +224,7 @@ If DEBUG_MODE Then lblUnits.Caption = "Units: " & activeUnits
 
 unit(n).type = Int(Rnd * (2) + 1)
 unit(n).player = Int(Rnd * (2) + 1)
+unit(n).health = Int(Rnd * (unitType(unit(n).type).health) + 1)
 unit(n).moving = False
 unit(n).direction = Int(Rnd * (4) + 1)
 unit(n).frame = 1

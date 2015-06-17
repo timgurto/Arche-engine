@@ -54,4 +54,6 @@ Public Const FOG_OF_WAR As Boolean = False
 Public Const ENEMIES_SELECTABLE As Boolean = True
 Public Const ENEMIES_HAVE_ELLIPSES As Boolean = False
 Public Const SELECTION_ELLIPSE_WIDTH As Integer = 1
+Public Const HEALTH_BAR_WIDTH As Integer = 4
+Public Const HEALTH_BAR_COLOR As Single = vbGreen
 '*****************************************************
