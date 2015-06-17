@@ -8,7 +8,7 @@ Dim j As Integer
 
 refreshCount = 0
 
-activeUnits = 3
+activeUnits = 4
 activeCorpses = 1
 
 ctrlDown = False
@@ -52,10 +52,29 @@ unitType(1).background = vbWhite
 unitType(1).portraitBackground = vbWhite
 unitType(1).dimensions.x = 48
 unitType(1).dimensions.y = 48
-unitType(1).speed = 3
+unitType(1).speed = 2
 unitType(1).attackSpeed = 2500
 unitType(1).frames = 4
 unitType(1).lineOfSight = 150
+unitType(1).taunting = False
+
+unitType(3).name = "Shield"
+unitType(3).health = 1000
+unitType(3).armor = 50
+unitType(3).attack = 2
+unitType(3).dc = CreateCompatibleDC(0)
+unitType(3).dc = LoadGraphicDC(App.Path & "\Images\Shield.bmp")
+unitType(3).portrait = CreateCompatibleDC(0)
+unitType(3).portrait = LoadGraphicDC(App.Path & "\Images\HeroPortrait.bmp")
+unitType(3).background = vbGreen
+unitType(3).portraitBackground = vbGreen
+unitType(3).dimensions.x = 53
+unitType(3).dimensions.y = 56
+unitType(3).speed = 2
+unitType(3).attackSpeed = 1000
+unitType(3).frames = 1
+unitType(3).lineOfSight = 100
+unitType(3).taunting = True
 
 unitType(2).name = "Hero"
 unitType(2).health = 75
@@ -69,10 +88,11 @@ unitType(2).background = vbGreen
 unitType(2).portraitBackground = vbGreen
 unitType(2).dimensions.x = 24
 unitType(2).dimensions.y = 26
-unitType(2).speed = 5
+unitType(2).speed = 4
 unitType(2).attackSpeed = 1000
 unitType(2).frames = 3
 unitType(2).lineOfSight = 80
+unitType(2).taunting = False
 
 unit(0).location.x = 30
 unit(0).location.y = 20
@@ -83,9 +103,15 @@ unit(1).location.y = 80
 unit(2).location.x = 100
 unit(2).location.y = 130
 
-For i = 0 To 2
+unit(3).location.x = 50
+unit(3).location.y = 150
+
+
+For i = 0 To 3
    With unit(i)
       .type = 1
+   unit(3).type = 3
+   unit(1).type = 2
       .moving = False
       .direction = dirD
       .frame = 1
@@ -97,13 +123,13 @@ For i = 0 To 2
       .targetBuilding = -1
       .freezeFrame = False
       .exploring = True
-      .player = 1
+      .player = 2
       .health = Int(Rnd * (unitType(unit(i).type).health)) + 1
    End With
 Next i
 
-unit(1).type = 2
-unit(2).player = 2
+unit(2).player = 1
+unit(3).player = 1
 
 corpseType(0).timer = 60
 corpseType(0).dc = CreateCompatibleDC(0)

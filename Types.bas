@@ -55,6 +55,7 @@ Public Type typUnitType
    background As Long
    dimensions As typcoords
    frames As Byte
+   taunting As Boolean 'Whether this unit's attacks force its targets to attack it
 End Type
 
 Public Type typUnit

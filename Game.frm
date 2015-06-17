@@ -9,6 +9,7 @@ Begin VB.Form frmGame
    ClientWidth     =   15360
    Icon            =   "Game.frx":0000
    LinkTopic       =   "Form1"
+   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   768
@@ -517,7 +518,7 @@ End Sub
 
 Private Sub Form_Load()
 Dim x As Integer
-
+Randomize
 init
 
 If Not DEBUG_MODE Then Call ChangeRes(1024, 768)
