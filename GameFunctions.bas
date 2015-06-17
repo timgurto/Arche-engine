@@ -24,6 +24,14 @@ temp = unit(a)
 unit(a) = unit(b)
 unit(b) = temp
 
+For i = 0 To activeUnits - 1
+   If unit(i).targetUnit = a Then
+      unit(i).targetUnit = b
+   ElseIf unit(i).targetUnit = b Then
+      unit(i).targetUnit = a
+   End If
+Next i
+
 'entity(entA).index=
 'entity(entB).index=
 'unit(a).entity = entA
@@ -303,26 +311,42 @@ y = Int(u.location.y / TERRAIN_TILE_SIZE) + 1
 getUnitTile = makeCoords(x, y)
 End Function
 
+'Public Sub sortUnits()
+''printEntityList "Before sort"
+''insertion
+'Dim value As typUnit
+'Dim valueIndex As Integer
+'Dim i As Integer
+'Dim j As Integer
+'For i = 1 To activeUnits - 1
+'   value = unit(i)
+'   valueIndex = i
+'   j = i - 1
+'   Do While j >= 0
+'      If unit(j).location.y > value.location.y Then
+'         unit(j + 1) = unit(j)
+'         j = j - 1
+'      Else
+'         Exit Do
+'      End If
+'   Loop
+'   unit(j + 1) = value
+'Next i
+'
+'End Sub
+
 Public Sub sortUnits()
-'printEntityList "Before sort"
-'insertion
-Dim value As typUnit
-Dim valueIndex As Integer
+'selection
 Dim i As Integer
 Dim j As Integer
-For i = 1 To activeUnits - 1
-   value = unit(i)
-   valueIndex = i
-   j = i - 1
-   Do While j >= 0
-      If unit(j).location.y > value.location.y Then
-         unit(j + 1) = unit(j)
-         j = j - 1
-      Else
-         Exit Do
-      End If
-   Loop
-   unit(j + 1) = value
+Dim min As Integer
+
+For i = 0 To activeUnits - 1
+   min = i
+   For j = i + 1 To activeUnits - 1
+      If unit(j).location.y < unit(min).location.y Then min = j
+   Next j
+   If i <> min Then Call swapUnits(i, min)
 Next i
 
 End Sub
