@@ -398,7 +398,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub Command1_Click()
-If Not DEBUG_MODE Then Call ChangeRes(1680, 1050)
+Call ChangeRes(screenResolution.x, screenResolution.y)
 End
 End Sub
 
@@ -532,9 +532,9 @@ Debug.Print "==================================="
 Debug.Print "          == Commands: =="
 Debug.Print "printEntityList"
 Debug.Print
-init
+init 'includes reading of user's screen res
 
-If Not DEBUG_MODE Then Call ChangeRes(1024, 768)
+Call ChangeRes(1024, 768)
 Me.Show
 picGame.SetFocus
 
@@ -553,7 +553,7 @@ updateStats
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-If Not DEBUG_MODE Then Call ChangeRes(1680, 1050)
+Call ChangeRes(screenResolution.x, screenResolution.y)
 End
 End Sub
 

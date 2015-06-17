@@ -17,6 +17,8 @@ Public Const you = 0
 Public Const KEY_CTRL = 17
 Public Const KEY_DELETE = 46
 
+Public screenResolution As typcoords
+
 Public Const REFRESHES_PER_FRAME As Integer = 6
 
 Public Const CONQUEST = 0

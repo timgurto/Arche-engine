@@ -44,7 +44,7 @@ Public Sub victory(p As Byte)
 Dim message As String
 message = player(p).name & " won!"
 MsgBox (message)
-If DEBUG_MODE Then Call ChangeRes(1680, 1050)
+Call ChangeRes(screenResolution.x, screenResolution.y)
 End
 End Sub
 

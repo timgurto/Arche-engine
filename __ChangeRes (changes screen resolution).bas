@@ -51,7 +51,11 @@ Private Type DEVMODE
 End Type
 Dim DevM As DEVMODE
 
-Sub ChangeRes(iwidth As Single, iheight As Single)
+Sub ChangeRes(x As Integer, y As Integer)
+    If Not DEBUG_MODE Then Call changeResReal(CSng(x), CSng(y))
+End Sub
+
+Sub changeResReal(iwidth As Single, iheight As Single)
     Dim a As Boolean
     Dim i As Integer
     i = 0

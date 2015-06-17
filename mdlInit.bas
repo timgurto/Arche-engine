@@ -131,9 +131,12 @@ sortUnits
 
 terrainFrameTimer = TERRAIN_FRAME_LENGTH
 needReExplore = True
-selectionrectangle = False
+selectionRectangle = False
 refreshCount = 0
 ctrlDown = False
 scrollDir = dirN
+
+screenResolution.x = Screen.Width \ Screen.TwipsPerPixelX
+screenResolution.y = Screen.Height \ Screen.TwipsPerPixelY
 
 End Sub
