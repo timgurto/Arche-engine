@@ -12,12 +12,23 @@ For i = 0 To activeUnits - 1
 Next i
 End Function
 
-Public Sub swapUnits(a, b)
+Public Sub swapUnits(a As Integer, b As Integer)
 Dim temp As typUnit
+Dim entA As Integer, entB As Integer
 Dim i As Integer
+
+'entA = unit(a).entity
+'entB = unit(b).entity
+
 temp = unit(a)
 unit(a) = unit(b)
 unit(b) = temp
+
+'entity(entA).index=
+'entity(entB).index=
+'unit(a).entity = entA
+'unit(b).entity = entB
+
 If victoryType = REGICIDE Then
    For i = 0 To activePlayers - 1
       If regicideTarget(i) = a Then
@@ -31,9 +42,9 @@ End Sub
 
 Public Sub victory(p As Byte)
 Dim message As String
-message = "Player " & p & " wins!"
+message = player(p).name & " won!"
 MsgBox (message)
-Call ChangeRes(1680, 1050)
+If DEBUG_MODE Then Call ChangeRes(1680, 1050)
 End
 End Sub
 
@@ -51,30 +62,49 @@ End Sub
 
 Public Sub deleteUnit(n As Integer)
 Dim i As Integer
-If unitType(unit(n).type).deathSound > -1 Then sound (unitType(unit(n).type).deathSound)
+
 unit(n).selected = False
+
+'Play a death sound
+If unitType(unit(n).type).deathSound > -1 Then sound (unitType(unit(n).type).deathSound)
+
+'Assess victories
 If victoryType = REGICIDE Then
    For i = 0 To activePlayers - 1
       If regicideTarget(i) = n Then
          victory (i)
-         i = 2 'civs
+         i = activePlayers 'civs
       End If
    Next i
 End If
+
+'Fix units targetting it
 Dim j As Integer
-      For j = 0 To activeUnits - 1
-         If unit(j).targetUnit = n Then
-            unit(j).targetUnit = -1
-            unit(j).combatMode = False
-            unit(j).target = unit(j).location
-         End If
-      Next j
+For j = 0 To activeUnits - 1
+   If unit(j).targetUnit = n Then
+      unit(j).targetUnit = -1
+      unit(j).combatMode = False
+      unit(j).target = unit(j).location
+   End If
+Next j
+
+'Add a corpse
 If activeCorpses = MAX_CORPSES Then deleteCorpse (0)
 corpse(activeCorpses).dimensions = unitType(unit(n).type).dimensions
 corpse(activeCorpses).location = unit(n).location
 corpse(activeCorpses).type = unitType(unit(n).type).corpse
 corpse(activeCorpses).timer = corpseType(corpse(activeCorpses).type).timer
 increment activeCorpses
+
+'printEntityList "Before deletion:"
+
+'Remove unit
+'For j = unit(n).entity To activeEntities - 2
+'   entity(j) = entity(j + 1)
+'   unit(entity(j).index).entity = j 'unit?
+'Next j
+'activeEntities = activeEntities - 1
+
 swapUnits n, activeUnits - 1
 For j = 0 To activeUnits - 1
    If unit(j).targetUnit = n Then
@@ -87,10 +117,12 @@ For j = 0 To activeUnits - 1
       End If
    End If
 Next j
-
 activeUnits = activeUnits - 1
 
 frmGame.updateStats
+
+'printEntityList "After deletion:"
+
 End Sub
 
 Public Sub deleteUnits()
@@ -136,7 +168,12 @@ End If
 '***COLLISION CHECKS***
 
 'Map edges
-If Not collision(addCoords(unit(n).location, findPath), makeCoords(1, 1), makeCoords(1, 1), subCoords(muxCoords(gameMap.dimensions, TERRAIN_TILE_SIZE), makeCoords(2, 2))) Then
+If Not collision( _
+addCoords(unit(n).location, findPath), _
+makeCoords(1, 1), _
+makeCoords(1, 1), _
+subCoords(muxCoords(gameMap.dimensions, TERRAIN_TILE_SIZE), makeCoords(2, 2)) _
+) Then
    If Not KEEP_WALKING_ON_COLLISION Then unit(n).freezeFrame = True 'unit(n).frame = unit(n).frame - 1
    findPath = makeCoords(0, 0)
    Exit Function
@@ -152,7 +189,12 @@ End If
 'Units
 For i = 0 To activeUnits - 1
    If i <> n Then
-      If collision(addCoords(screenCoords(unit(n)), findPath), unitType(unit(n).type).dimensions, screenCoords(unit(i)), unitType(unit(i).type).dimensions) Then
+      If collision( _
+      addCoords(collisionLoc(n), findPath), _
+      unitType(unit(n).type).collisionDim, _
+      collisionLoc(i), _
+      unitType(unit(i).type).collisionDim _
+      ) Then
          'unit(n).frame = 0
          If Not KEEP_WALKING_ON_COLLISION Then unit(n).freezeFrame = True 'unit(n).frame = unit(n).frame - 1
          findPath = makeCoords(0, 0)
@@ -167,6 +209,9 @@ If Not (findPath.x = 0 And findPath.y = 0) Then 'if a path is found, and thus if
 End If
 
 '**********************
+
+
+
 End Function
 
 Public Function exploreMap()
@@ -258,8 +303,118 @@ y = Int(u.location.y / TERRAIN_TILE_SIZE) + 1
 getUnitTile = makeCoords(x, y)
 End Function
 
-Public Sub sound(n As Integer)
-Dim x As Long
-x = sndPlaySound(App.Path & "\Sounds\s" & n & ".wav", sndAsync)
+Public Sub sortUnits()
+'printEntityList "Before sort"
+'insertion
+Dim value As typUnit
+Dim valueIndex As Integer
+Dim i As Integer
+Dim j As Integer
+For i = 1 To activeUnits - 1
+   value = unit(i)
+   valueIndex = i
+   j = i - 1
+   While (j >= 0 And unit(j).location.y > value.location.y)
+      unit(j + 1) = unit(j)
+      j = j - 1
+   Wend
+   unit(j + 1) = value
+Next i
 
 End Sub
+
+Public Function unitSize(i As Integer, j As Integer) As Integer
+Dim u As typUnit, v As typUnit
+Dim s As typUnitType, t As typUnitType
+Dim tar As typcoords
+u = unit(i)
+v = unit(j)
+t = unitType(u.type)
+s = unitType(v.type)
+'tar = muxCoords(unitType(unit(u.targetUnit).type).dimensions, -1)
+'unitSize = distance(t.dimensions, tar) / 2
+unitSize = 1.5 * max(max(t.dimensions.x, t.dimensions.y), max(s.dimensions.x, s.dimensions.y))
+End Function
+
+Public Sub reSortUnits(n As Integer, displacement As Integer, val As Integer)
+Dim temp As typUnit
+Select Case displacement
+Case Is > 0
+   'Debug.Print "Displacement > 0, n=" & n
+   While n < activeUnits - 1
+      If val > unit(n + 1).location.y Then
+         swapUnits n, n + 1
+         n = n + 1
+      Else
+         Exit Sub
+      End If
+   Wend
+Case Is < 0
+   'Debug.Print "Displacement < 0, n=" & n
+   While n > 0
+      If (val < unit(n - 1).location.y) Then
+         swapUnits n, n - 1
+         n = n - 1
+      Else
+         Exit Sub
+      End If
+   Wend
+End Select
+
+End Sub
+
+Public Function moveUp(n As Integer) As typcoords
+moveUp.x = 0
+moveUp.y = -1 * n
+End Function
+
+Public Function moveDown(n As Integer) As typcoords
+moveDown.x = 0
+moveDown.y = 1 * n
+End Function
+
+Public Function moveLeft(n As Integer) As typcoords
+moveLeft.x = -1 * n
+moveLeft.y = 0
+End Function
+
+Public Function moveRight(n As Integer) As typcoords
+moveRight.x = 1 * n
+moveRight.y = 0
+End Function
+
+Public Function pointCollidesWithUnit(loc As typcoords, ByRef u As Integer) As Boolean
+pointCollidesWithUnit = False
+For u = 0 To activeUnits - 1
+   If collision(loc, makeCoords(1, 1), screenCoords(unit(u)), unitType(unit(u).type).dimensions) Then
+      pointCollidesWithUnit = True
+      Exit For
+   End If
+Next u
+End Function
+
+Public Function screenCoords(dudeInQuestion As typUnit) As typcoords
+screenCoords = makeCoords(dudeInQuestion.location.x - 0.5 * unitType(dudeInQuestion.type).dimensions.x, dudeInQuestion.location.y - 0.875 * unitType(dudeInQuestion.type).dimensions.y)
+End Function
+'
+Public Function collisionLoc(n As Integer) As typcoords
+Dim u As typUnit
+Dim t As typUnitType
+
+u = unit(n)
+t = unitType(u.type)
+
+collisionLoc = addCoords(screenCoords(u), t.collisionLoc)
+End Function
+
+'Public Function collisionDim(objectType As Byte, n As Integer) As typcoords
+'Select Case objectType
+'Case UNIT_TYPE
+'   collisionDim.x = unitType(unit(n).type).dimensions.x / 2
+'   collisionDim.y = unitType(unit(n).type).dimensions.y / 4
+'Case Else
+'   If DEBUG_MODE Then MsgBox "Invalid object type: " & objectType
+'End Select
+'End Function
+'
+

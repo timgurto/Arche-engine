@@ -48,7 +48,14 @@ Dim x As Long
 frmGame.picGame.ForeColor = civ(player(u.player).civ).color
 frmGame.picGame.FillStyle = 0
 frmGame.picGame.FillColor = civ(player(u.player).civ).color
-x = Ellipse(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y / 8 - gameMap.displacement.y, u.location.x + t.dimensions.x / 2 - gameMap.displacement.x, u.location.y + t.dimensions.y / 8 - gameMap.displacement.y) 'frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y - 2, u.location.x + 25 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y)
+'x = Ellipse(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y / 8 - gameMap.displacement.y, u.location.x + t.dimensions.x / 2 - gameMap.displacement.x, u.location.y + t.dimensions.y / 8 - gameMap.displacement.y) 'frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y - 2, u.location.x + 25 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y)
+x = Ellipse( _
+   frmGame.picGame.hdc, _
+   t.collisionLoc.x + screenCoords(u).x - gameMap.displacement.x, _
+   t.collisionLoc.y + screenCoords(u).y - gameMap.displacement.y, _
+   t.collisionLoc.x + screenCoords(u).x + t.collisionDim.x - gameMap.displacement.x, _
+   t.collisionLoc.y + screenCoords(u).y + t.collisionDim.y - gameMap.displacement.y)
+   'frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y - 2, u.location.x + 25 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y)
 frmGame.picGame.FillStyle = 1
 End Sub
 
@@ -58,7 +65,11 @@ t = unitType(u.type)
 Dim x As Long
 frmGame.picGame.ForeColor = vbWhite
 frmGame.picGame.DrawWidth = SELECTION_ELLIPSE_WIDTH
-x = Ellipse(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y / 8 - gameMap.displacement.y, u.location.x + t.dimensions.x / 2 - gameMap.displacement.x, u.location.y + t.dimensions.y / 8 - gameMap.displacement.y)
+x = Ellipse(frmGame.picGame.hdc, _
+   t.collisionLoc.x + screenCoords(u).x - gameMap.displacement.x, _
+   t.collisionLoc.y + screenCoords(u).y - gameMap.displacement.y, _
+   t.collisionLoc.x + screenCoords(u).x + t.collisionDim.x - gameMap.displacement.x, _
+   t.collisionLoc.y + screenCoords(u).y + t.collisionDim.y - gameMap.displacement.y)
 End Sub
 
 Public Sub drawHealthBar(u As typUnit)

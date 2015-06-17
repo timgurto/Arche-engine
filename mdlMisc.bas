@@ -2,9 +2,14 @@ Attribute VB_Name = "mdlMisc"
 Option Explicit
 
 Public Function makeDC(file As String)
-      makeDC = CreateCompatibleDC(0)
-      makeDC = LoadGraphicDC(App.Path & "\Images\" & file)
+makeDC = CreateCompatibleDC(0)
+makeDC = LoadGraphicDC(App.path & "\Images\" & file)
 End Function
+
+Public Sub sound(n As Integer)
+Dim x As Long
+If Not DEBUG_MODE Then x = sndPlaySound(App.path & "\Sounds\s" & n & ".wav", sndAsync)
+End Sub
 
 Public Function increment(ByRef n As Variant)
 n = n + 1
@@ -13,19 +18,6 @@ End Function
 Public Function makeCoords(x As Integer, y As Integer) As typcoords
 makeCoords.x = x
 makeCoords.y = y
-End Function
-
-Public Function unitSize(i As Integer, j As Integer) As Integer
-Dim u As typUnit, v As typUnit
-Dim s As typUnitType, t As typUnitType
-Dim tar As typcoords
-u = unit(i)
-v = unit(j)
-t = unitType(u.type)
-s = unitType(v.type)
-'tar = muxCoords(unitType(unit(u.targetUnit).type).dimensions, -1)
-'unitSize = distance(t.dimensions, tar) / 2
-unitSize = 1.5 * max(max(t.dimensions.x, t.dimensions.y), max(s.dimensions.x, s.dimensions.y))
 End Function
 
 Public Function min(x As Variant, y As Variant)
@@ -38,26 +30,6 @@ End Function
 
 Public Function distance(a As typcoords, b As typcoords) As Double
 distance = Sqr((a.x - b.x) ^ 2 + (a.y - b.y) ^ 2)
-End Function
-
-Public Function moveUp(n As Integer) As typcoords
-moveUp.x = 0
-moveUp.y = -1 * n
-End Function
-
-Public Function moveDown(n As Integer) As typcoords
-moveDown.x = 0
-moveDown.y = 1 * n
-End Function
-
-Public Function moveLeft(n As Integer) As typcoords
-moveLeft.x = -1 * n
-moveLeft.y = 0
-End Function
-
-Public Function moveRight(n As Integer) As typcoords
-moveRight.x = 1 * n
-moveRight.y = 0
 End Function
 
 Public Function addCoords(a As typcoords, b As typcoords) As typcoords
@@ -84,20 +56,6 @@ collision = _
 
 End Function
 
-Public Function pointCollidesWithUnit(loc As typcoords, ByRef u As Integer) As Boolean
-pointCollidesWithUnit = False
-For u = 0 To activeUnits - 1
-   If collision(loc, makeCoords(1, 1), screenCoords(unit(u)), unitType(unit(u).type).dimensions) Then
-      pointCollidesWithUnit = True
-      Exit For
-   End If
-Next u
-End Function
-
-Public Function screenCoords(dudeInQuestion As typUnit) As typcoords
-screenCoords = makeCoords(dudeInQuestion.location.x - 0.5 * unitType(dudeInQuestion.type).dimensions.x, dudeInQuestion.location.y - 0.875 * unitType(dudeInQuestion.type).dimensions.y)
-End Function
-
 Public Function str2Bool(str As String) As Boolean
 Dim s As String
 s = UCase(str)
@@ -115,8 +73,6 @@ Case Else
     If DEBUG_MODE Then MsgBox "Attempting to read '" & str & "' from a file as a boolean.  Returning False by default."
 End Select
 End Function
-
-
 
 
 

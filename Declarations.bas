@@ -1,9 +1,6 @@
 Attribute VB_Name = "mdlDeclarations"
 Option Explicit
 
-Public Const INT_TRUE = 1
-Public Const INT_FALSE = 0
-
 Public Const DEBUG_MODE = False
 Public Const dirN = 99 'not moving
 Public Const dirU = 0
@@ -24,6 +21,8 @@ Public Const REFRESHES_PER_FRAME As Integer = 6
 
 Public Const CONQUEST = 0
 Public Const REGICIDE = 1
+
+Public Const UNIT_TYPE = 0
 
 Public victoryType As Byte
 Public regicideTarget(10) As Byte
@@ -72,12 +71,14 @@ Public selectionRectangleLoc2 As typcoords
 
 Public needReExplore As Boolean
 
+Public selectionRectangle As Boolean
+
 '***GAME OPTIONS - USE THESE TO CUSTOMIZE YOUR GAME***
 Public Const SELECTION_RECTANGLE_SHADOW As Boolean = True 'whether the selection rectangle has a shadow
 Public Const KEEP_WALKING_ON_COLLISION As Boolean = False 'whether units continue their walking animation while waiting for an obstructin to be removed
 Public Const SHOW_SELECTED_TARGETS As Boolean = True 'whether selected units' targets are displayed
 Public Const TERRAIN_TILE_SIZE As Integer = 48 'the x and y dimensions of each terrain tile
-Public Const FOG_OF_WAR As Boolean = False
+Public Const FOG_OF_WAR As Boolean = True
 Public Const ENEMIES_SELECTABLE As Boolean = True
 Public Const ENEMIES_HAVE_ELLIPSES As Boolean = False
 Public Const SELECTION_ELLIPSE_WIDTH As Integer = 1
@@ -85,11 +86,11 @@ Public Const HEALTH_BAR_WIDTH As Integer = 4
 Public Const HEALTH_BAR_COLOR As Single = vbGreen
 Public Const SHOW_UNUSED_STATS As Boolean = False 'Whether stats are displayed if a unit doesn't have them, eg. 0 armor, no special
 Public Const SPECIAL_PERCENT As Boolean = False 'Whether a unit's 'special' is displayed as a percentage or not
-Public Const SPECIAL_NAME As String = "Influence"
+Public Const SPECIAL_NAME As String = "Mana"
 Public Const PORTRAIT_WIDTH As Integer = 15
 Public Const PORTRAIT_HEIGHT As Integer = 15
 Public Const AUTO_ATTACKING As Boolean = True
 Public Const AUTO_ATTACK_RANGE As Integer = 150
 Public Const RANGED_UNIT As Integer = 50
-Public Const TERRAIN_FRAME_LENGTH = 200
+Public Const TERRAIN_FRAME_LENGTH = 200 'ms
 '*****************************************************

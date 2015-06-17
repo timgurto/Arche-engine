@@ -7,6 +7,7 @@ Dim j As Integer
 Dim d As Long
 Dim minDistance As Integer
 Dim tar As typUnit
+Dim path As typcoords
 
 refreshCount = refreshCount + 1
 If refreshCount = REFRESHES_PER_FRAME Then
@@ -41,7 +42,9 @@ For i = 0 To activeUnits - 1
    
    'Update unit/building coords
    If unit(i).moving Then
-      unit(i).location = addCoords(unit(i).location, findPath(i))
+   path = findPath(i)
+      unit(i).location = addCoords(unit(i).location, path)
+      reSortUnits i, path.y, path.y + unit(i).location.y
    Else
       unit(i).frame = 0
    End If
@@ -127,6 +130,7 @@ End Sub
 
 Public Sub drawEverything()
 Dim i As Integer
+Dim n As Integer
 
 frmGame.picGame.Cls
 
@@ -140,12 +144,12 @@ Next i
 
 'player marks, units
 For i = 0 To activeUnits - 1
-   'if visible
    If gameMap.explored(getUnitTile(i).x, getUnitTile(i).y) Then
       drawPlayerMark unit(i)
       If unit(i).selected Then drawSelection unit(i)
+      'Debug.Print "Drawing unit " & n
       drawUnit unit(i)
-      drawUnit unit(i)
+      'drawUnit unit(n)
    End If
 Next i
 

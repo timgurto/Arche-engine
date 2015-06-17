@@ -398,7 +398,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub Command1_Click()
-Call ChangeRes(1680, 1050)
+If Not DEBUG_MODE Then Call ChangeRes(1680, 1050)
 End
 End Sub
 
@@ -527,6 +527,11 @@ End Sub
 Private Sub Form_Load()
 Dim x As Integer
 Randomize
+
+Debug.Print "==================================="
+Debug.Print "          == Commands: =="
+Debug.Print "printEntityList"
+Debug.Print
 init
 
 If Not DEBUG_MODE Then Call ChangeRes(1024, 768)
@@ -595,6 +600,8 @@ End If
 selectionRectangleLoc2.x = x / Screen.TwipsPerPixelX
 selectionRectangleLoc2.y = y / Screen.TwipsPerPixelY
 
+selectionRectangle = distance(selectionRectangleLoc1, selectionRectangleLoc2) > 2
+
 drawEverything
 
 writeContext ("")
@@ -611,7 +618,8 @@ Private Sub picGame_MouseUp(Button As Integer, Shift As Integer, x As Single, y 
 Dim i As Integer
 
 If mouseDown Then
-   For i = 0 To activeUnits - 1
+   'For i = 0 To activeUnits - 1
+   For i = activeUnits - 1 To 0 Step -1
       If ENEMIES_SELECTABLE Or unit(i).player = you Then
          If Not ctrlDown Then unit(i).selected = False 'unselect, unless CTRL is being pressed
          If (selectionRectangleLoc2.x + gameMap.displacement.x >= unit(i).location.x - unitType(unit(i).type).dimensions.x / 2 And _
@@ -623,6 +631,7 @@ If mouseDown Then
                (selectionRectangleLoc2.y + gameMap.displacement.y <= unit(i).location.y + unitType(unit(i).type).dimensions.y * (1 / 8) And _
                 selectionRectangleLoc1.y + gameMap.displacement.y >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (7 / 8)) Then
                unit(i).selected = Not (unit(i).selected = True And ctrlDown)
+               If Not selectionRectangle Then i = -1
             End If
          End If
       End If

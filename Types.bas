@@ -59,6 +59,8 @@ Public Type typUnitType
    attackSound As Integer
    deathSound As Integer
    dimensions As typcoords
+   collisionLoc As typcoords
+   collisionDim As typcoords
    frames As Byte
    taunting As Boolean 'Whether this unit's attacks force its targets to attack it
 End Type
@@ -78,6 +80,7 @@ Public Type typUnit
    freezeFrame As Boolean 'whether to freeze the next frame of animation
    exploring As Boolean
    combatMode As Boolean 'whether this unit is in the combat half of its attacking cycle
+   entity As Integer 'the index in the sorted entity list
 End Type
 
 Public Type typCorpseType
@@ -92,4 +95,10 @@ Public Type typCorpse
    location As typcoords
    dimensions As typcoords
    timer As Integer
+End Type
+
+Public Type typEntity
+   type As Byte
+   index As Integer
+   value As Integer
 End Type
