@@ -19,6 +19,12 @@ Public Const KEY_DELETE = 46
 
 Public Const REFRESHES_PER_FRAME As Integer = 6
 
+Public Const CONQUEST = 0
+Public Const REGICIDE = 1
+
+Public victoryType As Byte
+Public regicideTarget(2) As Byte
+
 Public refreshCount As Integer
 
 Public scrollDir As Byte 'the direction the map is currently scrolling

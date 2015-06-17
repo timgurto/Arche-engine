@@ -77,12 +77,14 @@ For i = 0 To activeUnits - 1
       If unit(i).targetUnit > -1 Then
          tar = unit(unit(i).targetUnit)
          If tar.player <> unit(i).player Then
-            If (unitType(unit(i).type).range > 0 Or (findPath(i).x = 0 And findPath(i).y = 0)) And distance(unit(i).target, unit(i).location) < max(unitSize(i, unit(i).targetUnit), unitType(unit(i).type).range * RANGED_UNIT) Then
-               If (unit(unit(i).targetUnit).targetUnit = -1) Or unitType(unit(i).type).taunting Then unit(unit(i).targetUnit).targetUnit = i
-               unit(i).combatMode = True
-               unit(unit(i).targetUnit).health = tar.health - max(unitType(unit(i).type).attack - unitType(tar.type).armor, 0)
-               If unit(unit(i).targetUnit).health <= 0 Then killUnit (unit(i).targetUnit)
-               frmGame.updateStats
+            If unitType(unit(i).type).attack > 0 Then
+               If (unitType(unit(i).type).range > 0 Or (findPath(i).x = 0 And findPath(i).y = 0)) And distance(unit(i).target, unit(i).location) < max(unitSize(i, unit(i).targetUnit), unitType(unit(i).type).range * RANGED_UNIT) Then
+                  If (unit(unit(i).targetUnit).targetUnit = -1) Or unitType(unit(i).type).taunting Then unit(unit(i).targetUnit).targetUnit = i
+                  unit(i).combatMode = True
+                  unit(unit(i).targetUnit).health = tar.health - max(unitType(unit(i).type).attack - unitType(tar.type).armor, 0)
+                  If unit(unit(i).targetUnit).health <= 0 Then killUnit (unit(i).targetUnit)
+                  frmGame.updateStats
+               End If
             End If
          Else
             If unitType(unit(i).type).healing > 0 Then

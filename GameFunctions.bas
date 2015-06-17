@@ -14,9 +14,27 @@ End Function
 
 Public Sub swapUnits(a, b)
 Dim temp As typUnit
+Dim i As Integer
 temp = unit(a)
 unit(a) = unit(b)
 unit(b) = temp
+If victoryType = REGICIDE Then
+   For i = 1 To 2 'civs
+      If regicideTarget(i) = a Then
+         regicideTarget(i) = b
+      ElseIf regicideTarget(i) = b Then
+         regicideTarget(i) = a
+      End If
+   Next i
+End If
+End Sub
+
+Public Sub victory(p As Byte)
+Dim message As String
+message = "Player " & p & " wins!"
+MsgBox (message)
+Call ChangeRes(1680, 1050)
+End
 End Sub
 
 Public Sub deleteCorpse(n As Integer)
@@ -32,7 +50,16 @@ deleteUnit (n)
 End Sub
 
 Public Sub deleteUnit(n As Integer)
+Dim i As Integer
 unit(n).selected = False
+If victoryType = REGICIDE Then
+   For i = 1 To 2 'civs
+      If regicideTarget(i) = n Then
+         victory (i)
+         i = 2 'civs
+      End If
+   Next i
+End If
 Dim j As Integer
       For j = 0 To activeUnits - 1
          If unit(j).targetUnit = n Then
@@ -69,7 +96,7 @@ Dim i As Integer
 i = 0
 While i < activeUnits
 'For i = 0 To activeUnits - 1
-   If unit(i).selected Then
+   If unit(i).selected And (unit(i).player = you Or DEBUG_MODE) Then
       deleteUnit (i)
       i = i - 1
    End If

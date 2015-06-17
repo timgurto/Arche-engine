@@ -20,7 +20,7 @@ t = unitType(u.type)
 s = unitType(v.type)
 'tar = muxCoords(unitType(unit(u.targetUnit).type).dimensions, -1)
 'unitSize = distance(t.dimensions, tar) / 2
-unitSize = max(max(t.dimensions.x, t.dimensions.y), max(s.dimensions.x, s.dimensions.y))
+unitSize = 1.5 * max(max(t.dimensions.x, t.dimensions.y), max(s.dimensions.x, s.dimensions.y))
 End Function
 
 Public Function min(x As Variant, y As Variant)

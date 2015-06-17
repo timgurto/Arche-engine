@@ -19,7 +19,7 @@ t = unitType(u.type)
 Dim x As Long
 Dim drawFrame As Byte
 drawFrame = IIf(u.combatMode, t.frames, u.frame)
-If u.combatMode Then
+If u.combatMode And u.targetUnit > -1 Then
    If unit(u.targetUnit).player = u.player Then drawFrame = t.frames + 1
 End If
 x = TransparentBlt(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y, t.dimensions.x, t.dimensions.y, t.dc, t.dimensions.x * (drawFrame), u.direction * t.dimensions.y, t.dimensions.x, t.dimensions.y, unitType(u.type).background)

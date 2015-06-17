@@ -8,7 +8,7 @@ Dim j As Integer
 
 refreshCount = 0
 
-activeUnits = 5
+activeUnits = 7
 activeCorpses = 1
 
 ctrlDown = False
@@ -38,6 +38,10 @@ For i = 1 To 15
       gameMap.terrain(i, j) = Int(Rnd * (2) + 1)
       gameMap.explored(i, j) = False
    Next j
+Next i
+
+For i = 1 To 5
+unitType(i).corpse = 0
 Next i
 
 unitType(1).name = "Standard"
@@ -95,7 +99,7 @@ unitType(2).lineOfSight = 80
 unitType(2).taunting = False
 
 unitType(4).name = "Cleric"
-unitType(4).health = 25
+unitType(4).health = 40
 unitType(4).armor = 0
 unitType(4).attack = 1
 unitType(4).healing = 20
@@ -114,7 +118,27 @@ unitType(4).frames = 1
 unitType(4).lineOfSight = 80
 unitType(4).taunting = False
 
-unit(0).location.x = 30
+unitType(5).name = "King Snowman"
+unitType(5).health = 250
+unitType(5).armor = 5
+unitType(5).attack = 0
+unitType(5).healing = 0
+unitType(5).range = 0
+unitType(5).dc = CreateCompatibleDC(0)
+unitType(5).dc = LoadGraphicDC(App.Path & "\Images\Snowman.bmp")
+unitType(5).portrait = CreateCompatibleDC(0)
+unitType(5).portrait = LoadGraphicDC(App.Path & "\Images\SnowmanPortrait.bmp")
+unitType(5).background = vbGreen
+unitType(5).portraitBackground = vbGreen
+unitType(5).dimensions.x = 48
+unitType(5).dimensions.y = 48
+unitType(5).speed = 0
+unitType(5).attackSpeed = 0
+unitType(5).frames = 1
+unitType(5).lineOfSight = 10
+unitType(5).taunting = False
+
+unit(0).location.x = 230
 unit(0).location.y = 20
 
 unit(1).location.x = 150
@@ -129,13 +153,20 @@ unit(3).location.y = 150
 unit(4).location.x = 200
 unit(4).location.y = 100
 
+unit(5).location.x = 300
+unit(5).location.y = 200
 
-For i = 0 To 4
+unit(6).location.x = 40
+unit(6).location.y = 40
+
+For i = 0 To 6
    With unit(i)
       .type = 1
    unit(3).type = 3
    unit(1).type = 2
    unit(4).type = 4
+   unit(5).type = 5
+   unit(6).type = 5
       .moving = False
       .direction = dirD
       .frame = 1
@@ -155,6 +186,14 @@ Next i
 unit(2).player = 1
 unit(3).player = 1
 unit(4).player = 1
+unit(6).player = 1
+unit(6).health = unitType(5).health
+
+unit(5).health = unitType(5).health
+
+victoryType = REGICIDE
+regicideTarget(1) = 5
+regicideTarget(2) = 6
 
 corpseType(0).timer = 60
 corpseType(0).dc = CreateCompatibleDC(0)
@@ -170,17 +209,17 @@ corpse(0).dimensions.x = 40
 corpse(0).dimensions.y = 60
 corpse(0).timer = 10
 
-civ(1).name = "Rebel Alliance"
+civ(1).name = "Egyptians"
 civ(1).color = vbBlue
 
-civ(2).name = "Matak"
+civ(2).name = "Greeks"
 civ(2).color = vbRed
 
-player(1).name = "Anansi Fighters"
+player(1).name = "Pharaoh Rameses"
 player(1).population = 2
 player(1).civ = 1
 
-player(2).name = "Roger Waters"
+player(2).name = "Alexander the Great"
 player(2).population = 1
 player(2).civ = 2
 
