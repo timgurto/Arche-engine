@@ -97,3 +97,28 @@ End Function
 Public Function screenCoords(dudeInQuestion As typUnit) As typcoords
 screenCoords = makeCoords(dudeInQuestion.location.x - 0.5 * unitType(dudeInQuestion.type).dimensions.x, dudeInQuestion.location.y - 0.875 * unitType(dudeInQuestion.type).dimensions.y)
 End Function
+
+Public Function str2Bool(str As String) As Boolean
+Dim s As String
+s = UCase(str)
+Select Case s
+Case "T"
+    str2Bool = True
+Case "TRUE"
+    str2Bool = True
+Case "F"
+    str2Bool = False
+Case "FALSE"
+    str2Bool = False
+Case Else
+    str2Bool = False
+    If DEBUG_MODE Then MsgBox "Attempting to read '" & str & "' from a file as a boolean.  Returning False by default."
+End Select
+End Function
+
+
+
+
+
+
+

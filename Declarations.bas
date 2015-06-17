@@ -1,7 +1,10 @@
 Attribute VB_Name = "mdlDeclarations"
 Option Explicit
 
-Public Const DEBUG_MODE = True
+Public Const INT_TRUE = 1
+Public Const INT_FALSE = 0
+
+Public Const DEBUG_MODE = False
 Public Const dirN = 99 'not moving
 Public Const dirU = 0
 Public Const dirR = 1

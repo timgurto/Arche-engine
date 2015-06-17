@@ -7,6 +7,7 @@ Dim i As Integer
 Dim j As Integer
 Dim x As Integer, y As Integer
 Dim s As String
+Dim temp1 As String
 
 Open App.Path & "\Data\demo.txt" For Input As #1
 
@@ -29,7 +30,8 @@ Input #1, s
 Input #1, activeTerrains, s, s
 For i = 0 To activeTerrains - 1
    With terrain(i)
-      Input #1, .name, .impassable, .frames, .frame
+      Input #1, .name, temp1, .frames, .frame
+      .impassable = str2Bool(temp1)
       .dc = makeDC("t" & i & ".bmp")
    End With
 Next i
