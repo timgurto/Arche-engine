@@ -53,7 +53,7 @@ As Boolean
 'Added by TCT Software
 '********************************
 
-'Public Sub SimpleTransparentBlt(hdc As Long, Destination As recCoords, Dimensions As recCoords, hSrcDC As Long, Source As recCoords, Optional crTransparent As enmColor = blue)
+'Public Sub SimpleTransparentBlt(hdc As Long, Destination As recCoords, Dimensions As recCoords, hSrcDC As Long, Source As recCoords, Optional crTransparent As Long = &HFF0000)
 '    Dim TransparentBltResult As Boolean
 '    Do
 '        TransparentBltResult = TransparentBlt(hdc, Destination.x, Destination.y, Dimensions.x, Dimensions.y, hSrcDC, Source.x, Source.y, Dimensions.x, Dimensions.y, crTransparent)
