@@ -14,6 +14,7 @@ Public Type typTarget
 End Type
 
 Public Type typTerrain
+   name As Long
    dc As Long
    impassable As Boolean
    frames As Integer
@@ -47,7 +48,6 @@ Public Type typUnitType
    armor As Integer
    attack As Integer
    range As Integer
-   isRanged As Boolean
    healing As Integer
    corpse As Byte
    lineOfSight As Integer
@@ -65,10 +65,8 @@ End Type
 
 Public Type typUnit
    health As Integer
-   special As Integer
    location As typcoords
    targetUnit As Integer
-   targetBuilding As Integer
    target As typcoords
    player As Byte
    type As Byte

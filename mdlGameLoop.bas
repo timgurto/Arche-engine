@@ -24,7 +24,7 @@ End If
 terrainFrameTimer = terrainFrameTimer - 20
 If terrainFrameTimer <= 0 Then
    terrainFrameTimer = TERRAIN_FRAME_LENGTH
-   For j = 0 To activeTerrains
+   For j = 0 To activeTerrains - 1
       If terrain(j).frames > 0 Then
          increment terrain(j).frame
          If terrain(j).frame = terrain(j).frames Then terrain(j).frame = 0
@@ -149,11 +149,11 @@ For i = 0 To activeUnits - 1
    End If
 Next i
 
-For i = 0 To activeUnits
+For i = 0 To activeUnits - 1
    If unit(i).selected And (unit(i).moving Or unit(i).targetUnit <> -1) Then drawTarget unit(i)
 Next i
 
-For i = 0 To activeUnits
+For i = 0 To activeUnits - 1
    If unit(i).selected Then
       If gameMap.explored(getUnitTile(i).x, getUnitTile(i).y) Then
          drawHealthBar unit(i)

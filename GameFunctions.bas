@@ -19,7 +19,7 @@ temp = unit(a)
 unit(a) = unit(b)
 unit(b) = temp
 If victoryType = REGICIDE Then
-   For i = 1 To 2 'civs
+   For i = 0 To activePlayers - 1
       If regicideTarget(i) = a Then
          regicideTarget(i) = b
       ElseIf regicideTarget(i) = b Then
@@ -54,7 +54,7 @@ Dim i As Integer
 If unitType(unit(n).type).deathSound > -1 Then sound (unitType(unit(n).type).deathSound)
 unit(n).selected = False
 If victoryType = REGICIDE Then
-   For i = 1 To 2 'civs
+   For i = 0 To activePlayers - 1
       If regicideTarget(i) = n Then
          victory (i)
          i = 2 'civs
@@ -180,8 +180,8 @@ Dim uT As typUnitType
 
 If FOG_OF_WAR Then
 
-   For i = 1 To gameMap.dimensions.x 'set fog initially
-      For j = 1 To gameMap.dimensions.y
+   For i = 0 To gameMap.dimensions.x - 1 'set fog initially
+      For j = 0 To gameMap.dimensions.y - 1
          gameMap.fog(i, j) = True
       Next j
    Next i
@@ -191,10 +191,10 @@ If FOG_OF_WAR Then
       If unit(n).player = you And unit(n).exploring Then
          loc = unit(n).location
          uT = unitType(unit(n).type)
-         For i = 1 To gameMap.dimensions.x
+         For i = 0 To gameMap.dimensions.x - 1
             mid.x = (i - 0.5) * TERRAIN_TILE_SIZE
             disX = (mid.x - loc.x) ^ 2
-            For j = 1 To gameMap.dimensions.y
+            For j = 0 To gameMap.dimensions.y - 1
                mid.y = (j - 0.5) * TERRAIN_TILE_SIZE
                If Sqr(disX + (mid.y - loc.y) ^ 2) <= uT.lineOfSight Then
                   gameMap.explored(i, j) = True
@@ -210,8 +210,8 @@ Else
 
    For n = 0 To activeUnits - 1
       If unit(n).player = you And unit(n).exploring Then
-         For i = 1 To gameMap.dimensions.x
-            For j = 1 To gameMap.dimensions.x
+         For i = 0 To gameMap.dimensions.x - 1
+            For j = 0 To gameMap.dimensions.y - 1
                If Not gameMap.explored(i, j) Then
                   If distance(unit(n).location, makeCoords((i - 0.5) * TERRAIN_TILE_SIZE, (j - 0.5) * TERRAIN_TILE_SIZE)) <= unitType(unit(n).type).lineOfSight Then
                      gameMap.explored(i, j) = True

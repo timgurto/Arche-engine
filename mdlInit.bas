@@ -5,254 +5,121 @@ Option Explicit
 Public Sub init()
 Dim i As Integer
 Dim j As Integer
+Dim x As Integer, y As Integer
+Dim s As String
 
-refreshCount = 0
+Open App.Path & "\Data\demo.txt" For Input As #1
 
-activePlayers = 2
-activeCivs = 2
-activeUnits = 7
-activeUnitTypes = 5
-activeTerrains = 3
-activeCorpseTypes = 1
-activeCorpses = 1
-
-ctrlDown = False
-
-scrollDir = dirN
-
-target.dimensions.x = 16
-target.dimensions.y = 16
-target.dc = CreateCompatibleDC(0)
-target.dc = LoadGraphicDC(App.Path & "\Images\target.bmp")
-target.background = vbRed
-
-gameMap.displacement = makeCoords(-100, -100)
-
-fogDC = CreateCompatibleDC(0)
-fogDC = LoadGraphicDC(App.Path & "\Images\fog.bmp")
-
-terrainFrameTimer = TERRAIN_FRAME_LENGTH
-
-terrain(1).dc = CreateCompatibleDC(0)
-terrain(1).dc = LoadGraphicDC(App.Path & "\Images\grass.bmp")
-terrain(1).impassable = False
-terrain(1).frames = 1
-terrain(1).frame = 0
-
-
-terrain(2).dc = CreateCompatibleDC(0)
-terrain(2).dc = LoadGraphicDC(App.Path & "\Images\dirt.bmp")
-terrain(2).impassable = False
-terrain(2).frames = 1
-terrain(2).frame = 0
-
-terrain(0).dc = CreateCompatibleDC(0)
-terrain(0).dc = LoadGraphicDC(App.Path & "\Images\Water.bmp")
-terrain(0).impassable = True
-terrain(0).frames = 3
-terrain(0).frame = 0
-
-
-gameMap.dimensions = makeCoords(15, 10)
-For i = 1 To 15
-   For j = 1 To 15
-      gameMap.terrain(i, j) = Int(Rnd * (2) + 1)
-      gameMap.explored(i, j) = False
-   Next j
+Input #1, activeCivs, s, s
+For i = 0 To activeCivs - 1
+   With civ(i)
+      Input #1, .name, .color
+   End With
 Next i
+Input #1, s
 
-For i = 1 To 4
-   gameMap.terrain(i, 6) = 0
+Input #1, activePlayers, s, s
+For i = 0 To activePlayers - 1
+   With player(i)
+      Input #1, .name, .civ, .population
+   End With
 Next i
+Input #1, s
 
-For i = 1 To 5
-unitType(i).corpse = 0
-unitType(i).selectSound = -1
-unitType(i).attackSound = -1
-unitType(i).deathSound = 0
-Next i
-
-unitType(1).name = "Standard"
-unitType(1).health = 100
-unitType(1).armor = 2
-unitType(1).attack = 8
-unitType(1).dc = CreateCompatibleDC(0)
-unitType(1).dc = LoadGraphicDC(App.Path & "\Images\Standard.bmp")
-unitType(1).portrait = CreateCompatibleDC(0)
-unitType(1).portrait = LoadGraphicDC(App.Path & "\Images\StandardPortrait.bmp")
-unitType(1).background = vbWhite
-unitType(1).portraitBackground = vbWhite
-unitType(1).dimensions.x = 48
-unitType(1).dimensions.y = 48
-unitType(1).attackSound = 2
-unitType(1).speed = 2
-unitType(1).attackSpeed = 2500
-unitType(1).frames = 4
-unitType(1).lineOfSight = 150
-unitType(1).taunting = False
-
-unitType(3).name = "Shield"
-unitType(3).health = 1000
-unitType(3).armor = 50
-unitType(3).attack = 2
-unitType(3).dc = CreateCompatibleDC(0)
-unitType(3).dc = LoadGraphicDC(App.Path & "\Images\Shield.bmp")
-unitType(3).portrait = CreateCompatibleDC(0)
-unitType(3).portrait = LoadGraphicDC(App.Path & "\Images\HeroPortrait.bmp")
-unitType(3).background = vbGreen
-unitType(3).portraitBackground = vbGreen
-unitType(3).dimensions.x = 53
-unitType(3).dimensions.y = 56
-unitType(3).speed = 2
-unitType(3).attackSpeed = 1000
-unitType(3).frames = 1
-unitType(3).lineOfSight = 100
-unitType(3).taunting = True
-
-unitType(2).name = "Hero"
-unitType(2).health = 75
-unitType(2).armor = 0
-unitType(2).attack = 5
-unitType(2).dc = CreateCompatibleDC(0)
-unitType(2).dc = LoadGraphicDC(App.Path & "\Images\Hero.bmp")
-unitType(2).portrait = CreateCompatibleDC(0)
-unitType(2).portrait = LoadGraphicDC(App.Path & "\Images\HeroPortrait.bmp")
-unitType(2).background = vbGreen
-unitType(2).portraitBackground = vbGreen
-unitType(2).dimensions.x = 24
-unitType(2).dimensions.y = 26
-unitType(2).attackSound = 1
-unitType(2).speed = 4
-unitType(2).attackSpeed = 1000
-unitType(2).frames = 3
-unitType(2).lineOfSight = 80
-unitType(2).taunting = False
-
-unitType(4).name = "Cleric"
-unitType(4).health = 40
-unitType(4).armor = 0
-unitType(4).attack = 1
-unitType(4).healing = 20
-unitType(4).range = 3
-unitType(4).dc = CreateCompatibleDC(0)
-unitType(4).dc = LoadGraphicDC(App.Path & "\Images\cleric.bmp")
-unitType(4).portrait = CreateCompatibleDC(0)
-unitType(4).portrait = LoadGraphicDC(App.Path & "\Images\clericPortrait.bmp")
-unitType(4).background = vbGreen
-unitType(4).portraitBackground = vbGreen
-unitType(4).dimensions.x = 27
-unitType(4).dimensions.y = 42
-unitType(4).speed = 3
-unitType(4).attackSpeed = 400
-unitType(4).frames = 1
-unitType(4).lineOfSight = 80
-unitType(4).taunting = False
-
-unitType(5).name = "King Snowman"
-unitType(5).health = 250
-unitType(5).armor = 5
-unitType(5).attack = 0
-unitType(5).healing = 0
-unitType(5).range = 0
-unitType(5).dc = CreateCompatibleDC(0)
-unitType(5).dc = LoadGraphicDC(App.Path & "\Images\Snowman.bmp")
-unitType(5).portrait = CreateCompatibleDC(0)
-unitType(5).portrait = LoadGraphicDC(App.Path & "\Images\SnowmanPortrait.bmp")
-unitType(5).background = vbGreen
-unitType(5).portraitBackground = vbGreen
-unitType(5).dimensions.x = 48
-unitType(5).dimensions.y = 48
-unitType(5).speed = 0
-unitType(5).attackSpeed = 0
-unitType(5).frames = 1
-unitType(5).lineOfSight = 10
-unitType(5).taunting = False
-
-unit(0).location.x = 230
-unit(0).location.y = 20
-
-unit(1).location.x = 150
-unit(1).location.y = 80
-
-unit(2).location.x = 100
-unit(2).location.y = 130
-
-unit(3).location.x = 50
-unit(3).location.y = 150
-
-unit(4).location.x = 200
-unit(4).location.y = 100
-
-unit(5).location.x = 300
-unit(5).location.y = 200
-
-unit(6).location.x = 40
-unit(6).location.y = 40
-
-For i = 0 To 6
-   With unit(i)
-      .type = 1
-   unit(3).type = 3
-   unit(1).type = 2
-   unit(4).type = 4
-   unit(5).type = 5
-   unit(6).type = 5
-      .moving = False
-      .direction = dirD
-      .frame = 1
-      .attackTimer = Int(Rnd * (unitType(unit(i).type).attackSpeed / 20) + 1) * 20 'This formula will be used in the actual engine
-      .combatMode = False
-      .selected = False
-      .target = unit(i).location
-      .targetUnit = -1
-      .targetBuilding = -1
-      .freezeFrame = False
-      .exploring = True
-      .player = 2
-      .health = Int(Rnd * (unitType(unit(i).type).health)) + 1
+Input #1, activeTerrains, s, s
+For i = 0 To activeTerrains - 1
+   With terrain(i)
+      Input #1, .name, .impassable, .frames, .frame
+      .dc = makeDC("t" & i & ".bmp")
    End With
 Next i
 
-unit(2).player = 1
-unit(3).player = 1
-unit(4).player = 1
-unit(6).player = 1
-unit(6).health = unitType(5).health
+Input #1, s, s
 
-unit(5).health = unitType(5).health
+Input #1, gameMap.displacement.x, s
+Input #1, gameMap.displacement.y, s
+Input #1, s
 
-victoryType = REGICIDE
-regicideTarget(1) = 5
-regicideTarget(2) = 6
+Input #1, s
+Input #1, gameMap.dimensions.x, s
+Input #1, gameMap.dimensions.y, s
+For y = 0 To gameMap.dimensions.y - 1
+   For x = 0 To gameMap.dimensions.x - 1
+      Input #1, gameMap.terrain(x, y)
+   Next x
+Next y
+Input #1, s
 
-corpseType(0).timer = 60
-corpseType(0).dc = CreateCompatibleDC(0)
-corpseType(0).dc = LoadGraphicDC(App.Path & "\Images\Guts.bmp")
-corpseType(0).dimensions.x = 144
-corpseType(0).dimensions.y = 144
-corpseType(0).background = vbGreen
+Input #1, s
+For y = 0 To gameMap.dimensions.y - 1
+   For x = 0 To gameMap.dimensions.x - 1
+      Input #1, gameMap.explored(x, y)
+   Next x
+Next y
+Input #1, s
 
-corpse(0).type = 0
-corpse(0).location.x = 100
-corpse(0).location.y = 100
-corpse(0).dimensions.x = 40
-corpse(0).dimensions.y = 60
-corpse(0).timer = 10
+Input #1, activeUnitTypes, s, s
+For i = 0 To activeUnitTypes - 1
+   With unitType(i)
+      Input #1, .name, .health, .armor, .attack, .healing, .range, _
+      .background, .portraitBackground, .dimensions.x, .dimensions.y, _
+      .corpse, .selectSound, .attackSound, .deathSound, .speed, _
+      .attackSpeed, .frames, .lineOfSight, .taunting
+      .dc = makeDC("u" & i & ".bmp")
+      .portrait = makeDC("p" & i & ".bmp")
+   End With
+Next i
+Input #1, s
 
-civ(1).name = "Egyptians"
-civ(1).color = vbBlue
+Input #1, activeUnits, s, s
+For i = 0 To activeUnits - 1
+   With unit(i)
+      Input #1, .type, .health, .location.x, .location.y, .targetUnit, _
+      .target.x, .target.y, .player, .moving, .frame, .attackTimer, _
+      .direction, .selected, .freezeFrame, .exploring, .combatMode
+   End With
+Next i
+Input #1, s
 
-civ(2).name = "Greeks"
-civ(2).color = vbRed
+Input #1, victoryType, s
+If victoryType = REGICIDE Then
+   For i = 0 To activePlayers - 1
+      Input #1, regicideTarget(i)
+   Next i
+End If
+Input #1, s
 
-player(1).name = "Pharaoh Rameses"
-player(1).population = 2
-player(1).civ = 1
+Input #1, activeCorpseTypes, s, s
+For i = 0 To activeCorpseTypes - 1
+   With corpseType(i)
+      Input #1, .timer, .dimensions.x, .dimensions.y, .background
+      .dc = makeDC("c" & i & ".bmp")
+   End With
+Next i
+Input #1, s
 
-player(2).name = "Alexander the Great"
-player(2).population = 1
-player(2).civ = 2
+Input #1, activeCorpses, s, s
+For i = 0 To activeCorpses - 1
+   With corpse(i)
+      Input #1, .type, .location.x, .location.y, .dimensions.x, .dimensions.y, .timer
+   End With
+Next i
+Input #1, s
 
+Input #1, s, s
+With target
+   Input #1, .dimensions.x, .dimensions.y, .background
+   .dc = makeDC("target.bmp")
+End With
+
+Close #1
+
+fogDC = makeDC("fog.bmp")
+
+terrainFrameTimer = TERRAIN_FRAME_LENGTH
 needReExplore = True
+refreshCount = 0
+ctrlDown = False
+scrollDir = dirN
 
 End Sub

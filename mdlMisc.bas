@@ -1,6 +1,11 @@
 Attribute VB_Name = "mdlMisc"
 Option Explicit
 
+Public Function makeDC(file As String)
+      makeDC = CreateCompatibleDC(0)
+      makeDC = LoadGraphicDC(App.Path & "\Images\" & file)
+End Function
+
 Public Function increment(ByRef n As Variant)
 n = n + 1
 End Function

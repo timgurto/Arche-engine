@@ -1,7 +1,7 @@
 Attribute VB_Name = "mdlDeclarations"
 Option Explicit
 
-Public Const DEBUG_MODE = False
+Public Const DEBUG_MODE = True
 Public Const dirN = 99 'not moving
 Public Const dirU = 0
 Public Const dirR = 1
@@ -12,7 +12,7 @@ Public Const dirF = 5
 Public Const dirG = 6
 Public Const dirH = 7
 
-Public Const you = 1
+Public Const you = 0
 
 Public Const KEY_CTRL = 17
 Public Const KEY_DELETE = 46
@@ -23,19 +23,19 @@ Public Const CONQUEST = 0
 Public Const REGICIDE = 1
 
 Public victoryType As Byte
-Public regicideTarget(2) As Byte
+Public regicideTarget(10) As Byte
 
-Public Const MAX_PLAYERS = 2
+Public Const MAX_PLAYERS = 10
 Public activePlayers As Integer
-Public Const MAX_CIVS = 2
+Public Const MAX_CIVS = 10
 Public activeCivs As Integer
-Public Const MAX_UNITS = 100
+Public Const MAX_UNITS = 150
 Public activeUnits As Integer
-Public Const MAX_UNIT_TYPES = 10
+Public Const MAX_UNIT_TYPES = 20
 Public activeUnitTypes As Integer
 Public Const MAX_TERRAINS = 10
 Public activeTerrains As Integer
-Public Const MAX_CORPSE_TYPES = 1
+Public Const MAX_CORPSE_TYPES = 10
 Public activeCorpseTypes As Integer
 Public Const MAX_CORPSES = 1000
 Public activeCorpses As Integer

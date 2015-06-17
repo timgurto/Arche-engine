@@ -1,0 +1,67 @@
+2,Civs
+Name,Color
+Egyptians,16711680
+Greeks,255
+
+2,Players
+Name,Population,Civ
+Pharaoh Rameses,4,0
+Alexander the Great,3,1
+
+3,Terrains
+Name,Impassable?,Frames,Frame
+Water,TRUE,3,0
+Grass,FALSE,1,0
+Dirt,FALSE,1,0
+
+Camera displacement
+-100,X
+-100,Y
+
+Map
+15,X
+10,Y
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+1,1,1,1,1,2,2,2,2,2,1,2,2,2,2,
+1,1,1,1,1,1,2,2,2,1,1,1,2,2,2,
+0,0,0,0,1,1,2,2,1,1,0,1,1,2,2,
+1,1,1,1,1,1,2,1,1,0,0,0,1,1,2,
+1,1,1,1,1,2,2,2,1,1,0,0,1,1,2,
+2,2,2,2,2,2,2,2,2,1,1,1,1,2,2,
+2,2,2,2,2,2,2,2,2,2,1,1,2,2,2
+
+5,Unit types
+Name,Health,Armor,Attack,Healing,Range,Background,Portrait background,Dimensions X,Dimensions Y,Corpse,Select sound,Attack sound,Death sound,Speed,Attack speed,Frames,Line of Sight,Taunting
+Standard,100,2,8,0,0,16777215,16777215,48,48,0,-1,2,0,2,2500,4,150,FALSE
+Hero,75,0,5,0,0,65280,65280,24,26,0,-1,1,0,4,1000,3,80,FALSE
+Shield,1000,50,2,0,0,65280,65280,53,56,0,-1,-1,0,2,1000,1,100,TRUE
+Cleric,40,0,1,20,3,65280,65280,27,42,0,-1,-1,0,3,400,1,80,FALSE
+King Snowman,250,5,0,0,0,65280,65280,48,48,0,-1,-1,0,0,0,1,10,FALSE
+
+7,Units
+Type,Health,Location X,Location Y,Target unit,Target X,Target Y,Player,Moving?,Frame,Attack timer,Direction,Selected?,Freeze frame,Exploring?,Combat mode?
+0,100,230,20,-1,230,20,2,FALSE,1,2000,2,FALSE,FALSE,TRUE,FALSE
+1,75,150,80,-1,150,80,2,FALSE,1,840,2,FALSE,FALSE,TRUE,FALSE
+0,100,100,130,-1,100,130,1,FALSE,1,1240,2,FALSE,FALSE,TRUE,FALSE
+2,1000,50,150,-1,50,150,1,FALSE,1,300,2,FALSE,FALSE,TRUE,FALSE
+3,40,200,100,-1,200,100,1,FALSE,1,220,2,FALSE,FALSE,TRUE,FALSE
+4,250,300,200,-1,300,200,2,FALSE,1,0,2,FALSE,FALSE,TRUE,FALSE
+4,250,40,40,-1,40,40,1,FALSE,1,0,2,FALSE,FALSE,TRUE,FALSE
+
+1,Victory type
+5
+6
+
+1,Corpse type
+Timer,Dimensions X,Dimensions Y,Background
+60,144,144,65280
+
+1,Corpse
+Type,Location X,Location Y,Dimensions X,Dimensions Y,Timer
+0,100,100,40,60,10
+
+Target
+Dimensions X,Dimensions Y,Background
+16,16,255

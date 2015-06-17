@@ -5,8 +5,8 @@ Public Sub drawMap(m As typMap)
 Dim x As Integer
 Dim y As Integer
 Dim z As Long
-For x = 1 To m.dimensions.x
-   For y = 1 To m.dimensions.y
+For x = 0 To m.dimensions.x - 1
+   For y = 0 To m.dimensions.y - 1
       z = BitBlt(frmGame.picGame.hdc, (x - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.x, (y - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.y, TERRAIN_TILE_SIZE, TERRAIN_TILE_SIZE, terrain(m.terrain(x, y)).dc, TERRAIN_TILE_SIZE * terrain(m.terrain(x, y)).frame, 0, IIf(gameMap.explored(x, y), vbSrcCopy, vbBlack))
       If FOG_OF_WAR Then If gameMap.fog(x, y) Then z = TransparentBlt(frmGame.picGame.hdc, (x - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.x, (y - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.y, TERRAIN_TILE_SIZE, TERRAIN_TILE_SIZE, fogDC, 0, 0, TERRAIN_TILE_SIZE, TERRAIN_TILE_SIZE, vbWhite)
    Next y
