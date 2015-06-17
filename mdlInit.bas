@@ -74,7 +74,6 @@ unitType(2).attackSpeed = 1000
 unitType(2).frames = 3
 unitType(2).lineOfSight = 80
 
-
 unit(0).location.x = 30
 unit(0).location.y = 20
 

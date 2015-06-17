@@ -97,35 +97,35 @@ Begin VB.Form frmGame
       Begin VB.Image imgRange 
          Height          =   360
          Left            =   1440
-         Picture         =   "Game.frx":030A
+         Picture         =   "Game.frx":000C
          Top             =   1140
          Width           =   360
       End
       Begin VB.Image imgSpecial 
          Height          =   360
          Left            =   1440
-         Picture         =   "Game.frx":138C
+         Picture         =   "Game.frx":108E
          Top             =   780
          Width           =   360
       End
       Begin VB.Image imgSPeed 
          Height          =   360
          Left            =   1440
-         Picture         =   "Game.frx":240E
+         Picture         =   "Game.frx":2110
          Top             =   1500
          Width           =   360
       End
       Begin VB.Image imgAttack 
          Height          =   360
          Left            =   60
-         Picture         =   "Game.frx":3490
+         Picture         =   "Game.frx":3192
          Top             =   1140
          Width           =   360
       End
       Begin VB.Image imgHealth 
          Height          =   360
          Left            =   60
-         Picture         =   "Game.frx":4512
+         Picture         =   "Game.frx":4214
          Top             =   780
          Width           =   360
       End
@@ -152,7 +152,7 @@ Begin VB.Form frmGame
       Begin VB.Image imgArmor 
          Height          =   360
          Left            =   60
-         Picture         =   "Game.frx":5594
+         Picture         =   "Game.frx":5296
          Top             =   1500
          Width           =   360
       End
@@ -223,7 +223,7 @@ Begin VB.Form frmGame
    Begin VB.Label lblTargetUnit 
       Caption         =   "Label1"
       Height          =   255
-      Left            =   7920
+      Left            =   9840
       TabIndex        =   29
       Top             =   10320
       Visible         =   0   'False
@@ -413,6 +413,10 @@ Dim collides As Boolean
 
 n = activeUnits
 activeUnits = activeUnits + 1
+
+For i = 0 To activeUnits - 1
+   If unit(i).targetUnit = activeUnits - 1 Then unit(i).targetUnit = -1
+Next i
 
 If DEBUG_MODE Then lblUnits.Caption = "Units: " & activeUnits
 
@@ -671,6 +675,8 @@ If DEBUG_MODE Then lblSelected = sel
 If sel >= 0 Then
    u = unit(sel)
    t = unitType(u.type)
+   
+   If DEBUG_MODE Then lblTargetUnit = unit(sel).targetUnit
 
    lblType = t.name
    lblPlayer = player(u.player).name

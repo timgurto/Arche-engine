@@ -60,9 +60,11 @@ Public Const ENEMIES_HAVE_ELLIPSES As Boolean = False
 Public Const SELECTION_ELLIPSE_WIDTH As Integer = 1
 Public Const HEALTH_BAR_WIDTH As Integer = 4
 Public Const HEALTH_BAR_COLOR As Single = vbGreen
-Public Const SHOW_UNUSED_STATS As Boolean = True 'Whether stats are displayed if a unit doesn't have them, eg. 0 armor, no special
+Public Const SHOW_UNUSED_STATS As Boolean = False 'Whether stats are displayed if a unit doesn't have them, eg. 0 armor, no special
 Public Const SPECIAL_PERCENT As Boolean = False 'Whether a unit's 'special' is displayed as a percentage or not
 Public Const SPECIAL_NAME As String = "Influence"
 Public Const PORTRAIT_WIDTH As Integer = 15
 Public Const PORTRAIT_HEIGHT As Integer = 15
+Public Const AUTO_ATTACKING As Boolean = True
+Public Const AUTO_ATTACK_RANGE As Integer = 150
 '*****************************************************

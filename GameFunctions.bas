@@ -45,6 +45,14 @@ corpse(activeCorpses).type = unitType(unit(n).type).corpse
 corpse(activeCorpses).timer = corpseType(corpse(activeCorpses).type).timer
 increment activeCorpses
 swapUnits n, activeUnits - 1
+For j = 0 To activeUnits - 1
+   If unit(j).targetUnit = n Then
+      unit(j).targetUnit = activeUnits - 1
+   Else
+      If unit(j).targetUnit = activeUnits - 1 Then unit(j).targetUnit = n
+   End If
+Next j
+
 activeUnits = activeUnits - 1
 
 frmGame.updateStats
