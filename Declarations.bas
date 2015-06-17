@@ -23,3 +23,7 @@ Public unitType(10) As typUnitType
 
 Public unit(100) As typUnit
 
+Public unitCount As Integer
+
+Public i As Integer
+

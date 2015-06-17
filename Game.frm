@@ -12,22 +12,15 @@ Begin VB.Form frmGame
    StartUpPosition =   3  'Windows Default
    Begin VB.CommandButton Command1 
       Caption         =   "Command1"
-      Height          =   612
-      Left            =   3840
+      Height          =   492
+      Left            =   2880
       TabIndex        =   1
       Top             =   6000
-      Width           =   732
-   End
-   Begin VB.Timer Timer1 
-      Enabled         =   0   'False
-      Interval        =   50
-      Left            =   6840
-      Top             =   2760
+      Width           =   612
    End
    Begin VB.PictureBox picGame 
       AutoRedraw      =   -1  'True
       BackColor       =   &H0000C000&
-      FillStyle       =   0  'Solid
       Height          =   5172
       Left            =   720
       ScaleHeight     =   5115
@@ -56,8 +49,28 @@ End Sub
 
 Private Sub picGame_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
 If Button = 2 Then 'RMB
-   unit(1).target.x = x / Screen.TwipsPerPixelX - unitType(unit(1).type).dimensions.x / 2
-   unit(1).target.y = y / Screen.TwipsPerPixelY - unitType(unit(1).type).dimensions.y / 2
-   unit(1).moving = True
+   For i = 0 To unitCount - 1
+      If unit(i).selected Then
+         unit(i).target.x = x / Screen.TwipsPerPixelX
+         unit(i).target.y = y / Screen.TwipsPerPixelY
+         unit(i).moving = True
+      End If
+   Next i
+
+ElseIf Button = 1 Then 'LMB
+
+   For i = 0 To unitCount - 1
+      unit(i).selected = False
+      If x / Screen.TwipsPerPixelX >= unit(i).location.x - unitType(unit(i).type).dimensions.x / 2 Then
+         If x / Screen.TwipsPerPixelX <= unit(i).location.x + unitType(unit(i).type).dimensions.x / 2 Then
+            If y / Screen.TwipsPerPixelY >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (7 / 8) Then
+               If y / Screen.TwipsPerPixelY <= unit(i).location.y - unitType(unit(i).type).dimensions.y * (1 / 8) Then
+                  unit(i).selected = True
+               End If
+            End If
+         End If
+      End If
+   Next i
+      
 End If
 End Sub

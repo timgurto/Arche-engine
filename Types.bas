@@ -21,5 +21,6 @@ Public Type typUnit
    moving As Boolean
    frame As Byte
    direction As Byte
+   selected As Boolean
 End Type
 
