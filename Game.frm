@@ -247,7 +247,7 @@ Do
 Loop Until Not collides
 
 unit(n).target = unit(n).location
-
+unit(n).exploring = True
 needReExplore = True
 
 End Sub

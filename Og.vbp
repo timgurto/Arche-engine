@@ -15,7 +15,7 @@ IconForm="frmGame"
 Startup="frmGame"
 HelpFile=""
 Title="Og"
-ExeName32="Og.07.0.0.exe"
+ExeName32="Og.07.0.1.exe"
 Command32=""
 Name="og"
 HelpContextID="0"
@@ -42,6 +42,7 @@ Unattended=0
 Retained=0
 ThreadPerObject=0
 MaxNumberOfThreads=1
+DebugStartupOption=0
 
 [MS Transaction Server]
 AutoRefresh=1
