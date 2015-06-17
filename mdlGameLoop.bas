@@ -15,7 +15,8 @@ If refreshCount = REFRESHES_PER_FRAME Then
       If Not unit(i).freezeFrame Then
          unit(i).frame = unit(i).frame + 1
          If unit(i).frame >= unitType(unit(i).type).frames Then unit(i).frame = 0
-      Else: unit(i).freezeFrame = False
+      Else
+         unit(i).freezeFrame = False
       End If
    Next i
 End If
@@ -41,7 +42,7 @@ For i = 0 To activeUnits - 1
    'Autoattacking
    If AUTO_ATTACKING Then
       If Not unit(i).moving Then
-         If unit(i).targetUnit = -1 Or (Not unit(i).moving) Then 'if not targetting anyone
+         If unitType(unit(i).type).healing = 0 And (unit(i).targetUnit = -1 Or (Not unit(i).moving)) Then 'if not targetting anyone
             minDistance = AUTO_ATTACK_RANGE + 5 'safe margin
             For j = 0 To activeUnits - 1
                If unit(i).player <> unit(j).player Then
@@ -49,6 +50,7 @@ For i = 0 To activeUnits - 1
                   If d < AUTO_ATTACK_RANGE Then
                      If d < minDistance Then
                         unit(i).targetUnit = j
+                        unit(i).combatMode = False
                         If DEBUG_MODE Then frmGame.lblTargetUnit = j
                         minDistance = d
                      End If
@@ -67,12 +69,20 @@ For i = 0 To activeUnits - 1
       If unit(i).targetUnit > -1 Then
          tar = unit(unit(i).targetUnit)
          If tar.player <> unit(i).player Then
-            If findPath(i).x = 0 And findPath(i).y = 0 And distance(unit(i).target, unit(i).location) < unitSize(i) Then
+            If findPath(i).x = 0 And findPath(i).y = 0 And distance(unit(i).target, unit(i).location) < unitSize(i, unit(i).targetUnit) Then
                If (unit(unit(i).targetUnit).targetUnit = -1) Or unitType(unit(i).type).taunting Then unit(unit(i).targetUnit).targetUnit = i
                unit(i).combatMode = True
                unit(unit(i).targetUnit).health = tar.health - max(unitType(unit(i).type).attack - unitType(tar.type).armor, 0)
                If unit(unit(i).targetUnit).health <= 0 Then killUnit (unit(i).targetUnit)
                frmGame.updateStats
+            End If
+         Else
+            If unitType(unit(i).type).healing > 0 Then
+               If findPath(i).x = 0 And findPath(i).y = 0 And distance(unit(i).target, unit(i).location) < unitSize(i, unit(i).targetUnit) Then
+                  unit(i).combatMode = True
+                  unit(unit(i).targetUnit).health = min(unit(unit(i).targetUnit).health + unitType(unit(i).type).healing, unitType(unit(unit(i).targetUnit).type).health)
+                  frmGame.updateStats
+               End If
             End If
          End If
       End If
@@ -118,7 +128,7 @@ For i = 0 To activeUnits - 1
 Next i
 
 For i = 0 To activeUnits
-   If unit(i).selected And unit(i).moving Then drawTarget unit(i)
+   If unit(i).selected And (unit(i).moving Or unit(i).targetUnit <> -1) Then drawTarget unit(i)
 Next i
 
 For i = 0 To activeUnits

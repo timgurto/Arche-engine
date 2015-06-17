@@ -32,10 +32,12 @@ deleteUnit (n)
 End Sub
 
 Public Sub deleteUnit(n As Integer)
+unit(n).selected = False
 Dim j As Integer
       For j = 0 To activeUnits - 1
          If unit(j).targetUnit = n Then
             unit(j).targetUnit = -1
+            unit(j).combatMode = False
             unit(j).target = unit(j).location
          End If
       Next j
@@ -48,8 +50,12 @@ swapUnits n, activeUnits - 1
 For j = 0 To activeUnits - 1
    If unit(j).targetUnit = n Then
       unit(j).targetUnit = activeUnits - 1
+      unit(j).combatMode = False
    Else
-      If unit(j).targetUnit = activeUnits - 1 Then unit(j).targetUnit = n
+      If unit(j).targetUnit = activeUnits - 1 Then
+         unit(j).targetUnit = n
+         unit(j).combatMode = False
+      End If
    End If
 Next j
 

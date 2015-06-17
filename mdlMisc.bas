@@ -10,14 +10,17 @@ makeCoords.x = x
 makeCoords.y = y
 End Function
 
-Public Function unitSize(i As Integer) As Integer
-Dim u As typUnit
-Dim t As typUnitType
+Public Function unitSize(i As Integer, j As Integer) As Integer
+Dim u As typUnit, v As typUnit
+Dim s As typUnitType, t As typUnitType
 Dim tar As typcoords
 u = unit(i)
+v = unit(j)
 t = unitType(u.type)
-tar = muxCoords(unitType(unit(u.targetUnit).type).dimensions, -1)
-unitSize = distance(t.dimensions, tar) / 2
+s = unitType(v.type)
+'tar = muxCoords(unitType(unit(u.targetUnit).type).dimensions, -1)
+'unitSize = distance(t.dimensions, tar) / 2
+unitSize = 1.5 * max(max(t.dimensions.x, t.dimensions.y), max(s.dimensions.x, s.dimensions.y))
 End Function
 
 Public Function min(x As Variant, y As Variant)

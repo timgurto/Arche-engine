@@ -45,9 +45,8 @@ Public Type typUnitType
    attack As Integer
    range As Integer
    isRanged As Boolean
-   special As Integer
+   healing As Integer
    corpse As Byte
-   hasSpecial As Boolean
    lineOfSight As Integer
    dc As Long
    portrait As Long

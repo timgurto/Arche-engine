@@ -8,7 +8,7 @@ Dim j As Integer
 
 refreshCount = 0
 
-activeUnits = 4
+activeUnits = 5
 activeCorpses = 1
 
 ctrlDown = False
@@ -43,7 +43,7 @@ Next i
 unitType(1).name = "Standard"
 unitType(1).health = 100
 unitType(1).armor = 2
-unitType(1).attack = 30
+unitType(1).attack = 8
 unitType(1).dc = CreateCompatibleDC(0)
 unitType(1).dc = LoadGraphicDC(App.Path & "\Images\Standard.bmp")
 unitType(1).portrait = CreateCompatibleDC(0)
@@ -94,6 +94,25 @@ unitType(2).frames = 3
 unitType(2).lineOfSight = 80
 unitType(2).taunting = False
 
+unitType(4).name = "Cleric"
+unitType(4).health = 25
+unitType(4).armor = 0
+unitType(4).attack = 1
+unitType(4).healing = 20
+unitType(4).dc = CreateCompatibleDC(0)
+unitType(4).dc = LoadGraphicDC(App.Path & "\Images\cleric.bmp")
+unitType(4).portrait = CreateCompatibleDC(0)
+unitType(4).portrait = LoadGraphicDC(App.Path & "\Images\clericPortrait.bmp")
+unitType(4).background = vbGreen
+unitType(4).portraitBackground = vbGreen
+unitType(4).dimensions.x = 27
+unitType(4).dimensions.y = 42
+unitType(4).speed = 3
+unitType(4).attackSpeed = 400
+unitType(4).frames = 1
+unitType(4).lineOfSight = 80
+unitType(4).taunting = False
+
 unit(0).location.x = 30
 unit(0).location.y = 20
 
@@ -106,12 +125,16 @@ unit(2).location.y = 130
 unit(3).location.x = 50
 unit(3).location.y = 150
 
+unit(4).location.x = 200
+unit(4).location.y = 100
 
-For i = 0 To 3
+
+For i = 0 To 4
    With unit(i)
       .type = 1
    unit(3).type = 3
    unit(1).type = 2
+   unit(4).type = 4
       .moving = False
       .direction = dirD
       .frame = 1
@@ -130,6 +153,7 @@ Next i
 
 unit(2).player = 1
 unit(3).player = 1
+unit(4).player = 1
 
 corpseType(0).timer = 60
 corpseType(0).dc = CreateCompatibleDC(0)

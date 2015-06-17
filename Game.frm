@@ -65,7 +65,7 @@ Begin VB.Form frmGame
          Top             =   1560
          Width           =   855
       End
-      Begin VB.Label lblSpecial 
+      Begin VB.Label lblHealing 
          BackStyle       =   0  'Transparent
          Caption         =   "3400/5000"
          ForeColor       =   &H00FFFFFF&
@@ -102,7 +102,7 @@ Begin VB.Form frmGame
          Top             =   1140
          Width           =   360
       End
-      Begin VB.Image imgSpecial 
+      Begin VB.Image imgHealing 
          Height          =   360
          Left            =   1440
          Picture         =   "Game.frx":108E
@@ -415,9 +415,6 @@ Dim collides As Boolean
 n = activeUnits
 activeUnits = activeUnits + 1
 
-For i = 0 To activeUnits - 1
-   If unit(i).targetUnit = activeUnits - 1 Then unit(i).targetUnit = -1
-Next i
 
 If DEBUG_MODE Then lblUnits.Caption = "Units: " & activeUnits
 
@@ -431,6 +428,13 @@ unit(n).frame = 1
 unit(n).selected = False
 unit(n).freezeFrame = False
 unit(n).targetUnit = -1
+
+For i = 0 To activeUnits - 1
+   If unit(i).targetUnit = activeUnits - 1 Then
+      unit(i).targetUnit = -1
+      unit(i).combatMode = False
+   End If
+Next i
 
 increment player(unit(n).player).population
 
@@ -554,7 +558,8 @@ If Button = 2 Then 'RMB
             unit(i).target.x = x / Screen.TwipsPerPixelX + gameMap.displacement.x
             unit(i).target.y = y / Screen.TwipsPerPixelY + gameMap.displacement.y
             unit(i).targetUnit = findUnit(unit(i).target)
-            If unit(i).targetUnit = i Then unit(i).targetUnit = -1
+            unit(i).combatMode = False
+            'If unit(i).targetUnit = i Then unit(i).targetUnit = -1
             If DEBUG_MODE Then lblTargetUnit = unit(i).targetUnit
             'If unit(i).targetUnit = -1 Then
                'unit(i).targetBuilding = findBuilding(unit(i).target)
@@ -687,35 +692,40 @@ If sel >= 0 Then
    lblArmor = t.armor
    lblRange = t.range
    lblSpeed = t.speed
-   'lblSpecial = IIf((SPECIAL_PERCENT And t.special > 0), (u.special * 100 / t.special) & "%", u.special & "/" & t.special)
-   lblSpecial = u.special & "/" & t.special
+   lblHealing = t.healing
    
    If SHOW_UNUSED_STATS Then
       imgAttack.Visible = lblAttack.Visible = True
       imgArmor.Visible = lblArmor.Visible = True
       imgRange.Visible = lblRange.Visible = True
-      imgSpecial.Visible = lblSpecial.Visible = True
+      imgHealing.Visible = lblHealing.Visible = True
       imgHealth.Visible = lblHealth.Visible = True
       imgSPeed.Visible = lblSpeed.Visible = True
    Else
-      imgAttack.Visible = lblAttack.Visible = (t.attack > 0)
-      imgArmor.Visible = lblArmor.Visible = (t.armor > 0)
-      imgRange.Visible = lblRange.Visible = (t.range > 0)
-      imgSpecial.Visible = lblSpecial.Visible = (t.special > 0)
-      imgHealth.Visible = lblHealth.Visible = (t.health > 0)
-      imgSPeed.Visible = lblSpeed.Visible = (t.speed > 0)
+      imgAttack.Visible = (t.attack > 0)
+      lblAttack.Visible = (t.attack > 0)
+      imgArmor.Visible = (t.armor > 0)
+      lblArmor.Visible = (t.armor > 0)
+      imgRange.Visible = (t.range > 0)
+      lblRange.Visible = (t.range > 0)
+      imgHealing.Visible = (t.healing > 0)
+      lblHealing.Visible = (t.healing > 0)
+      imgHealth.Visible = (t.health > 0)
+      lblHealth.Visible = (t.health > 0)
+      imgSPeed.Visible = (t.speed > 0)
+      lblSpeed.Visible = (t.speed > 0)
    End If
 Else
    imgAttack.Visible = False
    imgArmor.Visible = False
    imgRange.Visible = False
-   imgSpecial.Visible = False
+   imgHealing.Visible = False
    imgHealth.Visible = False
    imgSPeed.Visible = False
    lblAttack = ""
    lblArmor = ""
    lblRange = ""
-   lblSpecial = ""
+   lblHealing = ""
    lblHealth = ""
    lblSpeed = ""
    lblPlayer = ""

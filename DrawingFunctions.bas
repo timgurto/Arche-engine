@@ -19,7 +19,10 @@ t = unitType(u.type)
 Dim x As Long
 Dim drawFrame As Byte
 drawFrame = IIf(u.combatMode, t.frames, u.frame)
-x = TransparentBlt(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y, t.dimensions.x, t.dimensions.y, t.dc, u.direction * t.dimensions.x * (t.frames + 1) + t.dimensions.x * (drawFrame), 0, t.dimensions.x, t.dimensions.y, unitType(u.type).background)
+If u.combatMode Then
+   If unit(u.targetUnit).player = u.player Then drawFrame = t.frames + 1
+End If
+x = TransparentBlt(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y, t.dimensions.x, t.dimensions.y, t.dc, t.dimensions.x * (drawFrame), u.direction * t.dimensions.y, t.dimensions.x, t.dimensions.y, unitType(u.type).background)
 If DEBUG_MODE Then
    frmGame.picGame.ForeColor = vbWhite
    x = Rectangle(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y, u.location.x + t.dimensions.x / 2 - gameMap.displacement.x, u.location.y + t.dimensions.y * (1 / 8) - gameMap.displacement.y)
