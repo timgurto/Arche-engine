@@ -9,11 +9,14 @@ End Type
 
 Public Type typTarget
    dc As Long
+   background As Long
    dimensions As typCoords
 End Type
 
 Public Type typUnitType
+   name As String
    dc As Long
+   background As Long
    speed As Integer
    dimensions As typCoords
    frames As Byte

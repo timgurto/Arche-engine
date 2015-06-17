@@ -32,7 +32,7 @@ Public target As typTarget
 
 Public activeUnits As Integer
 
-Public i As Integer
+'Public i As Integer 'used all over the place, so I've declared it separately in each module so it isn't compromised.
 
 Public ctrlDown As Boolean
 Public mouseDown As Boolean
@@ -44,7 +44,4 @@ Public selectionRectangleLoc2 As typCoords
 Public selectionRectangleShadow As Boolean 'whether the selection rectangle has a shadow
 Public keepWalkingOnCollision As Boolean 'whether units continue their walking animation while waiting for an obstructin to be removed
 Public showSelectedTargets As Boolean 'whether selected units' targets are displayed
-Public Const unitBackground = vbGreen 'the background color on bitmap files containing units
-Public Const targetBackground = vbGreen 'the background color on the bitmap file containing the target image
-
 '*****************************************************

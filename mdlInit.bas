@@ -3,6 +3,7 @@ Option Explicit
 
 
 Public Sub init()
+Dim i As Integer
 
 refreshCount = 0
 
@@ -20,19 +21,24 @@ target.dimensions.x = 16
 target.dimensions.y = 16
 target.dc = CreateCompatibleDC(0)
 target.dc = LoadGraphicDC(App.Path & "\Images\target.bmp")
+target.background = vbRed
 
+unitType(1).name = "Standard"
 unitType(1).dc = CreateCompatibleDC(0)
 unitType(1).dc = LoadGraphicDC(App.Path & "\Images\Standard.bmp")
+unitType(1).background = vbGreen
 unitType(1).dimensions.x = 48
 unitType(1).dimensions.y = 48
 unitType(1).speed = 3
 unitType(1).frames = 4
 
+unitType(2).name = "Hero"
 unitType(2).dc = CreateCompatibleDC(0)
 unitType(2).dc = LoadGraphicDC(App.Path & "\Images\Hero.bmp")
+unitType(2).background = vbGreen
 unitType(2).dimensions.x = 24
 unitType(2).dimensions.y = 26
-unitType(2).speed = 3
+unitType(2).speed = 5
 unitType(2).frames = 3
 
 

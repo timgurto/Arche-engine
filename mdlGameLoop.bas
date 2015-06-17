@@ -2,6 +2,8 @@ Attribute VB_Name = "mdlGameLoop"
 Option Explicit
 
 Public Sub runGameLoop()
+Dim i As Integer
+
 refreshCount = refreshCount + 1
 If refreshCount = REFRESHES_PER_FRAME Then
    For i = 0 To activeUnits - 1
@@ -30,9 +32,9 @@ drawEverything
 End Sub
 
 Public Sub drawEverything()
+Dim i As Integer
+
 frmGame.picGame.Cls
-
-
 
 For i = 0 To activeUnits - 1
    If unit(i).selected Then

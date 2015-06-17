@@ -1,6 +1,7 @@
 Attribute VB_Name = "mdlMisc"
 Option Explicit
 
+
 Public Function makeCoords(x As Integer, y As Integer) As typCoords
 makeCoords.x = x
 makeCoords.y = y
@@ -44,7 +45,15 @@ collision = _
 
 End Function
 
-'Public Function collidesWithUnit(loc As typCoords, dimensions As typCoords)
+Public Function pointCollidesWithUnit(loc As typCoords, ByRef u As Integer) As Boolean
+pointCollidesWithUnit = False
+For u = 0 To activeUnits - 1
+   If collision(loc, makeCoords(1, 1), screenCoords(unit(u)), unitType(unit(u).type).dimensions) Then
+      pointCollidesWithUnit = True
+      Exit For
+   End If
+Next u
+End Function
 
 Public Function screenCoords(dudeInQuestion As typUnit) As typCoords
 screenCoords = makeCoords(dudeInQuestion.location.x - 0.5 * unitType(dudeInQuestion.type).dimensions.x, dudeInQuestion.location.y - 0.875 * unitType(dudeInQuestion.type).dimensions.y)
@@ -52,7 +61,6 @@ End Function
 
 Public Function findPath(n As Integer) As typCoords
 Dim i As Integer
-i = 0
 
 'move horizontally
 If Abs(unit(n).location.x - unit(n).target.x) >= unitType(unit(n).type).speed Then
@@ -91,7 +99,7 @@ Next i
 
 End Function
 
-Public Function findPathA(ByRef movingUnit As typUnit) As typCoords 'broken; when working, makes for shakey diagonals
+Public Function findPathA(ByRef movingUnit As typUnit) As typCoords 'broken; when working, makes shakey diagonals
 Dim u, d, l, r As Double
 Dim min As Double
 

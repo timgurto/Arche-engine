@@ -1,33 +1,35 @@
 VERSION 5.00
 Begin VB.Form frmGame 
+   BackColor       =   &H00004040&
    BorderStyle     =   0  'None
    Caption         =   "Form1"
    ClientHeight    =   9000
    ClientLeft      =   -15
    ClientTop       =   -15
-   ClientWidth     =   12000
+   ClientWidth     =   12015
+   Icon            =   "Game.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   600
    ScaleMode       =   3  'Pixel
-   ScaleWidth      =   800
+   ScaleWidth      =   801
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin VB.CommandButton Command3 
       Caption         =   "Delete Unit(s)"
       Height          =   375
-      Left            =   2400
+      Left            =   1920
       TabIndex        =   4
-      Top             =   8040
+      Top             =   8520
       Width           =   1695
    End
    Begin VB.CommandButton Command2 
       Caption         =   "Create new unit"
       Height          =   375
-      Left            =   2400
+      Left            =   1920
       TabIndex        =   3
-      Top             =   7560
+      Top             =   8040
       Width           =   1695
    End
    Begin VB.Frame Frame1 
@@ -40,23 +42,53 @@ Begin VB.Form frmGame
       Width           =   1695
    End
    Begin VB.PictureBox picGame 
+      Appearance      =   0  'Flat
       AutoRedraw      =   -1  'True
       BackColor       =   &H00008000&
+      ForeColor       =   &H80000008&
       Height          =   7335
       Left            =   0
-      ScaleHeight     =   7275
-      ScaleWidth      =   11940
+      ScaleHeight     =   7305
+      ScaleWidth      =   11970
       TabIndex        =   0
       Top             =   0
       Width           =   12000
       Begin VB.CommandButton Command1 
          Caption         =   "X"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
          Height          =   255
-         Left            =   11760
+         Left            =   11685
          TabIndex        =   1
          Top             =   0
-         Width           =   255
+         Width           =   300
       End
+   End
+   Begin VB.Label lblContextHelp 
+      BackColor       =   &H00000040&
+      Caption         =   "Test "
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   495
+      Left            =   1725
+      TabIndex        =   5
+      Top             =   7350
+      Width           =   4095
    End
 End
 Attribute VB_Name = "frmGame"
@@ -72,6 +104,7 @@ End
 End Sub
 
 Private Sub Command2_Click()
+Dim i As Integer
 Dim n As Integer
 n = activeUnits
 activeUnits = activeUnits + 1
@@ -118,7 +151,7 @@ End Sub
 Private Sub Form_Load()
 init
 
-Call ChangeRes(800, 600)
+If Not DEBUG_MODE Then Call ChangeRes(800, 600)
 Me.Show
 picGame.SetFocus
 
@@ -126,11 +159,13 @@ gameLoop
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-Call ChangeRes(1680, 1050)
+If Not DEBUG_MODE Then Call ChangeRes(1680, 1050)
 End
 End Sub
 
 Private Sub picGame_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
+Dim i As Integer
+
 If Button = 2 Then 'RMB
    For i = 0 To activeUnits - 1
       If unit(i).selected Then
@@ -146,6 +181,8 @@ End If
 End Sub
 
 Private Sub picGame_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Dim u As Integer
+
 If Not mouseDown Then
    selectionRectangleLoc1.x = x / Screen.TwipsPerPixelX
    selectionRectangleLoc1.y = y / Screen.TwipsPerPixelY
@@ -155,9 +192,16 @@ selectionRectangleLoc2.y = y / Screen.TwipsPerPixelY
 
 drawEverything
 
+writeContext ("")
+If pointCollidesWithUnit(makeCoords(x / Screen.TwipsPerPixelX, y / Screen.TwipsPerPixelY), u) Then
+   writeContext IIf(DEBUG_MODE, "Unit " & u & ": ", "") & unitType(unit(u).type).name
+End If
+
 End Sub
 
 Private Sub picGame_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Dim i As Integer
+
 If mouseDown Then
    For i = 0 To activeUnits - 1
       If Not ctrlDown Then unit(i).selected = False 'unselect, unless CTRL is being pressed
@@ -175,4 +219,8 @@ If mouseDown Then
    Next i
 End If
 mouseDown = False
+End Sub
+
+Private Sub writeContext(text As String)
+lblContextHelp.Caption = text
 End Sub
