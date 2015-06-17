@@ -99,6 +99,7 @@ unitType(4).health = 25
 unitType(4).armor = 0
 unitType(4).attack = 1
 unitType(4).healing = 20
+unitType(4).range = 3
 unitType(4).dc = CreateCompatibleDC(0)
 unitType(4).dc = LoadGraphicDC(App.Path & "\Images\cleric.bmp")
 unitType(4).portrait = CreateCompatibleDC(0)

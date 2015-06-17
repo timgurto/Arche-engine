@@ -67,4 +67,5 @@ Public Const PORTRAIT_WIDTH As Integer = 15
 Public Const PORTRAIT_HEIGHT As Integer = 15
 Public Const AUTO_ATTACKING As Boolean = True
 Public Const AUTO_ATTACK_RANGE As Integer = 150
+Public Const RANGED_UNIT As Integer = 50
 '*****************************************************

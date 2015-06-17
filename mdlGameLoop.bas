@@ -36,6 +36,14 @@ For i = 0 To activeUnits - 1
    End If
    
    unit(i).moving = distance(unit(i).location, unit(i).target) > unitType(unit(i).type).speed
+   If unit(i).targetUnit > -1 Then
+      unit(i).moving = IIf( _
+         unitType(unit(i).type).range > 0, _
+         distance(unit(i).location, unit(i).target) > unitType(unit(i).type).range * RANGED_UNIT, _
+         distance(unit(i).location, unit(i).target) > unitType(unit(i).type).speed _
+      )
+   End If
+   
 
    unit(i).attackTimer = unit(i).attackTimer + 20 'see gameLoop()
 
@@ -69,7 +77,7 @@ For i = 0 To activeUnits - 1
       If unit(i).targetUnit > -1 Then
          tar = unit(unit(i).targetUnit)
          If tar.player <> unit(i).player Then
-            If findPath(i).x = 0 And findPath(i).y = 0 And distance(unit(i).target, unit(i).location) < unitSize(i, unit(i).targetUnit) Then
+            If (unitType(unit(i).type).range > 0 Or (findPath(i).x = 0 And findPath(i).y = 0)) And distance(unit(i).target, unit(i).location) < max(unitSize(i, unit(i).targetUnit), unitType(unit(i).type).range * RANGED_UNIT) Then
                If (unit(unit(i).targetUnit).targetUnit = -1) Or unitType(unit(i).type).taunting Then unit(unit(i).targetUnit).targetUnit = i
                unit(i).combatMode = True
                unit(unit(i).targetUnit).health = tar.health - max(unitType(unit(i).type).attack - unitType(tar.type).armor, 0)
@@ -78,7 +86,7 @@ For i = 0 To activeUnits - 1
             End If
          Else
             If unitType(unit(i).type).healing > 0 Then
-               If findPath(i).x = 0 And findPath(i).y = 0 And distance(unit(i).target, unit(i).location) < unitSize(i, unit(i).targetUnit) Then
+               If (unitType(unit(i).type).range > 0 Or (findPath(i).x = 0 And findPath(i).y = 0)) And distance(unit(i).target, unit(i).location) < max(unitSize(i, unit(i).targetUnit), unitType(unit(i).type).range * RANGED_UNIT) Then
                   unit(i).combatMode = True
                   unit(unit(i).targetUnit).health = min(unit(unit(i).targetUnit).health + unitType(unit(i).type).healing, unitType(unit(unit(i).targetUnit).type).health)
                   frmGame.updateStats
