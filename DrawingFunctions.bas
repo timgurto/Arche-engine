@@ -5,13 +5,33 @@ Public Sub drawMap(m As typMap)
 Dim x As Integer
 Dim y As Integer
 Dim z As Long
-For x = 0 To m.dimensions.x - 1
-   For y = 0 To m.dimensions.y - 1
+Dim minn As typcoords
+Dim maxx As typcoords
+Dim displacement As typcoords
+
+minn.x = IIf(gameMap.displacement.x < 0, 0, gameMap.displacement.x / TERRAIN_TILE_SIZE)
+minn.y = IIf(gameMap.displacement.y < 0, 0, gameMap.displacement.y / TERRAIN_TILE_SIZE)
+maxx.x = (frmGame.picGame.Width + gameMap.displacement.x) / TERRAIN_TILE_SIZE + 1
+maxx.y = (frmGame.picGame.Height + gameMap.displacement.y) / TERRAIN_TILE_SIZE + 1
+For x = minn.x To maxx.x
+   For y = minn.y To maxx.y
       z = BitBlt(frmGame.picGame.hdc, (x - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.x, (y - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.y, TERRAIN_TILE_SIZE, TERRAIN_TILE_SIZE, terrain(m.terrain(x, y)).dc, TERRAIN_TILE_SIZE * terrain(m.terrain(x, y)).frame, 0, IIf(gameMap.explored(x, y), vbSrcCopy, vbBlack))
-      If FOG_OF_WAR Then If gameMap.fog(x, y) Then z = TransparentBlt(frmGame.picGame.hdc, (x - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.x, (y - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.y, TERRAIN_TILE_SIZE, TERRAIN_TILE_SIZE, fogDC, 0, 0, TERRAIN_TILE_SIZE, TERRAIN_TILE_SIZE, vbWhite)
+      'If FOG_OF_WAR Then If gameMap.fog(x, y) Then z = TransparentBlt(frmGame.picGame.hdc, (x - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.x, (y - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.y, TERRAIN_TILE_SIZE, TERRAIN_TILE_SIZE, fogDC, 0, 0, TERRAIN_TILE_SIZE, TERRAIN_TILE_SIZE, vbWhite)
    Next y
 Next x
 End Sub
+
+'Public Sub drawMap(m As typMap)
+'Dim x As Integer
+'Dim y As Integer
+'Dim z As Long
+'For x = 0 To m.dimensions.x - 1
+'   For y = 0 To m.dimensions.y - 1
+'      z = BitBlt(frmGame.picGame.hdc, (x - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.x, (y - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.y, TERRAIN_TILE_SIZE, TERRAIN_TILE_SIZE, terrain(m.terrain(x, y)).dc, TERRAIN_TILE_SIZE * terrain(m.terrain(x, y)).frame, 0, IIf(gameMap.explored(x, y), vbSrcCopy, vbBlack))
+'      'If FOG_OF_WAR Then If gameMap.fog(x, y) Then z = TransparentBlt(frmGame.picGame.hdc, (x - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.x, (y - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.y, TERRAIN_TILE_SIZE, TERRAIN_TILE_SIZE, fogDC, 0, 0, TERRAIN_TILE_SIZE, TERRAIN_TILE_SIZE, vbWhite)
+'   Next y
+'Next x
+'End Sub
 
 Public Sub drawUnit(u As typUnit)
 Dim t As typUnitType

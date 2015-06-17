@@ -7,8 +7,9 @@ Dim i As Integer
 Dim j As Integer
 Dim x As Integer, y As Integer
 Dim s As String
+Dim a, b, c, d As Byte
 
-Open App.Path & "\Data\demo.txt" For Input As #1
+Open App.Path & "\Data\core.txt" For Input As #1
 
 Input #1, activeCivs, s, s
 For i = 0 To activeCivs - 1
@@ -29,7 +30,8 @@ Input #1, s
 Input #1, activeTerrains, s, s
 For i = 0 To activeTerrains - 1
    With terrain(i)
-      Input #1, .name, .impassable, .frames, .frame
+      Input #1, .name, x, .frames, .frame
+      .impassable = (x = 1)
       .dc = makeDC("t" & i & ".bmp")
    End With
 Next i
@@ -50,13 +52,14 @@ For y = 0 To gameMap.dimensions.y - 1
 Next y
 Input #1, s
 
-Input #1, s
+'Input #1, s
 For y = 0 To gameMap.dimensions.y - 1
    For x = 0 To gameMap.dimensions.x - 1
-      Input #1, gameMap.explored(x, y)
+      'Input #1, gameMap.explored(x, y)
+      gameMap.explored(x, y) = DEBUG_MODE
    Next x
 Next y
-Input #1, s
+'Input #1, s
 
 Input #1, activeUnitTypes, s, s
 For i = 0 To activeUnitTypes - 1
@@ -64,7 +67,8 @@ For i = 0 To activeUnitTypes - 1
       Input #1, .name, .health, .armor, .attack, .healing, .range, _
       .background, .portraitBackground, .dimensions.x, .dimensions.y, _
       .corpse, .selectSound, .attackSound, .deathSound, .speed, _
-      .attackSpeed, .frames, .lineOfSight, .taunting
+      .attackSpeed, .frames, .lineOfSight, x
+      .taunting = (x = 1)
       .dc = makeDC("u" & i & ".bmp")
       .portrait = makeDC("p" & i & ".bmp")
    End With
@@ -75,8 +79,14 @@ Input #1, activeUnits, s, s
 For i = 0 To activeUnits - 1
    With unit(i)
       Input #1, .type, .health, .location.x, .location.y, .targetUnit, _
-      .target.x, .target.y, .player, .moving, .frame, .attackTimer, _
-      .direction, .selected, .freezeFrame, .exploring, .combatMode
+      .target.x, .target.y, .player, x, .frame, .attackTimer, _
+      .direction, a, b, c, d
+      
+      .moving = x
+      .selected = a
+      .freezeFrame = b
+      .exploring = c
+      .combatMode = d
    End With
 Next i
 Input #1, s
@@ -121,5 +131,6 @@ needReExplore = True
 refreshCount = 0
 ctrlDown = False
 scrollDir = dirN
+frmGame.updateStats
 
 End Sub

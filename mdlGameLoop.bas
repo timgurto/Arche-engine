@@ -8,6 +8,17 @@ Dim d As Long
 Dim minDistance As Integer
 Dim tar As typUnit
 
+'terrainFrameTimer = terrainFrameTimer - LOOP_FRAME_THINGS
+'If terrainFrameTimer <= 0 Then
+'   terrainFrameTimer = TERRAIN_FRAME_LENGTH
+'   For j = 0 To activeTerrains - 1
+'      If terrain(j).frames > 0 Then
+'         increment terrain(j).frame
+'         If terrain(j).frame = terrain(j).frames Then terrain(j).frame = 0
+'      End If
+'   Next j
+'End If
+
 refreshCount = refreshCount + 1
 If refreshCount = REFRESHES_PER_FRAME Then
    For i = 0 To activeUnits - 1
@@ -21,16 +32,7 @@ If refreshCount = REFRESHES_PER_FRAME Then
    Next i
 End If
 
-terrainFrameTimer = terrainFrameTimer - 20
-If terrainFrameTimer <= 0 Then
-   terrainFrameTimer = TERRAIN_FRAME_LENGTH
-   For j = 0 To activeTerrains - 1
-      If terrain(j).frames > 0 Then
-         increment terrain(j).frame
-         If terrain(j).frame = terrain(j).frames Then terrain(j).frame = 0
-      End If
-   Next j
-End If
+
 
 For i = 0 To activeUnits - 1
    If unit(i).targetUnit > -1 Then
@@ -56,7 +58,7 @@ For i = 0 To activeUnits - 1
    End If
    
 
-   unit(i).attackTimer = unit(i).attackTimer + 20 'see gameLoop()
+   unit(i).attackTimer = unit(i).attackTimer + LOOP_FRAME_THINGS 'see gameLoop()
 
    'Autoattacking
    If AUTO_ATTACKING Then
@@ -142,7 +144,7 @@ Next i
 For i = 0 To activeUnits - 1
    'if visible
    If gameMap.explored(getUnitTile(i).x, getUnitTile(i).y) Then
-      drawPlayerMark unit(i)
+      'drawPlayerMark unit(i)
       If unit(i).selected Then drawSelection unit(i)
       drawUnit unit(i)
       drawUnit unit(i)
@@ -168,7 +170,7 @@ End Sub
 
 Public Sub gameLoop()
 
-Const tickDifference As Long = 20
+Const tickDifference As Long = LOOP_FRAME_THINGS
 Dim lastTick As Long
 Dim currentTick As Long
 

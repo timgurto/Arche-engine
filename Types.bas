@@ -14,7 +14,7 @@ Public Type typTarget
 End Type
 
 Public Type typTerrain
-   name As Long
+   name As String
    dc As Long
    impassable As Boolean
    frames As Integer
@@ -24,9 +24,9 @@ End Type
 Public Type typMap
    dimensions As typcoords
    displacement As typcoords
-   terrain(100, 100) As Integer
-   explored(100, 100) As Boolean
-   fog(100, 100) As Boolean
+   terrain(150, 150) As Byte
+   explored(150, 150) As Byte
+   'fog(150, 150) As Byte
 End Type
 
 Public Type typCiv
@@ -43,7 +43,7 @@ End Type
 Public Type typUnitType
    name As String
    speed As Integer
-   attackSpeed As Integer 'ms.  Multiple of 20.  Attacks every x ms.
+   attackSpeed As Integer 'ms.  Multiple of LOOP_FRAME_THINGS.  Attacks every x ms.
    health As Integer
    armor As Integer
    attack As Integer

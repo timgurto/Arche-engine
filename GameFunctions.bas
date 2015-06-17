@@ -177,57 +177,35 @@ Dim mid As typcoords 'the middle of each tile
 Dim disX As Long 'the sub-squared X half of the distance equation
 Dim loc As typcoords
 Dim uT As typUnitType
-
-If FOG_OF_WAR Then
-
-   For i = 0 To gameMap.dimensions.x - 1 'set fog initially
-      For j = 0 To gameMap.dimensions.y - 1
-         gameMap.fog(i, j) = True
-      Next j
-   Next i
-   
-   'distance = Sqr((a.X - b.X) ^ 2 + (a.Y - b.Y) ^ 2)
-   For n = 0 To activeUnits - 1
-      If unit(n).player = you And unit(n).exploring Then
-         loc = unit(n).location
-         uT = unitType(unit(n).type)
-         For i = 0 To gameMap.dimensions.x - 1
-            mid.x = (i - 0.5) * TERRAIN_TILE_SIZE
-            disX = (mid.x - loc.x) ^ 2
-            For j = 0 To gameMap.dimensions.y - 1
-               mid.y = (j - 0.5) * TERRAIN_TILE_SIZE
-               If Sqr(disX + (mid.y - loc.y) ^ 2) <= uT.lineOfSight Then
-                  gameMap.explored(i, j) = True
-                  gameMap.fog(i, j) = False
-               End If
-            Next j
-         Next i
-         unit(n).exploring = False
-      End If
-   Next n
-   
-Else
+Dim tile As typcoords
+Dim tileRadius As Integer
+Dim minn As typcoords, maxx As typcoords
 
    For n = 0 To activeUnits - 1
       If unit(n).player = you And unit(n).exploring Then
-         For i = 0 To gameMap.dimensions.x - 1
-            For j = 0 To gameMap.dimensions.y - 1
+         tile = getUnitTile(n)
+         tileRadius = unitType(unit(n).type).lineOfSight / TERRAIN_TILE_SIZE + 1
+         minn.x = max(tile.x - tileRadius, 0)
+         minn.y = max(tile.y - tileRadius, 0)
+         maxx.x = min(tile.x + tileRadius, gameMap.dimensions.x - 1)
+         maxx.y = min(tile.y + tileRadius, gameMap.dimensions.y - 1)
+          For i = minn.x To maxx.x
+            For j = minn.y To maxx.y
                If Not gameMap.explored(i, j) Then
                   If distance(unit(n).location, makeCoords((i - 0.5) * TERRAIN_TILE_SIZE, (j - 0.5) * TERRAIN_TILE_SIZE)) <= unitType(unit(n).type).lineOfSight Then
-                     gameMap.explored(i, j) = True
+                     gameMap.explored(i, j) = 1
                   End If
                End If
             Next j
          Next i
-         unit(n).exploring = False
+         unit(n).exploring = 0
       End If
    Next n
          
-End If
 
-needReExplore = False
+
+needReExplore = 0
 End Function
-
 
 Public Function getSelected() As Integer
 getSelected = -1
