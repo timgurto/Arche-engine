@@ -28,7 +28,12 @@ For i = 0 To activeUnits - 1
 
 Next i
 
-If needReExplore Then exploreMap
+If DEBUG_MODE Then frmGame.shpExplore.BackColor = vbGreen
+If needReExplore Then
+   exploreMap
+   If DEBUG_MODE Then frmGame.shpExplore.BackColor = vbRed
+End If
+
 drawEverything
 
 End Sub

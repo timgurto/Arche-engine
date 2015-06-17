@@ -44,5 +44,6 @@ Public Type typUnit
    direction As Byte
    selected As Boolean
    freezeFrame As Boolean 'whether to freeze the next frame of animation
+   exploring As Boolean
 End Type
 

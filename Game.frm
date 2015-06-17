@@ -3,38 +3,38 @@ Begin VB.Form frmGame
    BackColor       =   &H00000040&
    BorderStyle     =   0  'None
    Caption         =   "Form1"
-   ClientHeight    =   9000
+   ClientHeight    =   11520
    ClientLeft      =   795
    ClientTop       =   0
-   ClientWidth     =   12000
+   ClientWidth     =   15360
    Icon            =   "Game.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   600
+   ScaleHeight     =   768
    ScaleMode       =   3  'Pixel
-   ScaleWidth      =   800
+   ScaleWidth      =   1024
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.Timer tmrScroll 
       Interval        =   8
-      Left            =   8880
-      Top             =   8040
+      Left            =   14520
+      Top             =   11040
    End
    Begin VB.CommandButton Command3 
       Caption         =   "Delete Unit(s)"
       Height          =   375
-      Left            =   1920
+      Left            =   10200
       TabIndex        =   2
-      Top             =   8520
+      Top             =   10920
       Width           =   1695
    End
    Begin VB.CommandButton Command2 
       Caption         =   "Create new unit"
       Height          =   375
-      Left            =   1920
+      Left            =   8520
       TabIndex        =   1
-      Top             =   8040
+      Top             =   10920
       Width           =   1695
    End
    Begin VB.PictureBox picGame 
@@ -42,43 +42,52 @@ Begin VB.Form frmGame
       AutoRedraw      =   -1  'True
       BackColor       =   &H00000000&
       ForeColor       =   &H80000008&
-      Height          =   7080
+      Height          =   10560
       Left            =   45
-      ScaleHeight     =   7050
-      ScaleWidth      =   11880
+      ScaleHeight     =   10530
+      ScaleWidth      =   15240
       TabIndex        =   0
       Top             =   255
-      Width           =   11910
+      Width           =   15270
+   End
+   Begin VB.Shape shpExplore 
+      BackColor       =   &H0000FF00&
+      BackStyle       =   1  'Opaque
+      Height          =   495
+      Left            =   8160
+      Top             =   10920
+      Visible         =   0   'False
+      Width           =   255
    End
    Begin VB.Label lblUnits 
       Height          =   255
       Left            =   120
       TabIndex        =   16
-      Top             =   7440
+      Top             =   10920
       Visible         =   0   'False
       Width           =   1335
    End
    Begin VB.Label lblMapCoords 
       Height          =   255
-      Left            =   5880
+      Left            =   12120
       TabIndex        =   15
-      Top             =   7920
+      Top             =   11280
       Visible         =   0   'False
       Width           =   2175
    End
    Begin VB.Label lblDisplacement 
       Height          =   255
-      Left            =   5880
+      Left            =   12120
       TabIndex        =   14
-      Top             =   7680
+      Top             =   11040
       Visible         =   0   'False
       Width           =   2175
    End
    Begin VB.Label lblCoords 
       Height          =   255
-      Left            =   5880
+      Left            =   12120
       TabIndex        =   13
-      Top             =   7440
+      Top             =   10800
       Visible         =   0   'False
       Width           =   2175
    End
@@ -87,7 +96,7 @@ Begin VB.Form frmGame
       Height          =   45
       Left            =   0
       TabIndex        =   12
-      Top             =   8955
+      Top             =   11475
       Width           =   45
    End
    Begin VB.Label lblTopLeft 
@@ -101,15 +110,15 @@ Begin VB.Form frmGame
    Begin VB.Label lblBottomRight 
       BackStyle       =   0  'Transparent
       Height          =   45
-      Left            =   11955
+      Left            =   15315
       TabIndex        =   10
-      Top             =   8955
+      Top             =   11475
       Width           =   45
    End
    Begin VB.Label lblTopRight 
       BackStyle       =   0  'Transparent
       Height          =   45
-      Left            =   11955
+      Left            =   15315
       TabIndex        =   9
       Top             =   0
       Width           =   45
@@ -119,8 +128,8 @@ Begin VB.Form frmGame
       Height          =   45
       Left            =   45
       TabIndex        =   8
-      Top             =   8955
-      Width           =   11910
+      Top             =   11475
+      Width           =   15270
    End
    Begin VB.Label lblTop 
       BackStyle       =   0  'Transparent
@@ -128,19 +137,19 @@ Begin VB.Form frmGame
       Left            =   45
       TabIndex        =   7
       Top             =   0
-      Width           =   11910
+      Width           =   15270
    End
    Begin VB.Label lblRight 
       BackStyle       =   0  'Transparent
-      Height          =   8910
-      Left            =   11955
+      Height          =   11430
+      Left            =   15315
       TabIndex        =   5
       Top             =   45
       Width           =   45
    End
    Begin VB.Label lblLeft 
       BackStyle       =   0  'Transparent
-      Height          =   8910
+      Height          =   11430
       Left            =   0
       TabIndex        =   4
       Top             =   45
@@ -160,7 +169,7 @@ Begin VB.Form frmGame
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   11760
+      Left            =   15120
       TabIndex        =   6
       Top             =   0
       Width           =   255
@@ -181,7 +190,7 @@ Begin VB.Form frmGame
       Height          =   495
       Left            =   1710
       TabIndex        =   3
-      Top             =   7350
+      Top             =   10830
       Width           =   4095
    End
 End
@@ -197,7 +206,7 @@ Call ChangeRes(1680, 1050)
 End
 End Sub
 
-Private Sub Command1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Command1_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 scrollDir = dirN
 tmrScroll.Enabled = False
 End Sub
@@ -221,8 +230,8 @@ unit(n).selected = False
 unit(n).freezeFrame = False
 
 Do
-   unit(n).location.X = Int(Rnd * (gameMap.dimensions.X * 48) + 1)
-   unit(n).location.Y = Int(Rnd * (gameMap.dimensions.Y * 48) + 1)
+   unit(n).location.x = Int(Rnd * (gameMap.dimensions.x * 48) + 1)
+   unit(n).location.y = Int(Rnd * (gameMap.dimensions.y * 48) + 1)
    collides = False
    
    For i = 0 To activeUnits - 1
@@ -235,58 +244,60 @@ Do
 Loop Until Not collides
 
 unit(n).target = unit(n).location
-'exploreMap
+
+needReExplore = True
+
 End Sub
 
 Private Sub Command3_Click()
 deleteUnits
 End Sub
 
-Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 scrollDir = dirN
 tmrScroll.Enabled = False
 End Sub
 
-Private Sub Label1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Label1_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 scrollDir = dirN
 tmrScroll.Enabled = False
 End Sub
 
-Private Sub lblContextHelp_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub lblContextHelp_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 scrollDir = dirN
 tmrScroll.Enabled = False
 End Sub
 
-Private Sub lblTop_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub lblTop_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 scrollDir = dirU
 tmrScroll.Enabled = True
 End Sub
-Private Sub lblBottom_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub lblBottom_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 scrollDir = dirD
 tmrScroll.Enabled = True
 End Sub
-Private Sub lblLeft_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub lblLeft_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 scrollDir = dirL
 tmrScroll.Enabled = True
 End Sub
-Private Sub lblRight_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub lblRight_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 scrollDir = dirR
 tmrScroll.Enabled = True
 End Sub
 
-Private Sub lblTopRight_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub lblTopRight_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 scrollDir = dirE
 tmrScroll.Enabled = True
 End Sub
-Private Sub lblBottomRight_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub lblBottomRight_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 scrollDir = dirF
 tmrScroll.Enabled = True
 End Sub
-Private Sub lblBottomLeft_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub lblBottomLeft_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 scrollDir = dirG
 tmrScroll.Enabled = True
 End Sub
-Private Sub lblTopLeft_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub lblTopLeft_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 scrollDir = dirH
 tmrScroll.Enabled = True
 End Sub
@@ -303,7 +314,7 @@ End Sub
 Private Sub Form_Load()
 init
 
-If Not DEBUG_MODE Then Call ChangeRes(800, 600)
+If Not DEBUG_MODE Then Call ChangeRes(1024, 768)
 Me.Show
 picGame.SetFocus
 
@@ -312,6 +323,7 @@ If DEBUG_MODE Then
    lblDisplacement.Visible = True
    lblMapCoords.Visible = True
    lblUnits.Visible = True
+   shpExplore.Visible = True
 End If
 
 gameLoop
@@ -322,14 +334,14 @@ If Not DEBUG_MODE Then Call ChangeRes(1680, 1050)
 End
 End Sub
 
-Private Sub picGame_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub picGame_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
 Dim i As Integer
 
 If Button = 2 Then 'RMB
    For i = 0 To activeUnits - 1
       If unit(i).selected Then
-         unit(i).target.X = X / Screen.TwipsPerPixelX + gameMap.displacement.X
-         unit(i).target.Y = Y / Screen.TwipsPerPixelY + gameMap.displacement.Y
+         unit(i).target.x = x / Screen.TwipsPerPixelX + gameMap.displacement.x
+         unit(i).target.y = y / Screen.TwipsPerPixelY + gameMap.displacement.y
          unit(i).moving = True
       End If
    Next i
@@ -339,46 +351,46 @@ ElseIf Button = 1 Then 'LMB
 End If
 End Sub
 
-Private Sub picGame_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub picGame_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 Dim u As Integer
 
 If DEBUG_MODE Then
-   lblCoords.Caption = "Co-ords: (" & X / Screen.TwipsPerPixelX & ", " & Y / Screen.TwipsPerPixelY & ")"
-   lblMapCoords.Caption = "Map Co-ords: (" & X / Screen.TwipsPerPixelX + gameMap.displacement.X & ", " & Y / Screen.TwipsPerPixelY + gameMap.displacement.Y & ")"
+   lblCoords.Caption = "Co-ords: (" & x / Screen.TwipsPerPixelX & ", " & y / Screen.TwipsPerPixelY & ")"
+   lblMapCoords.Caption = "Map Co-ords: (" & x / Screen.TwipsPerPixelX + gameMap.displacement.x & ", " & y / Screen.TwipsPerPixelY + gameMap.displacement.y & ")"
 End If
 
 scrollDir = dirN
 
 If Not mouseDown Then
-   selectionRectangleLoc1.X = X / Screen.TwipsPerPixelX
-   selectionRectangleLoc1.Y = Y / Screen.TwipsPerPixelY
+   selectionRectangleLoc1.x = x / Screen.TwipsPerPixelX
+   selectionRectangleLoc1.y = y / Screen.TwipsPerPixelY
 End If
-selectionRectangleLoc2.X = X / Screen.TwipsPerPixelX
-selectionRectangleLoc2.Y = Y / Screen.TwipsPerPixelY
+selectionRectangleLoc2.x = x / Screen.TwipsPerPixelX
+selectionRectangleLoc2.y = y / Screen.TwipsPerPixelY
 
 drawEverything
 
 writeContext ("")
-If pointCollidesWithUnit(addCoords(makeCoords(X / Screen.TwipsPerPixelX, Y / Screen.TwipsPerPixelY), gameMap.displacement), u) Then
+If pointCollidesWithUnit(addCoords(makeCoords(x / Screen.TwipsPerPixelX, y / Screen.TwipsPerPixelY), gameMap.displacement), u) Then
    writeContext IIf(DEBUG_MODE, "Unit " & u & ": ", "") & unitType(unit(u).type).name
 End If
 
 End Sub
 
-Private Sub picGame_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub picGame_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
 Dim i As Integer
 
 If mouseDown Then
    For i = 0 To activeUnits - 1
       If Not ctrlDown Then unit(i).selected = False 'unselect, unless CTRL is being pressed
-      If (selectionRectangleLoc2.X + gameMap.displacement.X >= unit(i).location.X - unitType(unit(i).type).dimensions.X / 2 And _
-          selectionRectangleLoc1.X + gameMap.displacement.X <= unit(i).location.X + unitType(unit(i).type).dimensions.X / 2) Or _
-         (selectionRectangleLoc2.X + gameMap.displacement.X <= unit(i).location.X + unitType(unit(i).type).dimensions.X / 2 And _
-          selectionRectangleLoc1.X + gameMap.displacement.X >= unit(i).location.X - unitType(unit(i).type).dimensions.X / 2) Then
-         If (selectionRectangleLoc2.Y + gameMap.displacement.Y >= unit(i).location.Y - unitType(unit(i).type).dimensions.Y * (7 / 8) And _
-             selectionRectangleLoc1.Y + gameMap.displacement.Y <= unit(i).location.Y + unitType(unit(i).type).dimensions.Y * (1 / 8)) Or _
-            (selectionRectangleLoc2.Y + gameMap.displacement.Y <= unit(i).location.Y + unitType(unit(i).type).dimensions.Y * (1 / 8) And _
-             selectionRectangleLoc1.Y + gameMap.displacement.Y >= unit(i).location.Y - unitType(unit(i).type).dimensions.Y * (7 / 8)) Then
+      If (selectionRectangleLoc2.x + gameMap.displacement.x >= unit(i).location.x - unitType(unit(i).type).dimensions.x / 2 And _
+          selectionRectangleLoc1.x + gameMap.displacement.x <= unit(i).location.x + unitType(unit(i).type).dimensions.x / 2) Or _
+         (selectionRectangleLoc2.x + gameMap.displacement.x <= unit(i).location.x + unitType(unit(i).type).dimensions.x / 2 And _
+          selectionRectangleLoc1.x + gameMap.displacement.x >= unit(i).location.x - unitType(unit(i).type).dimensions.x / 2) Then
+         If (selectionRectangleLoc2.y + gameMap.displacement.y >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (7 / 8) And _
+             selectionRectangleLoc1.y + gameMap.displacement.y <= unit(i).location.y + unitType(unit(i).type).dimensions.y * (1 / 8)) Or _
+            (selectionRectangleLoc2.y + gameMap.displacement.y <= unit(i).location.y + unitType(unit(i).type).dimensions.y * (1 / 8) And _
+             selectionRectangleLoc1.y + gameMap.displacement.y >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (7 / 8)) Then
             unit(i).selected = Not (unit(i).selected = True And ctrlDown)
          End If
       End If
@@ -411,5 +423,5 @@ Select Case scrollDir
       gameMap.displacement = addCoords(gameMap.displacement, makeCoords(-2, -2))
 End Select
 
-If DEBUG_MODE Then lblDisplacement.Caption = "Displacement: (" & gameMap.displacement.X & ", " & gameMap.displacement.Y & ")"
+If DEBUG_MODE Then lblDisplacement.Caption = "Displacement: (" & gameMap.displacement.x & ", " & gameMap.displacement.y & ")"
 End Sub

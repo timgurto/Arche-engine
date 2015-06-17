@@ -32,8 +32,8 @@ Public Function findPath(n As Integer) As typCoords
 Dim i As Integer
 
 'move horizontally
-If Abs(unit(n).location.X - unit(n).target.X) >= unitType(unit(n).type).speed Then
-   If unit(n).location.X < unit(n).target.X Then
+If Abs(unit(n).location.x - unit(n).target.x) >= unitType(unit(n).type).speed Then
+   If unit(n).location.x < unit(n).target.x Then
       unit(n).direction = dirR
       findPath = moveRight(unitType(unit(n).type).speed)
    Else
@@ -42,8 +42,8 @@ If Abs(unit(n).location.X - unit(n).target.X) >= unitType(unit(n).type).speed Th
    End If
 
 'move vertically
-ElseIf Abs(unit(n).location.Y - unit(n).target.Y) >= unitType(unit(n).type).speed Then
-   If unit(n).location.Y < unit(n).target.Y Then
+ElseIf Abs(unit(n).location.y - unit(n).target.y) >= unitType(unit(n).type).speed Then
+   If unit(n).location.y < unit(n).target.y Then
       unit(n).direction = dirD
       findPath = moveDown(unitType(unit(n).type).speed)
    Else
@@ -73,7 +73,8 @@ For i = 0 To activeUnits - 1
    End If
 Next i
 
-If Not (findPath.X = 0 And findPath.Y = 0) Then 'if a path is found, and thus if the unit will move
+If Not (findPath.x = 0 And findPath.y = 0) Then 'if a path is found, and thus if the unit will move
+   unit(n).exploring = True
    needReExplore = True
 End If
 
@@ -89,28 +90,54 @@ Dim disX As Long 'the sub-squared X half of the distance equation
 Dim loc As typCoords
 Dim uT As typUnitType
 
-For i = 1 To gameMap.dimensions.X 'set fog initially
-   For j = 1 To gameMap.dimensions.Y
-      gameMap.fog(i, j) = True
-   Next j
-Next i
+If FOG_OF_WAR Then
 
-'distance = Sqr((a.X - b.X) ^ 2 + (a.Y - b.Y) ^ 2)
-For n = 0 To activeUnits - 1
-   loc = unit(n).location
-   uT = unitType(unit(n).type)
-   For i = 1 To gameMap.dimensions.X
-      mid.X = (i - 0.5) * TERRAIN_TILE_SIZE
-      disX = (mid.X - loc.X) ^ 2
-      For j = 1 To gameMap.dimensions.Y
-         mid.Y = (j - 0.5) * TERRAIN_TILE_SIZE
-         If Sqr(disX + (mid.Y - loc.Y) ^ 2) <= uT.lineOfSight Then
-            gameMap.explored(i, j) = True
-            gameMap.fog(i, j) = False
-         End If
+   For i = 1 To gameMap.dimensions.x 'set fog initially
+      For j = 1 To gameMap.dimensions.y
+         gameMap.fog(i, j) = True
       Next j
    Next i
-Next n
+   
+   'distance = Sqr((a.X - b.X) ^ 2 + (a.Y - b.Y) ^ 2)
+   For n = 0 To activeUnits - 1
+      If unit(n).exploring Then
+         loc = unit(n).location
+         uT = unitType(unit(n).type)
+         For i = 1 To gameMap.dimensions.x
+            mid.x = (i - 0.5) * TERRAIN_TILE_SIZE
+            disX = (mid.x - loc.x) ^ 2
+            For j = 1 To gameMap.dimensions.y
+               mid.y = (j - 0.5) * TERRAIN_TILE_SIZE
+               If Sqr(disX + (mid.y - loc.y) ^ 2) <= uT.lineOfSight Then
+                  gameMap.explored(i, j) = True
+                  gameMap.fog(i, j) = False
+               End If
+            Next j
+         Next i
+         unit(n).exploring = False
+      End If
+   Next n
+   
+Else
+
+   For n = 0 To activeUnits - 1
+      If unit(n).exploring Then
+         For i = 1 To gameMap.dimensions.x
+            For j = 1 To gameMap.dimensions.x
+               If Not gameMap.explored(i, j) Then
+                  If distance(unit(n).location, makeCoords((i - 0.5) * TERRAIN_TILE_SIZE, (j - 0.5) * TERRAIN_TILE_SIZE)) <= unitType(unit(n).type).lineOfSight Then
+                     gameMap.explored(i, j) = True
+                  End If
+               End If
+            Next j
+         Next i
+         unit(n).exploring = False
+      End If
+   Next n
+         
+End If
+
+needReExplore = False
 End Function
 
 

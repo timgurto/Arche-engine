@@ -55,4 +55,5 @@ Public Const SELECTION_RECTANGLE_SHADOW As Boolean = True 'whether the selection
 Public Const KEEP_WALKING_ON_COLLISION As Boolean = False 'whether units continue their walking animation while waiting for an obstructin to be removed
 Public Const SHOW_SELECTED_TARGETS As Boolean = True 'whether selected units' targets are displayed
 Public Const TERRAIN_TILE_SIZE As Integer = 48 'the x and y dimensions of each terrain tile
+Public Const FOG_OF_WAR As Boolean = False
 '*****************************************************
