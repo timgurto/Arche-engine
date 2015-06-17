@@ -60,11 +60,8 @@ Private Sub Form_Unload(Cancel As Integer)
 End
 End Sub
 
-Private Sub Timer1_Timer()
-unit(1).location.x = unit(1).location.x + unitType(unit(1).type).speed
-Dim x As Long
-picGame.Cls
-drawUnit unit(1)
-'x = BitBlt(picGame.hdc, y, 0, 54, 56, caveman.dc, 0, 0, vbSrcCopy)
-picGame.Refresh
+Private Sub picGame_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
+If Button = 2 Then 'RMB
+   unit(1).target = makeCoords(Int(x / 12), Int(y / 12))
+End If
 End Sub

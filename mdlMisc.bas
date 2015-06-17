@@ -1,6 +1,11 @@
 Attribute VB_Name = "mdlMisc"
 Option Explicit
 
+Public Function makeCoords(x As Integer, y As Integer) As typCoords
+makeCoords.x = x
+makeCoords.y = y
+End Function
+
 Public Function distance(a As typCoords, b As typCoords) As Double
 distance = Sqr((a.x - b.x) ^ 2 + (a.y - b.y) ^ 2)
 End Function
