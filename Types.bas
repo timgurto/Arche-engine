@@ -2,8 +2,8 @@ Attribute VB_Name = "mdlTypes"
 Option Explicit
 
 Public Type typCoords
-   X As Integer
-   Y As Integer
+   x As Integer
+   y As Integer
 End Type
 
 
@@ -22,6 +22,7 @@ Public Type typMap
    displacement As typCoords
    terrain(100, 100) As Integer
    explored(100, 100) As Boolean
+   fog(100, 100) As Boolean
 End Type
 
 Public Type typUnitType

@@ -73,19 +73,44 @@ For i = 0 To activeUnits - 1
    End If
 Next i
 
+If Not (findPath.X = 0 And findPath.Y = 0) Then 'if a path is found, and thus if the unit will move
+   needReExplore = True
+End If
+
 '**********************
 End Function
 
-Public Function exploreMap(u As typUnit)
+Public Function exploreMap()
+Dim n As Integer
 Dim i As Integer
 Dim j As Integer
-For i = 1 To gameMap.dimensions.X
+Dim mid As typCoords 'the middle of each tile
+Dim disX As Long 'the sub-squared X half of the distance equation
+Dim loc As typCoords
+Dim uT As typUnitType
+
+For i = 1 To gameMap.dimensions.X 'set fog initially
    For j = 1 To gameMap.dimensions.Y
-      If distance(u.location, makeCoords((i - 0.5) * TERRAIN_TILE_SIZE, (j - 0.5) * TERRAIN_TILE_SIZE)) <= unitType(u.type).lineofsight Then
-         gameMap.explored(i, j) = True
-      End If
+      gameMap.fog(i, j) = True
    Next j
 Next i
+
+'distance = Sqr((a.X - b.X) ^ 2 + (a.Y - b.Y) ^ 2)
+For n = 0 To activeUnits - 1
+   loc = unit(n).location
+   uT = unitType(unit(n).type)
+   For i = 1 To gameMap.dimensions.X
+      mid.X = (i - 0.5) * TERRAIN_TILE_SIZE
+      disX = (mid.X - loc.X) ^ 2
+      For j = 1 To gameMap.dimensions.Y
+         mid.Y = (j - 0.5) * TERRAIN_TILE_SIZE
+         If Sqr(disX + (mid.Y - loc.Y) ^ 2) <= uT.lineOfSight Then
+            gameMap.explored(i, j) = True
+            gameMap.fog(i, j) = False
+         End If
+      Next j
+   Next i
+Next n
 End Function
 
 

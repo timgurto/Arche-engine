@@ -38,13 +38,17 @@ Public activeUnits As Integer
 Public target As typTarget
 
 Public terrain(10) As typTerrain
+
 Public gameMap As typMap
+Public fogDC As Long
 
 Public ctrlDown As Boolean
 Public mouseDown As Boolean
 
 Public selectionRectangleLoc1 As typCoords
 Public selectionRectangleLoc2 As typCoords
+
+Public needReExplore As Boolean
 
 '***GAME OPTIONS - USE THESE TO CUSTOMIZE YOUR GAME***
 Public Const SELECTION_RECTANGLE_SHADOW As Boolean = True 'whether the selection rectangle has a shadow

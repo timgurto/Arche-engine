@@ -197,8 +197,9 @@ Call ChangeRes(1680, 1050)
 End
 End Sub
 
-Private Sub Command1_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 scrollDir = dirN
+tmrScroll.Enabled = False
 End Sub
 
 Private Sub Command2_Click()
@@ -220,8 +221,8 @@ unit(n).selected = False
 unit(n).freezeFrame = False
 
 Do
-   unit(n).location.x = Int(Rnd * (gameMap.dimensions.x * 48) + 1)
-   unit(n).location.y = Int(Rnd * (gameMap.dimensions.y * 48) + 1)
+   unit(n).location.X = Int(Rnd * (gameMap.dimensions.X * 48) + 1)
+   unit(n).location.Y = Int(Rnd * (gameMap.dimensions.Y * 48) + 1)
    collides = False
    
    For i = 0 To activeUnits - 1
@@ -234,49 +235,60 @@ Do
 Loop Until Not collides
 
 unit(n).target = unit(n).location
-exploreMap unit(n)
+'exploreMap
 End Sub
 
 Private Sub Command3_Click()
 deleteUnits
 End Sub
 
-Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 scrollDir = dirN
+tmrScroll.Enabled = False
 End Sub
 
-Private Sub Label1_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Label1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 scrollDir = dirN
+tmrScroll.Enabled = False
 End Sub
 
-Private Sub lblContextHelp_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub lblContextHelp_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 scrollDir = dirN
+tmrScroll.Enabled = False
 End Sub
 
-Private Sub lblTop_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub lblTop_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 scrollDir = dirU
+tmrScroll.Enabled = True
 End Sub
-Private Sub lblBottom_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub lblBottom_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 scrollDir = dirD
+tmrScroll.Enabled = True
 End Sub
-Private Sub lblLeft_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub lblLeft_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 scrollDir = dirL
+tmrScroll.Enabled = True
 End Sub
-Private Sub lblRight_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub lblRight_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 scrollDir = dirR
+tmrScroll.Enabled = True
 End Sub
 
-Private Sub lblTopRight_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub lblTopRight_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 scrollDir = dirE
+tmrScroll.Enabled = True
 End Sub
-Private Sub lblBottomRight_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub lblBottomRight_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 scrollDir = dirF
+tmrScroll.Enabled = True
 End Sub
-Private Sub lblBottomLeft_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub lblBottomLeft_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 scrollDir = dirG
+tmrScroll.Enabled = True
 End Sub
-Private Sub lblTopLeft_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub lblTopLeft_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 scrollDir = dirH
+tmrScroll.Enabled = True
 End Sub
 
 Private Sub picGame_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -310,14 +322,14 @@ If Not DEBUG_MODE Then Call ChangeRes(1680, 1050)
 End
 End Sub
 
-Private Sub picGame_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub picGame_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
 Dim i As Integer
 
 If Button = 2 Then 'RMB
    For i = 0 To activeUnits - 1
       If unit(i).selected Then
-         unit(i).target.x = x / Screen.TwipsPerPixelX + gameMap.displacement.x
-         unit(i).target.y = y / Screen.TwipsPerPixelY + gameMap.displacement.y
+         unit(i).target.X = X / Screen.TwipsPerPixelX + gameMap.displacement.X
+         unit(i).target.Y = Y / Screen.TwipsPerPixelY + gameMap.displacement.Y
          unit(i).moving = True
       End If
    Next i
@@ -327,46 +339,46 @@ ElseIf Button = 1 Then 'LMB
 End If
 End Sub
 
-Private Sub picGame_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub picGame_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 Dim u As Integer
 
 If DEBUG_MODE Then
-   lblCoords.Caption = "Co-ords: (" & x / Screen.TwipsPerPixelX & ", " & y / Screen.TwipsPerPixelY & ")"
-   lblMapCoords.Caption = "Map Co-ords: (" & x / Screen.TwipsPerPixelX + gameMap.displacement.x & ", " & y / Screen.TwipsPerPixelY + gameMap.displacement.y & ")"
+   lblCoords.Caption = "Co-ords: (" & X / Screen.TwipsPerPixelX & ", " & Y / Screen.TwipsPerPixelY & ")"
+   lblMapCoords.Caption = "Map Co-ords: (" & X / Screen.TwipsPerPixelX + gameMap.displacement.X & ", " & Y / Screen.TwipsPerPixelY + gameMap.displacement.Y & ")"
 End If
 
 scrollDir = dirN
 
 If Not mouseDown Then
-   selectionRectangleLoc1.x = x / Screen.TwipsPerPixelX
-   selectionRectangleLoc1.y = y / Screen.TwipsPerPixelY
+   selectionRectangleLoc1.X = X / Screen.TwipsPerPixelX
+   selectionRectangleLoc1.Y = Y / Screen.TwipsPerPixelY
 End If
-selectionRectangleLoc2.x = x / Screen.TwipsPerPixelX
-selectionRectangleLoc2.y = y / Screen.TwipsPerPixelY
+selectionRectangleLoc2.X = X / Screen.TwipsPerPixelX
+selectionRectangleLoc2.Y = Y / Screen.TwipsPerPixelY
 
 drawEverything
 
 writeContext ("")
-If pointCollidesWithUnit(addCoords(makeCoords(x / Screen.TwipsPerPixelX, y / Screen.TwipsPerPixelY), gameMap.displacement), u) Then
+If pointCollidesWithUnit(addCoords(makeCoords(X / Screen.TwipsPerPixelX, Y / Screen.TwipsPerPixelY), gameMap.displacement), u) Then
    writeContext IIf(DEBUG_MODE, "Unit " & u & ": ", "") & unitType(unit(u).type).name
 End If
 
 End Sub
 
-Private Sub picGame_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub picGame_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
 Dim i As Integer
 
 If mouseDown Then
    For i = 0 To activeUnits - 1
       If Not ctrlDown Then unit(i).selected = False 'unselect, unless CTRL is being pressed
-      If (selectionRectangleLoc2.x + gameMap.displacement.x >= unit(i).location.x - unitType(unit(i).type).dimensions.x / 2 And _
-          selectionRectangleLoc1.x + gameMap.displacement.x <= unit(i).location.x + unitType(unit(i).type).dimensions.x / 2) Or _
-         (selectionRectangleLoc2.x + gameMap.displacement.x <= unit(i).location.x + unitType(unit(i).type).dimensions.x / 2 And _
-          selectionRectangleLoc1.x + gameMap.displacement.x >= unit(i).location.x - unitType(unit(i).type).dimensions.x / 2) Then
-         If (selectionRectangleLoc2.y + gameMap.displacement.y >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (7 / 8) And _
-             selectionRectangleLoc1.y + gameMap.displacement.y <= unit(i).location.y + unitType(unit(i).type).dimensions.y * (1 / 8)) Or _
-            (selectionRectangleLoc2.y + gameMap.displacement.y <= unit(i).location.y + unitType(unit(i).type).dimensions.y * (1 / 8) And _
-             selectionRectangleLoc1.y + gameMap.displacement.y >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (7 / 8)) Then
+      If (selectionRectangleLoc2.X + gameMap.displacement.X >= unit(i).location.X - unitType(unit(i).type).dimensions.X / 2 And _
+          selectionRectangleLoc1.X + gameMap.displacement.X <= unit(i).location.X + unitType(unit(i).type).dimensions.X / 2) Or _
+         (selectionRectangleLoc2.X + gameMap.displacement.X <= unit(i).location.X + unitType(unit(i).type).dimensions.X / 2 And _
+          selectionRectangleLoc1.X + gameMap.displacement.X >= unit(i).location.X - unitType(unit(i).type).dimensions.X / 2) Then
+         If (selectionRectangleLoc2.Y + gameMap.displacement.Y >= unit(i).location.Y - unitType(unit(i).type).dimensions.Y * (7 / 8) And _
+             selectionRectangleLoc1.Y + gameMap.displacement.Y <= unit(i).location.Y + unitType(unit(i).type).dimensions.Y * (1 / 8)) Or _
+            (selectionRectangleLoc2.Y + gameMap.displacement.Y <= unit(i).location.Y + unitType(unit(i).type).dimensions.Y * (1 / 8) And _
+             selectionRectangleLoc1.Y + gameMap.displacement.Y >= unit(i).location.Y - unitType(unit(i).type).dimensions.Y * (7 / 8)) Then
             unit(i).selected = Not (unit(i).selected = True And ctrlDown)
          End If
       End If
@@ -382,22 +394,22 @@ End Sub
 Private Sub tmrScroll_Timer()
 Select Case scrollDir
    Case dirU
-      gameMap.displacement = addCoords(gameMap.displacement, makeCoords(0, -1))
+      gameMap.displacement = addCoords(gameMap.displacement, makeCoords(0, -2))
    Case dirD
-      gameMap.displacement = addCoords(gameMap.displacement, makeCoords(0, 1))
+      gameMap.displacement = addCoords(gameMap.displacement, makeCoords(0, 2))
    Case dirL
-      gameMap.displacement = addCoords(gameMap.displacement, makeCoords(-1, 0))
+      gameMap.displacement = addCoords(gameMap.displacement, makeCoords(-2, 0))
    Case dirR
-      gameMap.displacement = addCoords(gameMap.displacement, makeCoords(1, 0))
+      gameMap.displacement = addCoords(gameMap.displacement, makeCoords(2, 0))
    Case dirE
-      gameMap.displacement = addCoords(gameMap.displacement, makeCoords(1, -1))
+      gameMap.displacement = addCoords(gameMap.displacement, makeCoords(2, -2))
    Case dirF
-      gameMap.displacement = addCoords(gameMap.displacement, makeCoords(1, 1))
+      gameMap.displacement = addCoords(gameMap.displacement, makeCoords(2, 2))
    Case dirG
-      gameMap.displacement = addCoords(gameMap.displacement, makeCoords(-1, 1))
+      gameMap.displacement = addCoords(gameMap.displacement, makeCoords(-2, 2))
    Case dirH
-      gameMap.displacement = addCoords(gameMap.displacement, makeCoords(-1, -1))
+      gameMap.displacement = addCoords(gameMap.displacement, makeCoords(-2, -2))
 End Select
 
-If DEBUG_MODE Then lblDisplacement.Caption = "Displacement: (" & gameMap.displacement.x & ", " & gameMap.displacement.y & ")"
+If DEBUG_MODE Then lblDisplacement.Caption = "Displacement: (" & gameMap.displacement.X & ", " & gameMap.displacement.Y & ")"
 End Sub

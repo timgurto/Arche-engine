@@ -20,7 +20,6 @@ End If
 For i = 0 To activeUnits - 1
    If unit(i).moving Then
       unit(i).location = addCoords(unit(i).location, findPath(i))
-      exploreMap unit(i)
    Else
       unit(i).frame = 0
    End If
@@ -29,6 +28,7 @@ For i = 0 To activeUnits - 1
 
 Next i
 
+If needReExplore Then exploreMap
 drawEverything
 
 End Sub
