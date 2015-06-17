@@ -31,7 +31,7 @@ End Sub
 
 Public Sub victory(p As Byte)
 Dim message As String
-message = "Player " & p & " wins!"
+message = player(p).name & " wins!"
 MsgBox (message)
 Call ChangeRes(1680, 1050)
 End
@@ -49,7 +49,7 @@ Public Sub killUnit(n As Integer)
 deleteUnit (n)
 End Sub
 
-Public Sub deleteUnit(n As Integer)
+Public Sub deleteUnit(n As Integer, Optional makeCorpse As Boolean = True)
 Dim i As Integer
 If unitType(unit(n).type).deathSound > -1 Then sound (unitType(unit(n).type).deathSound)
 unit(n).selected = False
@@ -69,12 +69,14 @@ Dim j As Integer
             unit(j).target = unit(j).location
          End If
       Next j
-If activeCorpses = MAX_CORPSES Then deleteCorpse (0)
-corpse(activeCorpses).dimensions = unitType(unit(n).type).dimensions
-corpse(activeCorpses).location = unit(n).location
-corpse(activeCorpses).type = unitType(unit(n).type).corpse
-corpse(activeCorpses).timer = corpseType(corpse(activeCorpses).type).timer
-increment activeCorpses
+If makeCorpse Then
+   If activeCorpses = MAX_CORPSES Then deleteCorpse (0)
+   corpse(activeCorpses).dimensions = unitType(unit(n).type).dimensions
+   corpse(activeCorpses).location = unit(n).location
+   corpse(activeCorpses).type = unitType(unit(n).type).corpse
+   corpse(activeCorpses).timer = corpseType(corpse(activeCorpses).type).timer
+   increment activeCorpses
+End If
 swapUnits n, activeUnits - 1
 For j = 0 To activeUnits - 1
    If unit(j).targetUnit = n Then

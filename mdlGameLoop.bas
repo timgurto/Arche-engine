@@ -7,6 +7,7 @@ Dim j As Integer
 Dim d As Long
 Dim minDistance As Integer
 Dim tar As typUnit
+Dim c As typcoords
 
 refreshCount = refreshCount + 1
 If refreshCount = REFRESHES_PER_FRAME Then
@@ -42,6 +43,11 @@ For i = 0 To activeUnits - 1
    'Update unit/building coords
    If unit(i).moving Then
       unit(i).location = addCoords(unit(i).location, findPath(i))
+      c = getTile(unit(i).location)
+      If unitType(unit(i).type).heavy And terrain(gameMap.terrain(c.x, c.y)).collapsesTo >= 0 Then
+         deleteUnit i, False
+         gameMap.terrain(c.x, c.y) = terrain(gameMap.terrain(c.x, c.y)).collapsesTo
+      End If
    Else
       unit(i).frame = 0
    End If
@@ -90,7 +96,7 @@ For i = 0 To activeUnits - 1
          If tar.player <> unit(i).player Then
             If unitType(unit(i).type).attack > 0 Then
                If (unitType(unit(i).type).range > 0 Or (findPath(i).x = 0 And findPath(i).y = 0)) And distance(unit(i).target, unit(i).location) < max(unitSize(i, unit(i).targetUnit), unitType(unit(i).type).range * RANGED_UNIT) Then
-                  If (unit(unit(i).targetUnit).targetUnit = -1) Or unitType(unit(i).type).taunting Then unit(unit(i).targetUnit).targetUnit = i
+                  'If (unit(unit(i).targetUnit).targetUnit = -1) Or unitType(unit(i).type).taunting Then unit(unit(i).targetUnit).targetUnit = i
                   If unitType(unit(i).type).attackSound > -1 Then sound (unitType(unit(i).type).attackSound)
                   unit(i).combatMode = True
                   unit(unit(i).targetUnit).health = tar.health - max(unitType(unit(i).type).attack - unitType(tar.type).armor, 0)

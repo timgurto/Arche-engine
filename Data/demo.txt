@@ -1,18 +1,17 @@
-2,Civs
+1,Civs
 Name Color
-Egyptians,16711680
-Greeks,255
+Grizzled Artist,16755665
 
-2,Players
+1,Players
 Name Civ Population
-Pharaoh Rameses,0,4
-Alexander the Great,1,3
+Valdez,0,4
 
-3,Terrains
-Name Impassable Frames Frame
-Water,True,3,0
-Grass,False,1,0
-Dirt,False,1,0
+4,Terrains
+Name Impassable Frames Frame Collapses to
+Water,True,3,0,-1
+Grass,False,1,0,-1
+Dirt,False,1,0,-1
+Ice,False,1,0,0
 
 Camera displacement
 -100,X
@@ -20,51 +19,34 @@ Camera displacement
 
 Map
 15,X
-10,Y
-2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
-2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
-2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
-1,1,1,1,1,2,2,2,2,2,1,2,2,2,2
-1,1,1,1,1,1,2,2,2,1,1,1,2,2,2
-0,0,0,0,1,1,2,2,1,1,0,1,1,2,2
-1,1,1,1,1,1,2,1,1,0,0,0,1,1,2
-1,1,1,1,1,2,2,2,1,1,0,0,1,1,2
-2,2,2,2,2,2,2,2,2,1,1,1,1,2,2
-2,2,2,2,2,2,2,2,2,2,1,1,2,2,2
+6,Y
+1,1,1,2,2,1,2,1,1,1,1,3,3,3,3
+1,2,2,2,1,2,2,1,1,1,3,3,3,3,3
+2,2,2,2,2,1,1,1,1,3,3,3,3,3,3
+0,0,0,0,0,2,2,2,1,3,3,3,3,3,3
+0,0,0,0,0,0,2,1,1,3,3,3,3,3,3
+0,0,0,0,2,2,1,1,1,1,1,3,3,3,3
 
 Explored
-False,False,False,False,False,False,False,False,False,False,False,False,False,False,False
-False,False,False,False,False,False,False,False,False,False,False,False,False,False,False
-False,False,False,False,False,False,False,False,False,False,False,False,False,False,False
-False,False,False,False,False,False,False,False,False,False,False,False,False,False,False
-False,False,False,False,False,False,False,False,False,False,False,False,False,False,False
-False,False,False,False,False,False,False,False,False,False,False,False,False,False,False
-False,False,False,False,False,False,False,False,False,False,False,False,False,False,False
-False,False,False,False,False,False,False,False,False,False,False,False,False,False,False
-False,False,False,False,False,False,False,False,False,False,False,False,False,False,False
-False,False,False,False,False,False,False,False,False,False,False,False,False,False,False
+F,F,F,F,F,F,F,F,F,F,F,F,F,F,F
+F,F,F,F,F,F,F,F,F,F,F,F,F,F,F
+F,F,F,F,F,F,F,F,F,F,F,F,F,F,F
+F,F,F,F,F,F,F,F,F,F,F,F,F,F,F
+F,F,F,F,F,F,F,F,F,F,F,F,F,F,F
+F,F,F,F,F,F,F,F,F,F,F,F,F,F,F
 
-5,Unit types
-Name Health Armor Attack Healing Range Background Portrait background Dimensions X Dimensions Y Corpse Select sound Attack sound Death sound Speed Attack speed Frames Line of Sight Taunting
-Standard,100,2,8,0,0,16777215,16777215,48,48,0,-1,2,0,2,2500,4,150,FALSE
-Hero,75,0,5,0,0,65280,65280,24,26,0,-1,1,0,4,1000,3,80,FALSE
-Shield,1000,50,2,0,0,65280,65280,53,56,0,-1,-1,0,2,1000,1,100,TRUE
-Cleric,40,0,1,20,3,65280,65280,27,42,0,-1,-1,0,3,400,1,80,FALSE
-King Snowman,250,5,0,0,0,65280,65280,48,48,0,-1,-1,0,0,0,1,10,FALSE
+2,Unit types
+Name Health Armor Attack Healing Range Background Portrait background Dimensions X Dimensions Y Corpse Select sound Attack sound Death sound Speed Attack speed Frames Line of Sight Heavy?
+Tank,1000,120,80,0,8,65280,65280,92,112,0,-1,1,0,1,1000,1,120,TRUE
+King Snowman,5,0,1,0,0,65280,65280,48,48,0,-1,-1,0,2,0,1,90,FALSE
 
-7,Units
-Type Health Location X Location Y Target unit Target X Target Y Player Moving? Frame Attack timer Direction Selected? Freeze frame Exploring? Combat mode?
-0,100,230,20,-1,230,20,1,FALSE,1,2000,2,FALSE,FALSE,TRUE,FALSE
-1,75,150,80,-1,150,80,1,FALSE,1,840,2,FALSE,FALSE,TRUE,FALSE
-0,100,100,130,-1,100,130,0,FALSE,1,1240,2,FALSE,FALSE,TRUE,FALSE
-2,1000,50,150,-1,50,150,0,FALSE,1,300,2,FALSE,FALSE,TRUE,FALSE
-3,40,200,100,-1,200,100,0,FALSE,1,220,2,FALSE,FALSE,TRUE,FALSE
-4,250,300,200,-1,300,200,1,FALSE,1,0,2,FALSE,FALSE,TRUE,FALSE
-4,250,40,40,-1,40,40,0,FALSE,1,0,2,FALSE,FALSE,TRUE,FALSE
+2,Units
+Type Health Location X Location Y Target unit Target X Target Y Player Moving? Frame Attack timer Direction Selected? Freeze frame? Exploring? Combat mode?
+0,1000,230,0,-1,230,20,0,FALSE,1,2000,2,FALSE,FALSE,TRUE,FALSE
+1,2,0,80,-1,600,40,0,TRUE,1,0,3,FALSE,FALSE,TRUE,FALSE
 
 1,Victory type
-5
-6
+-1
 
 1,Corpse type
 Timer Dimensions X Dimensions Y Background

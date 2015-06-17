@@ -7,7 +7,7 @@ Dim i As Integer
 Dim j As Integer
 Dim x As Integer, y As Integer
 Dim s As String
-Dim temp1 As String
+Dim temp1 As String, temp2 As String
 
 Open App.Path & "\Data\demo.txt" For Input As #1
 
@@ -30,7 +30,7 @@ Input #1, s
 Input #1, activeTerrains, s, s
 For i = 0 To activeTerrains - 1
    With terrain(i)
-      Input #1, .name, temp1, .frames, .frame
+      Input #1, .name, temp1, .frames, .frame, .collapsesTo
       .impassable = str2Bool(temp1)
       .dc = makeDC("t" & i & ".bmp")
    End With
@@ -66,7 +66,8 @@ For i = 0 To activeUnitTypes - 1
       Input #1, .name, .health, .armor, .attack, .healing, .range, _
       .background, .portraitBackground, .dimensions.x, .dimensions.y, _
       .corpse, .selectSound, .attackSound, .deathSound, .speed, _
-      .attackSpeed, .frames, .lineOfSight, .taunting
+      .attackSpeed, .frames, .lineOfSight, temp1
+      .heavy = str2Bool(temp1)
       .dc = makeDC("u" & i & ".bmp")
       .portrait = makeDC("p" & i & ".bmp")
    End With
@@ -118,6 +119,7 @@ Close #1
 
 fogDC = makeDC("fog.bmp")
 
+frmGame.updateStats
 terrainFrameTimer = TERRAIN_FRAME_LENGTH
 needReExplore = True
 refreshCount = 0

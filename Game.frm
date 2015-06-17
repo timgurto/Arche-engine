@@ -9,7 +9,6 @@ Begin VB.Form frmGame
    ClientWidth     =   15360
    Icon            =   "Game.frx":0000
    LinkTopic       =   "Form1"
-   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   768
@@ -29,7 +28,7 @@ Begin VB.Form frmGame
       ForeColor       =   &H00FFFFFF&
       Height          =   1935
       Left            =   120
-      TabIndex        =   18
+      TabIndex        =   16
       Top             =   9480
       Width           =   2775
       Begin VB.PictureBox picPortrait 
@@ -41,7 +40,7 @@ Begin VB.Form frmGame
          Left            =   60
          ScaleHeight     =   645
          ScaleWidth      =   645
-         TabIndex        =   30
+         TabIndex        =   28
          Top             =   60
          Width           =   675
       End
@@ -51,7 +50,7 @@ Begin VB.Form frmGame
          ForeColor       =   &H00FFFFFF&
          Height          =   255
          Left            =   780
-         TabIndex        =   28
+         TabIndex        =   26
          Top             =   480
          Width           =   1935
       End
@@ -61,7 +60,7 @@ Begin VB.Form frmGame
          ForeColor       =   &H00FFFFFF&
          Height          =   255
          Left            =   1860
-         TabIndex        =   26
+         TabIndex        =   24
          Top             =   1560
          Width           =   855
       End
@@ -71,7 +70,7 @@ Begin VB.Form frmGame
          ForeColor       =   &H00FFFFFF&
          Height          =   255
          Left            =   1860
-         TabIndex        =   25
+         TabIndex        =   23
          Top             =   840
          Width           =   855
       End
@@ -81,7 +80,7 @@ Begin VB.Form frmGame
          ForeColor       =   &H00FFFFFF&
          Height          =   255
          Left            =   1860
-         TabIndex        =   24
+         TabIndex        =   22
          Top             =   1200
          Width           =   855
       End
@@ -91,7 +90,7 @@ Begin VB.Form frmGame
          ForeColor       =   &H00FFFFFF&
          Height          =   255
          Left            =   480
-         TabIndex        =   23
+         TabIndex        =   21
          Top             =   1560
          Width           =   855
       End
@@ -136,7 +135,7 @@ Begin VB.Form frmGame
          ForeColor       =   &H00FFFFFF&
          Height          =   255
          Left            =   480
-         TabIndex        =   22
+         TabIndex        =   20
          Top             =   1200
          Width           =   855
       End
@@ -146,7 +145,7 @@ Begin VB.Form frmGame
          ForeColor       =   &H00FFFFFF&
          Height          =   255
          Left            =   480
-         TabIndex        =   21
+         TabIndex        =   19
          Top             =   840
          Width           =   855
       End
@@ -163,7 +162,7 @@ Begin VB.Form frmGame
          ForeColor       =   &H00FFFFFF&
          Height          =   255
          Left            =   780
-         TabIndex        =   20
+         TabIndex        =   18
          Top             =   240
          Width           =   1935
       End
@@ -182,7 +181,7 @@ Begin VB.Form frmGame
          ForeColor       =   &H00FFFFFF&
          Height          =   255
          Left            =   780
-         TabIndex        =   19
+         TabIndex        =   17
          Top             =   0
          Width           =   1935
       End
@@ -191,22 +190,6 @@ Begin VB.Form frmGame
       Interval        =   8
       Left            =   14520
       Top             =   11040
-   End
-   Begin VB.CommandButton Command3 
-      Caption         =   "Delete Unit(s)"
-      Height          =   375
-      Left            =   10200
-      TabIndex        =   2
-      Top             =   10920
-      Width           =   1695
-   End
-   Begin VB.CommandButton Command2 
-      Caption         =   "Create new unit"
-      Height          =   375
-      Left            =   8520
-      TabIndex        =   1
-      Top             =   10920
-      Width           =   1695
    End
    Begin VB.PictureBox picGame 
       Appearance      =   0  'Flat
@@ -221,11 +204,31 @@ Begin VB.Form frmGame
       Top             =   45
       Width           =   15270
    End
+   Begin VB.Label Label2 
+      BackStyle       =   0  'Transparent
+      Caption         =   "X button below to exit"
+      ForeColor       =   &H00FFFFFF&
+      Height          =   255
+      Left            =   6120
+      TabIndex        =   30
+      Top             =   10560
+      Width           =   2055
+   End
+   Begin VB.Label Label1 
+      BackStyle       =   0  'Transparent
+      Caption         =   "[Del] to delete unit"
+      ForeColor       =   &H00FFFFFF&
+      Height          =   255
+      Left            =   6240
+      TabIndex        =   29
+      Top             =   10320
+      Width           =   2055
+   End
    Begin VB.Label lblTargetUnit 
       Caption         =   "Label1"
       Height          =   255
       Left            =   9840
-      TabIndex        =   29
+      TabIndex        =   27
       Top             =   10320
       Visible         =   0   'False
       Width           =   615
@@ -233,7 +236,7 @@ Begin VB.Form frmGame
    Begin VB.Label lblSelected 
       Height          =   255
       Left            =   9000
-      TabIndex        =   27
+      TabIndex        =   25
       Top             =   10320
       Visible         =   0   'False
       Width           =   255
@@ -241,7 +244,7 @@ Begin VB.Form frmGame
    Begin VB.Label lblFrame 
       Height          =   255
       Left            =   5880
-      TabIndex        =   17
+      TabIndex        =   15
       Top             =   10800
       Visible         =   0   'False
       Width           =   495
@@ -258,7 +261,7 @@ Begin VB.Form frmGame
    Begin VB.Label lblUnits 
       Height          =   255
       Left            =   3720
-      TabIndex        =   16
+      TabIndex        =   14
       Top             =   10800
       Visible         =   0   'False
       Width           =   1335
@@ -266,7 +269,7 @@ Begin VB.Form frmGame
    Begin VB.Label lblMapCoords 
       Height          =   255
       Left            =   12120
-      TabIndex        =   15
+      TabIndex        =   13
       Top             =   11280
       Visible         =   0   'False
       Width           =   2175
@@ -274,7 +277,7 @@ Begin VB.Form frmGame
    Begin VB.Label lblDisplacement 
       Height          =   255
       Left            =   12120
-      TabIndex        =   14
+      TabIndex        =   12
       Top             =   11040
       Visible         =   0   'False
       Width           =   2175
@@ -282,7 +285,7 @@ Begin VB.Form frmGame
    Begin VB.Label lblCoords 
       Height          =   255
       Left            =   12120
-      TabIndex        =   13
+      TabIndex        =   11
       Top             =   10800
       Visible         =   0   'False
       Width           =   2175
@@ -291,7 +294,7 @@ Begin VB.Form frmGame
       BackStyle       =   0  'Transparent
       Height          =   45
       Left            =   0
-      TabIndex        =   12
+      TabIndex        =   10
       Top             =   11475
       Width           =   45
    End
@@ -299,7 +302,7 @@ Begin VB.Form frmGame
       BackStyle       =   0  'Transparent
       Height          =   45
       Left            =   0
-      TabIndex        =   11
+      TabIndex        =   9
       Top             =   0
       Width           =   45
    End
@@ -307,7 +310,7 @@ Begin VB.Form frmGame
       BackStyle       =   0  'Transparent
       Height          =   45
       Left            =   15315
-      TabIndex        =   10
+      TabIndex        =   8
       Top             =   11475
       Width           =   45
    End
@@ -315,7 +318,7 @@ Begin VB.Form frmGame
       BackStyle       =   0  'Transparent
       Height          =   45
       Left            =   15315
-      TabIndex        =   9
+      TabIndex        =   7
       Top             =   0
       Width           =   45
    End
@@ -323,7 +326,7 @@ Begin VB.Form frmGame
       BackStyle       =   0  'Transparent
       Height          =   45
       Left            =   45
-      TabIndex        =   8
+      TabIndex        =   6
       Top             =   11475
       Width           =   15270
    End
@@ -331,7 +334,7 @@ Begin VB.Form frmGame
       BackStyle       =   0  'Transparent
       Height          =   45
       Left            =   45
-      TabIndex        =   7
+      TabIndex        =   5
       Top             =   0
       Width           =   15270
    End
@@ -339,7 +342,7 @@ Begin VB.Form frmGame
       BackStyle       =   0  'Transparent
       Height          =   11430
       Left            =   15315
-      TabIndex        =   5
+      TabIndex        =   3
       Top             =   45
       Width           =   45
    End
@@ -347,7 +350,7 @@ Begin VB.Form frmGame
       BackStyle       =   0  'Transparent
       Height          =   11430
       Left            =   0
-      TabIndex        =   4
+      TabIndex        =   2
       Top             =   45
       Width           =   45
    End
@@ -366,7 +369,7 @@ Begin VB.Form frmGame
       EndProperty
       Height          =   255
       Left            =   6840
-      TabIndex        =   6
+      TabIndex        =   4
       Top             =   11040
       Width           =   255
    End
@@ -385,7 +388,7 @@ Begin VB.Form frmGame
       ForeColor       =   &H00FFFFFF&
       Height          =   495
       Left            =   7800
-      TabIndex        =   3
+      TabIndex        =   1
       Top             =   9600
       Width           =   4095
    End
@@ -398,7 +401,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub Command1_Click()
-Call ChangeRes(1680, 1050)
+Call ChangeRes(1440, 900)
 End
 End Sub
 
@@ -421,8 +424,8 @@ If n < MAX_UNITS Then
    If DEBUG_MODE Then lblUnits.Caption = "Units: " & activeUnits
    
    
-   unit(n).type = Int(Rnd * (2) + 1)
-   unit(n).player = Int(Rnd * (2) + 1)
+   unit(n).type = Int(Rnd * (activeUnitTypes) + 1)
+   unit(n).player = Int(Rnd * (activePlayers) + 1)
    unit(n).health = Int(Rnd * (unitType(unit(n).type).health) + 1)
    unit(n).moving = False
    unit(n).direction = Int(Rnd * (4))
@@ -548,7 +551,7 @@ updateStats
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-If Not DEBUG_MODE Then Call ChangeRes(1680, 1050)
+If Not DEBUG_MODE Then Call ChangeRes(1440, 900)
 End
 End Sub
 

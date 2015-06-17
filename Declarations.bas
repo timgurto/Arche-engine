@@ -4,7 +4,7 @@ Option Explicit
 Public Const INT_TRUE = 1
 Public Const INT_FALSE = 0
 
-Public Const DEBUG_MODE = False
+Public Const DEBUG_MODE = True
 Public Const dirN = 99 'not moving
 Public Const dirU = 0
 Public Const dirR = 1
@@ -26,7 +26,7 @@ Public Const CONQUEST = 0
 Public Const REGICIDE = 1
 
 Public victoryType As Byte
-Public regicideTarget(10) As Byte
+Public regicideTarget(10) As Integer
 
 Public Const MAX_PLAYERS = 10
 Public activePlayers As Integer

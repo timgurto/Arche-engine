@@ -14,11 +14,12 @@ Public Type typTarget
 End Type
 
 Public Type typTerrain
-   name As Long
+   name As String
    dc As Long
    impassable As Boolean
    frames As Integer
    frame As Integer
+   collapsesTo As Integer
 End Type
 
 Public Type typMap
@@ -60,7 +61,7 @@ Public Type typUnitType
    deathSound As Integer
    dimensions As typcoords
    frames As Byte
-   taunting As Boolean 'Whether this unit's attacks force its targets to attack it
+   heavy As Boolean
 End Type
 
 Public Type typUnit
