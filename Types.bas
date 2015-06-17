@@ -15,6 +15,9 @@ End Type
 
 Public Type typTerrain
    dc As Long
+   impassable As Boolean
+   frames As Integer
+   frame As Integer
 End Type
 
 Public Type typMap

@@ -12,7 +12,7 @@ activePlayers = 2
 activeCivs = 2
 activeUnits = 7
 activeUnitTypes = 5
-activeTerrains = 2
+activeTerrains = 3
 activeCorpseTypes = 1
 activeCorpses = 1
 
@@ -31,11 +31,27 @@ gameMap.displacement = makeCoords(-100, -100)
 fogDC = CreateCompatibleDC(0)
 fogDC = LoadGraphicDC(App.Path & "\Images\fog.bmp")
 
+terrainFrameTimer = TERRAIN_FRAME_LENGTH
+
 terrain(1).dc = CreateCompatibleDC(0)
 terrain(1).dc = LoadGraphicDC(App.Path & "\Images\grass.bmp")
+terrain(1).impassable = False
+terrain(1).frames = 1
+terrain(1).frame = 0
+
 
 terrain(2).dc = CreateCompatibleDC(0)
 terrain(2).dc = LoadGraphicDC(App.Path & "\Images\dirt.bmp")
+terrain(2).impassable = False
+terrain(2).frames = 1
+terrain(2).frame = 0
+
+terrain(0).dc = CreateCompatibleDC(0)
+terrain(0).dc = LoadGraphicDC(App.Path & "\Images\Water.bmp")
+terrain(0).impassable = True
+terrain(0).frames = 3
+terrain(0).frame = 0
+
 
 gameMap.dimensions = makeCoords(15, 10)
 For i = 1 To 15
@@ -43,6 +59,10 @@ For i = 1 To 15
       gameMap.terrain(i, j) = Int(Rnd * (2) + 1)
       gameMap.explored(i, j) = False
    Next j
+Next i
+
+For i = 1 To 4
+   gameMap.terrain(i, 6) = 0
 Next i
 
 For i = 1 To 5

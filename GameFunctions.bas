@@ -109,6 +109,8 @@ End Sub
 
 Public Function findPath(n As Integer) As typcoords
 Dim i As Integer
+Dim x As Integer, y As Integer
+Dim c As typcoords
 
 'move horizontally
 If Abs(unit(n).location.x - unit(n).target.x) >= unitType(unit(n).type).speed Then
@@ -135,6 +137,13 @@ End If
 
 'Map edges
 If Not collision(addCoords(unit(n).location, findPath), makeCoords(1, 1), makeCoords(1, 1), subCoords(muxCoords(gameMap.dimensions, TERRAIN_TILE_SIZE), makeCoords(2, 2))) Then
+   If Not KEEP_WALKING_ON_COLLISION Then unit(n).freezeFrame = True 'unit(n).frame = unit(n).frame - 1
+   findPath = makeCoords(0, 0)
+   Exit Function
+End If
+
+c = getTile(addCoords(unit(n).location, findPath))
+If terrain(gameMap.terrain(c.x, c.y)).impassable Then
    If Not KEEP_WALKING_ON_COLLISION Then unit(n).freezeFrame = True 'unit(n).frame = unit(n).frame - 1
    findPath = makeCoords(0, 0)
    Exit Function
@@ -231,6 +240,13 @@ For i = 0 To activeUnits - 1
       i = activeUnits
    End If
 Next i
+End Function
+
+Public Function getTile(c As typcoords) As typcoords
+Dim x As Integer, y As Integer
+x = Int(c.x / TERRAIN_TILE_SIZE) + 1
+y = Int(c.y / TERRAIN_TILE_SIZE) + 1
+getTile = makeCoords(x, y)
 End Function
 
 Public Function getUnitTile(n As Integer) As typcoords

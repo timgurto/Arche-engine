@@ -53,6 +53,7 @@ Public unit(MAX_UNITS) As typUnit
 Public target As typTarget
 
 Public terrain(MAX_TERRAINS) As typTerrain
+Public terrainFrameTimer As Integer
 
 Public corpseType(MAX_CORPSE_TYPES) As typCorpseType
 Public corpse(MAX_CORPSES) As typCorpse
@@ -87,4 +88,5 @@ Public Const PORTRAIT_HEIGHT As Integer = 15
 Public Const AUTO_ATTACKING As Boolean = True
 Public Const AUTO_ATTACK_RANGE As Integer = 150
 Public Const RANGED_UNIT As Integer = 50
+Public Const TERRAIN_FRAME_LENGTH = 200
 '*****************************************************
