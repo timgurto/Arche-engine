@@ -42,6 +42,9 @@ Next i
 
 For i = 1 To 5
 unitType(i).corpse = 0
+unitType(i).selectSound = -1
+unitType(i).attackSound = -1
+unitType(i).deathSound = 0
 Next i
 
 unitType(1).name = "Standard"
@@ -56,6 +59,7 @@ unitType(1).background = vbWhite
 unitType(1).portraitBackground = vbWhite
 unitType(1).dimensions.x = 48
 unitType(1).dimensions.y = 48
+unitType(1).attackSound = 2
 unitType(1).speed = 2
 unitType(1).attackSpeed = 2500
 unitType(1).frames = 4
@@ -92,6 +96,7 @@ unitType(2).background = vbGreen
 unitType(2).portraitBackground = vbGreen
 unitType(2).dimensions.x = 24
 unitType(2).dimensions.y = 26
+unitType(2).attackSound = 1
 unitType(2).speed = 4
 unitType(2).attackSpeed = 1000
 unitType(2).frames = 3

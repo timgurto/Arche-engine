@@ -626,6 +626,9 @@ If mouseDown Then
 End If
 mouseDown = False
 
+i = getSelected
+If i > -1 Then If unitType(unit(i).type).selectSound > -1 Then sound (unitType(unit(i).type).selectSound)
+
 updateStats
 End Sub
 
@@ -684,6 +687,7 @@ If sel >= 0 Then
    
    If DEBUG_MODE Then lblTargetUnit = unit(sel).targetUnit
 
+   picPortrait.Visible = True
    lblType = t.name
    lblPlayer = player(u.player).name
    lblCiv = civ(player(u.player).civ).name
@@ -722,6 +726,7 @@ Else
    imgHealing.Visible = False
    imgHealth.Visible = False
    imgSPeed.Visible = False
+   picPortrait.Visible = False
    lblAttack = ""
    lblArmor = ""
    lblRange = ""
@@ -729,6 +734,7 @@ Else
    lblHealth = ""
    lblSpeed = ""
    lblPlayer = ""
+   lblCiv = ""
    lblType = ""
 End If
 

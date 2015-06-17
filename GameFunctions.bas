@@ -51,6 +51,7 @@ End Sub
 
 Public Sub deleteUnit(n As Integer)
 Dim i As Integer
+If unitType(unit(n).type).deathSound > -1 Then sound (unitType(unit(n).type).deathSound)
 unit(n).selected = False
 If victoryType = REGICIDE Then
    For i = 1 To 2 'civs
@@ -239,3 +240,9 @@ x = Int(u.location.x / TERRAIN_TILE_SIZE) + 1
 y = Int(u.location.y / TERRAIN_TILE_SIZE) + 1
 getUnitTile = makeCoords(x, y)
 End Function
+
+Public Sub sound(n As Integer)
+Dim x As Long
+x = sndPlaySound(App.path & "\Sounds\s" & n & ".wav", sndAsync)
+
+End Sub

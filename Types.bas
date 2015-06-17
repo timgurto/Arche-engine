@@ -52,6 +52,9 @@ Public Type typUnitType
    portrait As Long
    portraitBackground As Long
    background As Long
+   selectSound As Integer
+   attackSound As Integer
+   deathSound As Integer
    dimensions As typcoords
    frames As Byte
    taunting As Boolean 'Whether this unit's attacks force its targets to attack it
