@@ -1,6 +1,8 @@
 Attribute VB_Name = "Declarations"
 Option Explicit
 
+Public Const DEBUG_MODE = False
+
 Public Const Red = &HFF
 Public Const Green = &HFF00&
 Public Const Blue = &HFF0000
@@ -16,6 +18,7 @@ Public Const dirD = 2
 Public Const dirL = 3
 
 Public Const KEY_CTRL = 17
+Public Const KEY_DELETE = 46
 
 Public Const REFRESHES_PER_FRAME As Integer = 6
 

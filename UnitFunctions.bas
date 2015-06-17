@@ -4,24 +4,25 @@ Option Explicit
 Public Sub drawUnit(u As typUnit)
 Dim t As typUnitType
 t = unitType(u.type)
-Dim X As Long
-X = TransparentBlt(frmGame.picGame.hdc, u.location.X - t.dimensions.X / 2, u.location.Y - t.dimensions.Y * (7 / 8), t.dimensions.X, t.dimensions.Y, t.dc, u.direction * t.dimensions.X * t.frames + t.dimensions.X * (u.frame), 0, t.dimensions.X, t.dimensions.Y, vbWhite) 'IIf(u.selected, Blue, White))
+Dim x As Long
+x = TransparentBlt(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2, u.location.y - t.dimensions.y * (7 / 8), t.dimensions.x, t.dimensions.y, t.dc, u.direction * t.dimensions.x * t.frames + t.dimensions.x * (u.frame), 0, t.dimensions.x, t.dimensions.y, vbWhite) 'IIf(u.selected, Blue, White))
+If DEBUG_MODE Then x = Rectangle(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2, u.location.y - t.dimensions.y * (7 / 8), u.location.x + t.dimensions.x / 2, u.location.y + t.dimensions.y * (1 / 8))
 End Sub
 
 Public Sub drawSelection(u As typUnit)
 Dim t As typUnitType
 t = unitType(u.type)
-Dim X As Long
+Dim x As Long
 frmGame.picGame.ForeColor = White
-X = Ellipse(frmGame.picGame.hdc, u.location.X - t.dimensions.X / 2, u.location.Y - t.dimensions.Y / 8, u.location.X + t.dimensions.X / 2, u.location.Y + t.dimensions.Y / 8)
+x = Ellipse(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2, u.location.y - t.dimensions.y / 8, u.location.x + t.dimensions.x / 2, u.location.y + t.dimensions.y / 8)
 End Sub
 
 Public Sub drawSelectionRectangle()
-Dim X As Long
-If selectionrectangleshadow Then
+Dim x As Long
+If selectionRectangleShadow Then
    frmGame.picGame.ForeColor = Black
-   X = Rectangle(frmGame.picGame.hdc, selectionRectangleLoc1.X + 1, selectionRectangleLoc1.Y + 1, selectionRectangleLoc2.X + 1, selectionRectangleLoc2.Y + 1)
+   x = Rectangle(frmGame.picGame.hdc, selectionRectangleLoc1.x + 1, selectionRectangleLoc1.y + 1, selectionRectangleLoc2.x + 1, selectionRectangleLoc2.y + 1)
 End If
 frmGame.picGame.ForeColor = White
-X = Rectangle(frmGame.picGame.hdc, selectionRectangleLoc1.X, selectionRectangleLoc1.Y, selectionRectangleLoc2.X, selectionRectangleLoc2.Y)
+x = Rectangle(frmGame.picGame.hdc, selectionRectangleLoc1.x, selectionRectangleLoc1.y, selectionRectangleLoc2.x, selectionRectangleLoc2.y)
 End Sub

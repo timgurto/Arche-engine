@@ -14,6 +14,14 @@ Begin VB.Form frmGame
    ScaleWidth      =   800
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
+   Begin VB.CommandButton Command3 
+      Caption         =   "Delete Unit(s)"
+      Height          =   375
+      Left            =   2400
+      TabIndex        =   4
+      Top             =   8040
+      Width           =   1695
+   End
    Begin VB.CommandButton Command2 
       Caption         =   "Create new unit"
       Height          =   375
@@ -94,8 +102,13 @@ unit(n).freezeFrame = False
 
 End Sub
 
+Private Sub Command3_Click()
+deleteunits
+End Sub
+
 Private Sub picGame_KeyDown(KeyCode As Integer, Shift As Integer)
 If KeyCode = KEY_CTRL Then ctrlDown = True
+If KeyCode = KEY_DELETE Then deleteunits
 End Sub
 
 Private Sub picGame_KeyUp(KeyCode As Integer, Shift As Integer)

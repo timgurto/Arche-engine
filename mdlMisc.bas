@@ -91,7 +91,7 @@ Next i
 
 End Function
 
-Public Function findPathA(ByRef movingUnit As typUnit) As typCoords
+Public Function findPathA(ByRef movingUnit As typUnit) As typCoords 'broken; when working, makes for shakey diagonals
 Dim u, d, l, r As Double
 Dim min As Double
 
