@@ -11,17 +11,31 @@ activeUnits = 3
 
 ctrlDown = False
 
-'***GAME OPTIONS - USE THESE TO CUSTOMIZE YOUR GAME***
-selectionRectangleShadow = False
-keepWalkingOnCollision = False
-showSelectedTargets = True
-'*****************************************************
-
 target.dimensions.x = 16
 target.dimensions.y = 16
 target.dc = CreateCompatibleDC(0)
 target.dc = LoadGraphicDC(App.Path & "\Images\target.bmp")
 target.background = vbRed
+
+terrain(1).dc = CreateCompatibleDC(0)
+terrain(1).dc = LoadGraphicDC(App.Path & "\Images\grass.bmp")
+
+terrain(2).dc = CreateCompatibleDC(0)
+terrain(2).dc = LoadGraphicDC(App.Path & "\Images\dirt.bmp")
+
+testMap.dimensions = makeCoords(4, 3)
+testMap.terrain(1, 1) = 2
+testMap.terrain(1, 2) = 2
+testMap.terrain(1, 3) = 1 '    1 2 3 4
+testMap.terrain(2, 1) = 2 '  +--------
+testMap.terrain(2, 2) = 1 ' 1| 2 2 1 1
+testMap.terrain(2, 3) = 1 ' 2| 2 1 1 1
+testMap.terrain(3, 1) = 1 ' 3| 1 1 1 1
+testMap.terrain(3, 2) = 1
+testMap.terrain(3, 3) = 1
+testMap.terrain(4, 1) = 1
+testMap.terrain(4, 2) = 1
+testMap.terrain(4, 3) = 1
 
 unitType(1).name = "Standard"
 unitType(1).dc = CreateCompatibleDC(0)
@@ -42,14 +56,14 @@ unitType(2).speed = 5
 unitType(2).frames = 3
 
 
-unit(0).location.x = 120
-unit(0).location.y = 65
+unit(0).location.x = 30
+unit(0).location.y = 20
 
-unit(1).location.x = 200
-unit(1).location.y = 100
+unit(1).location.x = 150
+unit(1).location.y = 80
 
-unit(2).location.x = 250
-unit(2).location.y = 300
+unit(2).location.x = 100
+unit(2).location.y = 130
 
 For i = 0 To 2
    unit(i).type = 1

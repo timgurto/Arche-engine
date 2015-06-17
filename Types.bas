@@ -13,6 +13,15 @@ Public Type typTarget
    dimensions As typCoords
 End Type
 
+Public Type typTerrain
+   dc As Long
+End Type
+
+Public Type typMap
+   dimensions As typCoords
+   terrain(100, 100) As Integer
+End Type
+
 Public Type typUnitType
    name As String
    dc As Long

@@ -1,7 +1,6 @@
 Attribute VB_Name = "mdlMisc"
 Option Explicit
 
-
 Public Function makeCoords(x As Integer, y As Integer) As typCoords
 makeCoords.x = x
 makeCoords.y = y
@@ -89,7 +88,7 @@ For i = 0 To activeUnits - 1
    If i <> n Then
       If collision(addCoords(screenCoords(unit(n)), findPath), unitType(unit(n).type).dimensions, screenCoords(unit(i)), unitType(unit(i).type).dimensions) Then
          'unit(n).frame = 0
-         If Not keepWalkingOnCollision Then unit(n).freezeFrame = True 'unit(n).frame = unit(n).frame - 1
+         If Not KEEP_WALKING_ON_COLLISION Then unit(n).freezeFrame = True 'unit(n).frame = unit(n).frame - 1
          findPath = makeCoords(0, 0)
          
       End If

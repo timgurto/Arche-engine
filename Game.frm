@@ -6,14 +6,14 @@ Begin VB.Form frmGame
    ClientHeight    =   9000
    ClientLeft      =   -15
    ClientTop       =   -15
-   ClientWidth     =   12015
+   ClientWidth     =   12000
    Icon            =   "Game.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   600
    ScaleMode       =   3  'Pixel
-   ScaleWidth      =   801
+   ScaleWidth      =   800
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin VB.CommandButton Command3 
@@ -35,24 +35,24 @@ Begin VB.Form frmGame
    Begin VB.Frame Frame1 
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
-      Height          =   1695
-      Left            =   0
+      Height          =   1635
+      Left            =   15
       TabIndex        =   2
-      Top             =   7320
-      Width           =   1695
+      Top             =   7350
+      Width           =   1680
    End
    Begin VB.PictureBox picGame 
       Appearance      =   0  'Flat
       AutoRedraw      =   -1  'True
-      BackColor       =   &H00008000&
+      BackColor       =   &H00000000&
       ForeColor       =   &H80000008&
       Height          =   7335
       Left            =   0
       ScaleHeight     =   7305
-      ScaleWidth      =   11970
+      ScaleWidth      =   12090
       TabIndex        =   0
       Top             =   0
-      Width           =   12000
+      Width           =   12120
       Begin VB.CommandButton Command1 
          Caption         =   "X"
          BeginProperty Font 
@@ -85,7 +85,7 @@ Begin VB.Form frmGame
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   495
-      Left            =   1725
+      Left            =   1710
       TabIndex        =   5
       Top             =   7350
       Width           =   4095
@@ -136,12 +136,12 @@ unit(n).freezeFrame = False
 End Sub
 
 Private Sub Command3_Click()
-deleteunits
+deleteUnits
 End Sub
 
 Private Sub picGame_KeyDown(KeyCode As Integer, Shift As Integer)
 If KeyCode = KEY_CTRL Then ctrlDown = True
-If KeyCode = KEY_DELETE Then deleteunits
+If KeyCode = KEY_DELETE Then deleteUnits
 End Sub
 
 Private Sub picGame_KeyUp(KeyCode As Integer, Shift As Integer)
@@ -211,8 +211,8 @@ If mouseDown Then
           selectionRectangleLoc1.x >= unit(i).location.x - unitType(unit(i).type).dimensions.x / 2) Then
          If (selectionRectangleLoc2.y >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (7 / 8) And _
              selectionRectangleLoc1.y <= unit(i).location.y + unitType(unit(i).type).dimensions.y * (1 / 8)) Or _
-            (selectionRectangleLoc2.y <= unit(i).location.y + unitType(unit(i).type).dimensions.y * (7 / 8) And _
-             selectionRectangleLoc1.y >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (1 / 8)) Then
+            (selectionRectangleLoc2.y <= unit(i).location.y + unitType(unit(i).type).dimensions.y * (1 / 8) And _
+             selectionRectangleLoc1.y >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (7 / 8)) Then
             unit(i).selected = Not (unit(i).selected = True And ctrlDown)
          End If
       End If

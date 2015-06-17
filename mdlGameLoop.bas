@@ -36,6 +36,8 @@ Dim i As Integer
 
 frmGame.picGame.Cls
 
+drawMap testMap
+
 For i = 0 To activeUnits - 1
    If unit(i).selected Then
       drawSelection unit(i)

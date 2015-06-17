@@ -25,12 +25,15 @@ Public Const REFRESHES_PER_FRAME As Integer = 6
 Public refreshCount As Integer
 
 Public unitType(10) As typUnitType
-
 Public unit(100) As typUnit
+Public activeUnits As Integer
 
 Public target As typTarget
 
-Public activeUnits As Integer
+Public terrain(10) As typTerrain
+Public testMap As typMap
+
+
 
 'Public i As Integer 'used all over the place, so I've declared it separately in each module so it isn't compromised.
 
@@ -41,7 +44,8 @@ Public selectionRectangleLoc1 As typCoords
 Public selectionRectangleLoc2 As typCoords
 
 '***GAME OPTIONS - USE THESE TO CUSTOMIZE YOUR GAME***
-Public selectionRectangleShadow As Boolean 'whether the selection rectangle has a shadow
-Public keepWalkingOnCollision As Boolean 'whether units continue their walking animation while waiting for an obstructin to be removed
-Public showSelectedTargets As Boolean 'whether selected units' targets are displayed
+Public Const SELECTION_RECTANGLE_SHADOW As Boolean = True 'whether the selection rectangle has a shadow
+Public Const KEEP_WALKING_ON_COLLISION As Boolean = False 'whether units continue their walking animation while waiting for an obstructin to be removed
+Public Const SHOW_SELECTED_TARGETS As Boolean = True 'whether selected units' targets are displayed
+Public Const TERRAIN_TILE_SIZE As Integer = 48 'the x and y dimensions of each terrain tile
 '*****************************************************

@@ -13,7 +13,7 @@ swapUnits n, activeUnits - 1
 
 End Sub
 
-Public Sub deleteunits()
+Public Sub deleteUnits()
 Dim i As Integer
 i = 0
 While i < activeUnits
