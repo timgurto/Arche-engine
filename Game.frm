@@ -421,8 +421,8 @@ If n < MAX_UNITS Then
    If DEBUG_MODE Then lblUnits.Caption = "Units: " & activeUnits
    
    
-   unit(n).type = Int(Rnd * (2) + 1)
-   unit(n).player = Int(Rnd * (2) + 1)
+   unit(n).type = Int(Rnd * activeUnitTypes)
+   unit(n).player = Int(Rnd * activePlayers)
    unit(n).health = Int(Rnd * (unitType(unit(n).type).health) + 1)
    unit(n).moving = False
    unit(n).direction = Int(Rnd * (4))
@@ -441,8 +441,8 @@ If n < MAX_UNITS Then
    increment player(unit(n).player).population
    
    Do
-      unit(n).location.x = Int(Rnd * (gameMap.dimensions.x * 48) + 1)
-      unit(n).location.y = Int(Rnd * (gameMap.dimensions.y * 48) + 1)
+      unit(n).location.x = Int(Rnd * ((gameMap.dimensions.x - 1) * TERRAIN_TILE_SIZE) + 1)
+      unit(n).location.y = Int(Rnd * ((gameMap.dimensions.y - 1) * TERRAIN_TILE_SIZE) + 1)
       collides = False
       
       For i = 0 To activeUnits - 1
@@ -457,9 +457,9 @@ If n < MAX_UNITS Then
    unit(n).target = unit(n).location
    unit(n).exploring = True
    needReExplore = True
-   
 End If
 
+   sortUnits
 End Sub
 
 Private Sub Command3_Click()

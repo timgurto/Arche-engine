@@ -314,10 +314,14 @@ For i = 1 To activeUnits - 1
    value = unit(i)
    valueIndex = i
    j = i - 1
-   While (j >= 0 And unit(j).location.y > value.location.y)
-      unit(j + 1) = unit(j)
-      j = j - 1
-   Wend
+   Do While j >= 0
+      If unit(j).location.y > value.location.y Then
+         unit(j + 1) = unit(j)
+         j = j - 1
+      Else
+         Exit Do
+      End If
+   Loop
    unit(j + 1) = value
 Next i
 
