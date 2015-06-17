@@ -13,6 +13,13 @@ ctrlDown = False
 '***GAME OPTIONS - USE THESE TO CUSTOMIZE YOUR GAME***
 selectionRectangleShadow = False
 keepWalkingOnCollision = False
+showSelectedTargets = True
+'*****************************************************
+
+target.dimensions.x = 16
+target.dimensions.y = 16
+target.dc = CreateCompatibleDC(0)
+target.dc = LoadGraphicDC(App.Path & "\Images\target.bmp")
 
 unitType(1).dc = CreateCompatibleDC(0)
 unitType(1).dc = LoadGraphicDC(App.Path & "\Images\Standard.bmp")
@@ -24,7 +31,7 @@ unitType(1).frames = 4
 unitType(2).dc = CreateCompatibleDC(0)
 unitType(2).dc = LoadGraphicDC(App.Path & "\Images\Hero.bmp")
 unitType(2).dimensions.x = 24
-unitType(2).dimensions.y = 32
+unitType(2).dimensions.y = 26
 unitType(2).speed = 3
 unitType(2).frames = 3
 

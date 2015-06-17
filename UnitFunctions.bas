@@ -5,10 +5,13 @@ Public Sub drawUnit(u As typUnit)
 Dim t As typUnitType
 t = unitType(u.type)
 Dim x As Long
-x = TransparentBlt(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2, u.location.y - t.dimensions.y * (7 / 8), t.dimensions.x, t.dimensions.y, t.dc, u.direction * t.dimensions.x * t.frames + t.dimensions.x * (u.frame), 0, t.dimensions.x, t.dimensions.y, vbWhite) 'IIf(u.selected, Blue, White))
+x = TransparentBlt(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2, u.location.y - t.dimensions.y * (7 / 8), t.dimensions.x, t.dimensions.y, t.dc, u.direction * t.dimensions.x * t.frames + t.dimensions.x * (u.frame), 0, t.dimensions.x, t.dimensions.y, unitBackground)
 If DEBUG_MODE Then x = Rectangle(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2, u.location.y - t.dimensions.y * (7 / 8), u.location.x + t.dimensions.x / 2, u.location.y + t.dimensions.y * (1 / 8))
 End Sub
-
+Public Sub drawTarget(u As typUnit)
+Dim x As Long
+x = TransparentBlt(frmGame.picGame.hdc, u.target.x - target.dimensions.x / 2, u.target.y - target.dimensions.y / 2, target.dimensions.x, target.dimensions.y, target.dc, 0, 0, target.dimensions.x, target.dimensions.y, targetBackground)
+End Sub
 Public Sub drawSelection(u As typUnit)
 Dim t As typUnitType
 t = unitType(u.type)

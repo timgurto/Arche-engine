@@ -7,6 +7,11 @@ Public Type typCoords
 End Type
 
 
+Public Type typTarget
+   dc As Long
+   dimensions As typCoords
+End Type
+
 Public Type typUnitType
    dc As Long
    speed As Integer

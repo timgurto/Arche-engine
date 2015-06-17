@@ -1,4 +1,4 @@
-Attribute VB_Name = "GDC"
+Attribute VB_Name = "X__external_GDC"
 '***EXTERNAL MODULE***
 'GDC Functions
 'Tim Miron

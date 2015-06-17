@@ -35,7 +35,10 @@ frmGame.picGame.Cls
 
 
 For i = 0 To activeUnits - 1
-   If unit(i).selected Then drawSelection unit(i)
+   If unit(i).selected Then
+      drawSelection unit(i)
+      If unit(i).moving Then drawTarget unit(i)
+   End If
    drawUnit unit(i)
 Next i
 

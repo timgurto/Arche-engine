@@ -28,6 +28,8 @@ Public unitType(10) As typUnitType
 
 Public unit(100) As typUnit
 
+Public target As typTarget
+
 Public activeUnits As Integer
 
 Public i As Integer
@@ -41,4 +43,8 @@ Public selectionRectangleLoc2 As typCoords
 '***GAME OPTIONS - USE THESE TO CUSTOMIZE YOUR GAME***
 Public selectionRectangleShadow As Boolean 'whether the selection rectangle has a shadow
 Public keepWalkingOnCollision As Boolean 'whether units continue their walking animation while waiting for an obstructin to be removed
+Public showSelectedTargets As Boolean 'whether selected units' targets are displayed
+Public Const unitBackground = vbGreen 'the background color on bitmap files containing units
+Public Const targetBackground = vbGreen 'the background color on the bitmap file containing the target image
 
+'*****************************************************
