@@ -17,6 +17,6 @@ Public Type typUnit
    location As typCoords
    target As typCoords
    type As Byte
-   active As Boolean
+   moving As Boolean
 End Type
 
