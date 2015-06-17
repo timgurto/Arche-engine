@@ -410,8 +410,10 @@ End Sub
 Private Sub Command2_Click()
 Dim i As Integer
 Dim n As Integer
-Dim collides As Boolean
+'Dim collides As Boolean
+Dim count As Integer
 
+count = 0
 n = activeUnits
 If n < MAX_UNITS Then
 
@@ -443,17 +445,9 @@ If n < MAX_UNITS Then
    Do
       unit(n).location.x = Int(Rnd * ((gameMap.dimensions.x - 1) * TERRAIN_TILE_SIZE) + 1)
       unit(n).location.y = Int(Rnd * ((gameMap.dimensions.y - 1) * TERRAIN_TILE_SIZE) + 1)
-      collides = False
-      
-      For i = 0 To activeUnits - 1
-         If i <> n Then
-            If collision(screenCoords(unit(n)), unitType(unit(n).type).dimensions, screenCoords(unit(i)), unitType(unit(i).type).dimensions) Then
-               collides = True
-            End If
-         End If
-      Next i
-   Loop Until Not collides
-   
+      count = count + 1
+   Loop Until validLocation(collisionLoc(n), unitType(unit(n).type).collisionDim, n)
+   Debug.Print "Creted unit after " & count & " attempts."
    unit(n).target = unit(n).location
    unit(n).exploring = True
    needReExplore = True

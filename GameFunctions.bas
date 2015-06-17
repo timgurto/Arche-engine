@@ -4,10 +4,10 @@ Option Explicit
 Public Function findUnit(target As typcoords) As Integer
 Dim i As Integer
 findUnit = -1
-For i = 0 To activeUnits - 1
+For i = activeUnits - 1 To 0 Step -1
    If collision(screenCoords(unit(i)), unitType(unit(i).type).dimensions, target, makeCoords(1, 1)) Then
       findUnit = i
-      i = activeUnits
+      i = -1
    End If
 Next i
 End Function
@@ -127,6 +127,9 @@ For j = 0 To activeUnits - 1
 Next j
 activeUnits = activeUnits - 1
 
+'Might be impractical:
+sortUnits
+
 frmGame.updateStats
 
 'printEntityList "After deletion:"
@@ -175,43 +178,11 @@ End If
 
 '***COLLISION CHECKS***
 
-'Map edges
-If Not collision( _
-addCoords(unit(n).location, findPath), _
-makeCoords(1, 1), _
-makeCoords(1, 1), _
-subCoords(muxCoords(gameMap.dimensions, TERRAIN_TILE_SIZE), makeCoords(2, 2)) _
-) Then
+If Not validLocation(addCoords(collisionLoc(n), findPath), unitType(unit(n).type).collisionDim, n) Then
    If Not KEEP_WALKING_ON_COLLISION Then unit(n).freezeFrame = True 'unit(n).frame = unit(n).frame - 1
    findPath = makeCoords(0, 0)
    Exit Function
-End If
-
-c = getTile(addCoords(unit(n).location, findPath))
-If terrain(gameMap.terrain(c.x, c.y)).impassable Then
-   If Not KEEP_WALKING_ON_COLLISION Then unit(n).freezeFrame = True 'unit(n).frame = unit(n).frame - 1
-   findPath = makeCoords(0, 0)
-   Exit Function
-End If
-
-'Units
-For i = 0 To activeUnits - 1
-   If i <> n Then
-      If collision( _
-      addCoords(collisionLoc(n), findPath), _
-      unitType(unit(n).type).collisionDim, _
-      collisionLoc(i), _
-      unitType(unit(i).type).collisionDim _
-      ) Then
-         'unit(n).frame = 0
-         If Not KEEP_WALKING_ON_COLLISION Then unit(n).freezeFrame = True 'unit(n).frame = unit(n).frame - 1
-         findPath = makeCoords(0, 0)
-         Exit Function
-      End If
-   End If
-Next i
-
-If Not (findPath.x = 0 And findPath.y = 0) Then 'if a path is found, and thus if the unit will move
+Else 'if a path is found, and thus if the unit will move
    unit(n).exploring = True
    needReExplore = True
 End If
@@ -349,6 +320,13 @@ For i = 0 To activeUnits - 1
    If i <> min Then Call swapUnits(i, min)
 Next i
 
+'If DEBUG_MODE Then
+'   For i = 0 To activeUnits - 1
+'      Debug.Print unit(i).location.y
+'   Next i
+'   Debug.Print ""
+'End If
+
 End Sub
 
 Public Function unitSize(i As Integer, j As Integer) As Integer
@@ -435,14 +413,55 @@ t = unitType(u.type)
 collisionLoc = addCoords(screenCoords(u), t.collisionLoc)
 End Function
 
-'Public Function collisionDim(objectType As Byte, n As Integer) As typcoords
-'Select Case objectType
-'Case UNIT_TYPE
-'   collisionDim.x = unitType(unit(n).type).dimensions.x / 2
-'   collisionDim.y = unitType(unit(n).type).dimensions.y / 4
-'Case Else
-'   If DEBUG_MODE Then MsgBox "Invalid object type: " & objectType
-'End Select
-'End Function
-'
+Public Function validLocation(location As typcoords, dimensions As typcoords, Optional unitIndex As Integer = -1) As Boolean
+Dim c As typcoords
+Dim i As Integer
+
+validLocation = True
+
+'Map edges
+If location.x < 0 Then
+   validLocation = False
+   Exit Function
+End If
+If location.y < 0 Then
+   validLocation = False
+   Exit Function
+End If
+If location.x + dimensions.x > (gameMap.dimensions.x - 1) * TERRAIN_TILE_SIZE Then
+   validLocation = False
+   Exit Function
+End If
+If location.y + dimensions.y > (gameMap.dimensions.y - 1) * TERRAIN_TILE_SIZE Then
+   validLocation = False
+   Exit Function
+End If
+
+c = getTile(location)
+If terrain(gameMap.terrain(c.x, c.y)).impassable Then
+   validLocation = False
+   Exit Function
+End If
+c = getTile(addCoords(location, dimensions))
+If terrain(gameMap.terrain(c.x, c.y)).impassable Then
+   validLocation = False
+   Exit Function
+End If
+
+'Units
+For i = 0 To activeUnits - 1
+   If i <> unitIndex Then
+      If collision( _
+      location, _
+      dimensions, _
+      collisionLoc(i), _
+      unitType(unit(i).type).collisionDim _
+      ) Then
+         validLocation = False
+         Exit Function
+      End If
+   End If
+Next i
+
+End Function
 
