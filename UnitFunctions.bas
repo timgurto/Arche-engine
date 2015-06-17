@@ -76,3 +76,9 @@ End If
 frmGame.picGame.ForeColor = vbWhite
 x = Rectangle(frmGame.picGame.hdc, selectionRectangleLoc1.x, selectionRectangleLoc1.y, selectionRectangleLoc2.x, selectionRectangleLoc2.y)
 End Sub
+
+Public Sub drawPortrait(n As Long, background As Long)
+Dim x As Long
+x = TransparentBlt(frmGame.picPortrait.hdc, 0, 0, frmGame.picPortrait.Width / Screen.TwipsPerPixelX, frmGame.picPortrait.Height / Screen.TwipsPerPixelY, n, 0, 0, PORTRAIT_WIDTH, PORTRAIT_HEIGHT, background)
+
+End Sub

@@ -50,6 +50,8 @@ Public Type typUnitType
    hasSpecial As Boolean
    lineOfSight As Integer
    dc As Long
+   portrait As Long
+   portraitBackground As Long
    background As Long
    dimensions As typcoords
    frames As Byte

@@ -63,4 +63,6 @@ Public Const HEALTH_BAR_COLOR As Single = vbGreen
 Public Const SHOW_UNUSED_STATS As Boolean = True 'Whether stats are displayed if a unit doesn't have them, eg. 0 armor, no special
 Public Const SPECIAL_PERCENT As Boolean = False 'Whether a unit's 'special' is displayed as a percentage or not
 Public Const SPECIAL_NAME As String = "Influence"
+Public Const PORTRAIT_WIDTH As Integer = 15
+Public Const PORTRAIT_HEIGHT As Integer = 15
 '*****************************************************

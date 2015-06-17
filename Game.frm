@@ -26,15 +26,28 @@ Begin VB.Form frmGame
       TabIndex        =   18
       Top             =   9480
       Width           =   2775
+      Begin VB.PictureBox picPortrait 
+         Appearance      =   0  'Flat
+         AutoRedraw      =   -1  'True
+         BackColor       =   &H00400000&
+         ForeColor       =   &H80000008&
+         Height          =   675
+         Left            =   60
+         ScaleHeight     =   645
+         ScaleWidth      =   645
+         TabIndex        =   30
+         Top             =   60
+         Width           =   675
+      End
       Begin VB.Label lblCiv 
          BackStyle       =   0  'Transparent
          Caption         =   "Egyptians"
          ForeColor       =   &H00FFFFFF&
          Height          =   255
-         Left            =   60
+         Left            =   780
          TabIndex        =   28
          Top             =   480
-         Width           =   2655
+         Width           =   1935
       End
       Begin VB.Label lblSpeed 
          BackStyle       =   0  'Transparent
@@ -143,10 +156,10 @@ Begin VB.Form frmGame
          Caption         =   "Pharaoh Rameses"
          ForeColor       =   &H00FFFFFF&
          Height          =   255
-         Left            =   60
+         Left            =   780
          TabIndex        =   20
          Top             =   240
-         Width           =   2655
+         Width           =   1935
       End
       Begin VB.Label lblType 
          BackStyle       =   0  'Transparent
@@ -162,10 +175,10 @@ Begin VB.Form frmGame
          EndProperty
          ForeColor       =   &H00FFFFFF&
          Height          =   255
-         Left            =   60
+         Left            =   780
          TabIndex        =   19
          Top             =   0
-         Width           =   2655
+         Width           =   1935
       End
    End
    Begin VB.Timer tmrScroll 
@@ -213,9 +226,9 @@ Begin VB.Form frmGame
    End
    Begin VB.Label lblSelected 
       Height          =   255
-      Left            =   3000
+      Left            =   9000
       TabIndex        =   27
-      Top             =   10080
+      Top             =   10320
       Visible         =   0   'False
       Width           =   255
    End
@@ -364,9 +377,9 @@ Begin VB.Form frmGame
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   495
-      Left            =   3480
+      Left            =   7800
       TabIndex        =   3
-      Top             =   9960
+      Top             =   9600
       Width           =   4095
    End
 End
@@ -681,4 +694,9 @@ Else
    lblPlayer = ""
    lblType = ""
 End If
+
+frmGame.picPortrait.Cls
+If sel >= 0 Then Call drawPortrait(unitType(unit(sel).type).portrait, unitType(unit(sel).type).portraitBackground)
+frmGame.picPortrait.Refresh
+
 End Sub

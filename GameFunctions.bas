@@ -38,6 +38,8 @@ corpse(activeCorpses).timer = corpseType(corpse(activeCorpses).type).timer
 increment activeCorpses
 swapUnits n, activeUnits - 1
 activeUnits = activeUnits - 1
+
+frmGame.updateStats
 End Sub
 
 Public Sub deleteUnits()
