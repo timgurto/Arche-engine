@@ -8,7 +8,12 @@ Dim j As Integer
 
 refreshCount = 0
 
+activePlayers = 2
+activeCivs = 2
 activeUnits = 7
+activeUnitTypes = 5
+activeTerrains = 2
+activeCorpseTypes = 1
 activeCorpses = 1
 
 ctrlDown = False

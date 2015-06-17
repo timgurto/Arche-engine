@@ -69,6 +69,7 @@ Dim j As Integer
             unit(j).target = unit(j).location
          End If
       Next j
+If activeCorpses = MAX_CORPSES Then deleteCorpse (0)
 corpse(activeCorpses).dimensions = unitType(unit(n).type).dimensions
 corpse(activeCorpses).location = unit(n).location
 corpse(activeCorpses).type = unitType(unit(n).type).corpse
@@ -243,6 +244,6 @@ End Function
 
 Public Sub sound(n As Integer)
 Dim x As Long
-x = sndPlaySound(App.path & "\Sounds\s" & n & ".wav", sndAsync)
+x = sndPlaySound(App.Path & "\Sounds\s" & n & ".wav", sndAsync)
 
 End Sub

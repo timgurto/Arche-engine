@@ -413,48 +413,52 @@ Dim n As Integer
 Dim collides As Boolean
 
 n = activeUnits
-activeUnits = activeUnits + 1
+If n < MAX_UNITS Then
 
-
-If DEBUG_MODE Then lblUnits.Caption = "Units: " & activeUnits
-
-
-unit(n).type = Int(Rnd * (2) + 1)
-unit(n).player = Int(Rnd * (2) + 1)
-unit(n).health = Int(Rnd * (unitType(unit(n).type).health) + 1)
-unit(n).moving = False
-unit(n).direction = Int(Rnd * (4))
-unit(n).frame = 1
-unit(n).selected = False
-unit(n).freezeFrame = False
-unit(n).targetUnit = -1
-
-For i = 0 To activeUnits - 1
-   If unit(i).targetUnit = activeUnits - 1 Then
-      unit(i).targetUnit = -1
-      unit(i).combatMode = False
-   End If
-Next i
-
-increment player(unit(n).player).population
-
-Do
-   unit(n).location.x = Int(Rnd * (gameMap.dimensions.x * 48) + 1)
-   unit(n).location.y = Int(Rnd * (gameMap.dimensions.y * 48) + 1)
-   collides = False
+   activeUnits = activeUnits + 1
+   
+   
+   If DEBUG_MODE Then lblUnits.Caption = "Units: " & activeUnits
+   
+   
+   unit(n).type = Int(Rnd * (2) + 1)
+   unit(n).player = Int(Rnd * (2) + 1)
+   unit(n).health = Int(Rnd * (unitType(unit(n).type).health) + 1)
+   unit(n).moving = False
+   unit(n).direction = Int(Rnd * (4))
+   unit(n).frame = 1
+   unit(n).selected = False
+   unit(n).freezeFrame = False
+   unit(n).targetUnit = -1
    
    For i = 0 To activeUnits - 1
-      If i <> n Then
-         If collision(screenCoords(unit(n)), unitType(unit(n).type).dimensions, screenCoords(unit(i)), unitType(unit(i).type).dimensions) Then
-            collides = True
-         End If
+      If unit(i).targetUnit = activeUnits - 1 Then
+         unit(i).targetUnit = -1
+         unit(i).combatMode = False
       End If
    Next i
-Loop Until Not collides
-
-unit(n).target = unit(n).location
-unit(n).exploring = True
-needReExplore = True
+   
+   increment player(unit(n).player).population
+   
+   Do
+      unit(n).location.x = Int(Rnd * (gameMap.dimensions.x * 48) + 1)
+      unit(n).location.y = Int(Rnd * (gameMap.dimensions.y * 48) + 1)
+      collides = False
+      
+      For i = 0 To activeUnits - 1
+         If i <> n Then
+            If collision(screenCoords(unit(n)), unitType(unit(n).type).dimensions, screenCoords(unit(i)), unitType(unit(i).type).dimensions) Then
+               collides = True
+            End If
+         End If
+      Next i
+   Loop Until Not collides
+   
+   unit(n).target = unit(n).location
+   unit(n).exploring = True
+   needReExplore = True
+   
+End If
 
 End Sub
 

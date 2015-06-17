@@ -25,24 +25,37 @@ Public Const REGICIDE = 1
 Public victoryType As Byte
 Public regicideTarget(2) As Byte
 
+Public Const MAX_PLAYERS = 2
+Public activePlayers As Integer
+Public Const MAX_CIVS = 2
+Public activeCivs As Integer
+Public Const MAX_UNITS = 100
+Public activeUnits As Integer
+Public Const MAX_UNIT_TYPES = 10
+Public activeUnitTypes As Integer
+Public Const MAX_TERRAINS = 10
+Public activeTerrains As Integer
+Public Const MAX_CORPSE_TYPES = 1
+Public activeCorpseTypes As Integer
+Public Const MAX_CORPSES = 1000
+Public activeCorpses As Integer
+
 Public refreshCount As Integer
 
 Public scrollDir As Byte 'the direction the map is currently scrolling
 
-Public player(2) As typPlayer
-Public civ(2) As typCiv
+Public player(MAX_PLAYERS) As typPlayer
+Public civ(MAX_CIVS) As typCiv
 
-Public unitType(10) As typUnitType
-Public unit(100) As typUnit
-Public activeUnits As Integer
+Public unitType(MAX_UNIT_TYPES) As typUnitType
+Public unit(MAX_UNITS) As typUnit
 
 Public target As typTarget
 
-Public terrain(10) As typTerrain
+Public terrain(MAX_TERRAINS) As typTerrain
 
-Public corpseType(1) As typCorpseType
-Public corpse(1000) As typCorpse
-Public activeCorpses As Integer
+Public corpseType(MAX_CORPSE_TYPES) As typCorpseType
+Public corpse(MAX_CORPSES) As typCorpse
 
 Public gameMap As typMap
 Public fogDC As Long
