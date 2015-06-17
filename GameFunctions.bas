@@ -202,7 +202,7 @@ Dim disX As Long 'the sub-squared X half of the distance equation
 Dim loc As typcoords
 Dim uT As typUnitType
 
-If FOG_OF_WAR Then
+'If FOG_OF_WAR Then
 
    For i = 0 To gameMap.dimensions.x - 1 'set fog initially
       For j = 0 To gameMap.dimensions.y - 1
@@ -230,7 +230,7 @@ If FOG_OF_WAR Then
       End If
    Next n
    
-Else
+'Else
 
    For n = 0 To activeUnits - 1
       If unit(n).player = you And unit(n).exploring Then
@@ -247,7 +247,7 @@ Else
       End If
    Next n
          
-End If
+'End If
 
 needReExplore = False
 End Function

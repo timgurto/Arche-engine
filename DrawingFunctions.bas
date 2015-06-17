@@ -8,7 +8,10 @@ Dim z As Long
 For x = 0 To m.dimensions.x - 1
    For y = 0 To m.dimensions.y - 1
       z = BitBlt(frmGame.picGame.hdc, (x - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.x, (y - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.y, TERRAIN_TILE_SIZE, TERRAIN_TILE_SIZE, terrain(m.terrain(x, y)).dc, TERRAIN_TILE_SIZE * terrain(m.terrain(x, y)).frame, 0, IIf(gameMap.explored(x, y), vbSrcCopy, vbBlack))
-      If FOG_OF_WAR Then If gameMap.fog(x, y) Then z = TransparentBlt(frmGame.picGame.hdc, (x - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.x, (y - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.y, TERRAIN_TILE_SIZE, TERRAIN_TILE_SIZE, fogDC, 0, 0, TERRAIN_TILE_SIZE, TERRAIN_TILE_SIZE, vbWhite)
+      If FOG_OF_WAR Then If gameMap.fog(x, y) Then z = TransparentBlt(frmGame.picGame.hdc, _
+         (x - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.x, _
+         (y - 1) * TERRAIN_TILE_SIZE - gameMap.displacement.y, _
+         TERRAIN_TILE_SIZE, TERRAIN_TILE_SIZE, fogDC, 0, 0, TERRAIN_TILE_SIZE, TERRAIN_TILE_SIZE, vbWhite)
    Next y
 Next x
 End Sub

@@ -120,12 +120,12 @@ Input #1, s
 Input #1, s, s
 With target
    Input #1, .dimensions.x, .dimensions.y, .background
-   .dc = makeDC("target.bmp")
+   .dc = makeDC("_target.bmp")
 End With
 
 Close #1
 
-fogDC = makeDC("fog.bmp")
+fogDC = makeDC("_fog.bmp")
 
 sortUnits
 
