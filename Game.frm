@@ -14,6 +14,14 @@ Begin VB.Form frmGame
    ScaleWidth      =   800
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
+   Begin VB.CommandButton Command2 
+      Caption         =   "Create new unit"
+      Height          =   375
+      Left            =   2400
+      TabIndex        =   3
+      Top             =   7560
+      Width           =   1695
+   End
    Begin VB.Frame Frame1 
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
@@ -29,10 +37,10 @@ Begin VB.Form frmGame
       Height          =   7335
       Left            =   0
       ScaleHeight     =   7275
-      ScaleWidth      =   11955
+      ScaleWidth      =   11940
       TabIndex        =   0
       Top             =   0
-      Width           =   12015
+      Width           =   12000
       Begin VB.CommandButton Command1 
          Caption         =   "X"
          Height          =   255
@@ -53,6 +61,37 @@ Option Explicit
 Private Sub Command1_Click()
 Call ChangeRes(1680, 1050)
 End
+End Sub
+
+Private Sub Command2_Click()
+Dim n As Integer
+n = activeUnits
+activeUnits = activeUnits + 1
+
+unit(n).location.x = Int(Rnd * (800) + 1)
+unit(n).location.y = Int(Rnd * (481) + 1)
+
+Dim collides As Boolean
+Do
+collides = False
+
+For i = 0 To activeUnits - 1
+   If i <> n Then
+      If collision(screenCoords(unit(n)), unitType(unit(n).type).dimensions, screenCoords(unit(i)), unitType(unit(i).type).dimensions) Then
+         collides = True
+      End If
+   End If
+Next i
+Loop Until Not collides
+
+unit(n).type = 2
+unit(n).moving = False
+unit(n).direction = Int(Rnd * (3))
+unit(n).frame = 1
+unit(n).selected = False
+unit(n).target = unit(n).location
+unit(n).freezeFrame = False
+
 End Sub
 
 Private Sub picGame_KeyDown(KeyCode As Integer, Shift As Integer)
