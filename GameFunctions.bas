@@ -19,6 +19,14 @@ unit(a) = unit(b)
 unit(b) = temp
 End Sub
 
+Public Sub deleteCorpse(n As Integer)
+Dim temp As typCorpse
+temp = corpse(n)
+corpse(n) = corpse(activeCorpses - 1)
+corpse(activeCorpses - 1) = temp
+activeCorpses = activeCorpses - 1
+End Sub
+
 Public Sub killUnit(n As Integer)
 deleteUnit (n)
 End Sub

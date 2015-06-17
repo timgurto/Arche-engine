@@ -16,6 +16,11 @@ Begin VB.Form frmGame
    ScaleWidth      =   1024
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Timer tmrCorpses 
+      Interval        =   1000
+      Left            =   14160
+      Top             =   10200
+   End
    Begin VB.Frame Frame1 
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
@@ -237,6 +242,7 @@ Begin VB.Form frmGame
       Left            =   5880
       TabIndex        =   17
       Top             =   10800
+      Visible         =   0   'False
       Width           =   495
    End
    Begin VB.Shape shpExplore 
@@ -615,6 +621,20 @@ End Sub
 
 Private Sub writeContext(text As String)
 lblContextHelp.Caption = text
+End Sub
+
+Private Sub Timer1_Timer()
+
+End Sub
+
+Private Sub tmrCorpses_Timer()
+Dim i As Integer
+For i = 0 To activeCorpses - 1
+   If corpse(i).timer <> -1 Then
+      corpse(i).timer = corpse(i).timer - 1
+      If corpse(i).timer = 0 Then deleteCorpse (i)
+   End If
+Next i
 End Sub
 
 Private Sub tmrScroll_Timer()
