@@ -16,17 +16,6 @@ Begin VB.Form frmGame
    ScaleWidth      =   1024
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
-   Begin VB.Frame fra 
-      BackColor       =   &H00000000&
-      BorderStyle     =   0  'None
-      Caption         =   "Frame1"
-      ForeColor       =   &H00FFFFFF&
-      Height          =   1695
-      Left            =   14400
-      TabIndex        =   27
-      Top             =   9120
-      Width           =   2775
-   End
    Begin VB.Frame Frame1 
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
@@ -43,7 +32,7 @@ Begin VB.Form frmGame
          ForeColor       =   &H00FFFFFF&
          Height          =   255
          Left            =   60
-         TabIndex        =   29
+         TabIndex        =   28
          Top             =   480
          Width           =   2655
       End
@@ -217,7 +206,7 @@ Begin VB.Form frmGame
       Caption         =   "Label1"
       Height          =   255
       Left            =   7920
-      TabIndex        =   30
+      TabIndex        =   29
       Top             =   10320
       Visible         =   0   'False
       Width           =   615
@@ -225,7 +214,7 @@ Begin VB.Form frmGame
    Begin VB.Label lblSelected 
       Height          =   255
       Left            =   3000
-      TabIndex        =   28
+      TabIndex        =   27
       Top             =   10080
       Visible         =   0   'False
       Width           =   255

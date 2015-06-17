@@ -42,7 +42,7 @@ Next i
 unitType(1).name = "Standard"
 unitType(1).health = 100
 unitType(1).armor = 2
-unitType(1).attack = 1
+unitType(1).attack = 30
 unitType(1).dc = CreateCompatibleDC(0)
 unitType(1).dc = LoadGraphicDC(App.Path & "\Images\Standard.bmp")
 unitType(1).background = vbWhite

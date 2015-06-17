@@ -174,18 +174,3 @@ For i = 0 To activeUnits - 1
    End If
 Next i
 End Function
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

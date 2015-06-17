@@ -48,6 +48,7 @@ For i = 0 To activeUnits - 1
                unit(i).combatMode = True
                unit(unit(i).targetUnit).health = tar.health - max(unitType(unit(i).type).attack - unitType(tar.type).armor, 0)
                If unit(unit(i).targetUnit).health <= 0 Then killUnit (unit(i).targetUnit)
+               frmGame.updateStats
             End If
          End If
       End If
