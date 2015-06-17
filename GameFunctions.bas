@@ -144,7 +144,7 @@ If FOG_OF_WAR Then
    
    'distance = Sqr((a.X - b.X) ^ 2 + (a.Y - b.Y) ^ 2)
    For n = 0 To activeUnits - 1
-      If unit(n).exploring Then
+      If unit(n).player = you And unit(n).exploring Then
          loc = unit(n).location
          uT = unitType(unit(n).type)
          For i = 1 To gameMap.dimensions.x
@@ -165,7 +165,7 @@ If FOG_OF_WAR Then
 Else
 
    For n = 0 To activeUnits - 1
-      If unit(n).exploring Then
+      If unit(n).player = you And unit(n).exploring Then
          For i = 1 To gameMap.dimensions.x
             For j = 1 To gameMap.dimensions.x
                If Not gameMap.explored(i, j) Then
@@ -196,4 +196,13 @@ For i = 0 To activeUnits - 1
       i = activeUnits
    End If
 Next i
+End Function
+
+Public Function getUnitTile(n As Integer) As typcoords
+Dim x As Integer, y As Integer
+Dim u As typUnit
+u = unit(n)
+x = u.location.x / TERRAIN_TILE_SIZE + 1
+y = u.location.y / TERRAIN_TILE_SIZE + 1
+getUnitTile = makeCoords(x, y)
 End Function

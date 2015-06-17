@@ -105,16 +105,13 @@ Next i
 
 'player marks, units
 For i = 0 To activeUnits - 1
-   drawPlayerMark unit(i)
-   drawUnit unit(i)
-   drawUnit unit(i)
-Next i
-
-'selection, targets
-For i = 0 To activeUnits - 1
-   If unit(i).selected Then
-      drawSelection unit(i)
-      If unit(i).moving Then drawTarget unit(i)
+   'if visible
+   If gameMap.explored(getUnitTile(i).x, getUnitTile(i).y) Then
+      drawPlayerMark unit(i)
+      If unit(i).selected Then drawSelection unit(i)
+      drawUnit unit(i)
+      drawUnit unit(i)
+      If unit(i).selected And unit(i).moving Then drawTarget unit(i)
    End If
 Next i
 
