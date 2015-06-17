@@ -111,10 +111,21 @@ For i = 0 To activeUnits - 1
       If unit(i).selected Then drawSelection unit(i)
       drawUnit unit(i)
       drawUnit unit(i)
-      If unit(i).selected And unit(i).moving Then drawTarget unit(i)
    End If
 Next i
 
+For i = 0 To activeUnits
+   If unit(i).selected And unit(i).moving Then drawTarget unit(i)
+Next i
+
+For i = 0 To activeUnits
+   If unit(i).selected Then
+      If gameMap.explored(getUnitTile(i).x, getUnitTile(i).y) Then
+         drawHealthBar unit(i)
+      End If
+   End If
+Next i
+         
 drawSelectionRectangle
 
 frmGame.picGame.Refresh

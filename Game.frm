@@ -516,7 +516,7 @@ If KeyCode = KEY_CTRL Then ctrlDown = False
 End Sub
 
 Private Sub Form_Load()
-Randomize
+Dim x As Integer
 
 init
 

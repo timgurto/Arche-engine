@@ -56,6 +56,12 @@ Dim x As Long
 frmGame.picGame.ForeColor = vbWhite
 frmGame.picGame.DrawWidth = SELECTION_ELLIPSE_WIDTH
 x = Ellipse(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y / 8 - gameMap.displacement.y, u.location.x + t.dimensions.x / 2 - gameMap.displacement.x, u.location.y + t.dimensions.y / 8 - gameMap.displacement.y)
+End Sub
+
+Public Sub drawHealthBar(u As typUnit)
+Dim t As typUnitType
+t = unitType(u.type)
+Dim x As Long
 frmGame.picGame.DrawWidth = 1
 frmGame.picGame.ForeColor = vbBlack
 frmGame.picGame.FillColor = vbBlack

@@ -99,7 +99,7 @@ End If
 '***COLLISION CHECKS***
 
 'Map edges
-If Not collision(addCoords(unit(n).location, findPath), makeCoords(1, 1), makeCoords(0, 0), muxCoords(gameMap.dimensions, TERRAIN_TILE_SIZE)) Then
+If Not collision(addCoords(unit(n).location, findPath), makeCoords(1, 1), makeCoords(1, 1), subCoords(muxCoords(gameMap.dimensions, TERRAIN_TILE_SIZE), makeCoords(2, 2))) Then
    If Not KEEP_WALKING_ON_COLLISION Then unit(n).freezeFrame = True 'unit(n).frame = unit(n).frame - 1
    findPath = makeCoords(0, 0)
    Exit Function
@@ -202,7 +202,7 @@ Public Function getUnitTile(n As Integer) As typcoords
 Dim x As Integer, y As Integer
 Dim u As typUnit
 u = unit(n)
-x = u.location.x / TERRAIN_TILE_SIZE + 1
-y = u.location.y / TERRAIN_TILE_SIZE + 1
+x = Int(u.location.x / TERRAIN_TILE_SIZE) + 1
+y = Int(u.location.y / TERRAIN_TILE_SIZE) + 1
 getUnitTile = makeCoords(x, y)
 End Function

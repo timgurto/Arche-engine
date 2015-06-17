@@ -21,7 +21,7 @@ target.dc = CreateCompatibleDC(0)
 target.dc = LoadGraphicDC(App.Path & "\Images\target.bmp")
 target.background = vbRed
 
-gameMap.displacement = makeCoords(-200, -200)
+gameMap.displacement = makeCoords(-100, -100)
 
 fogDC = CreateCompatibleDC(0)
 fogDC = LoadGraphicDC(App.Path & "\Images\fog.bmp")
@@ -32,7 +32,7 @@ terrain(1).dc = LoadGraphicDC(App.Path & "\Images\grass.bmp")
 terrain(2).dc = CreateCompatibleDC(0)
 terrain(2).dc = LoadGraphicDC(App.Path & "\Images\dirt.bmp")
 
-gameMap.dimensions = makeCoords(15, 15)
+gameMap.dimensions = makeCoords(15, 10)
 For i = 1 To 15
    For j = 1 To 15
       gameMap.terrain(i, j) = Int(Rnd * (2) + 1)
