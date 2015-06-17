@@ -1,4 +1,4 @@
-Attribute VB_Name = "BitBltModule"
+Attribute VB_Name = "mdlBitBlt"
 '***EXTERNAL MODULE***
 'Bit Block Transfer Functions
 'KPD Team
