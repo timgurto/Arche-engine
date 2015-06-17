@@ -76,3 +76,25 @@ Next i
 '**********************
 End Function
 
+Public Function exploreMap(u As typUnit)
+Dim i As Integer
+Dim j As Integer
+For i = 1 To gameMap.dimensions.X
+   For j = 1 To gameMap.dimensions.Y
+      If distance(u.location, makeCoords((i - 0.5) * TERRAIN_TILE_SIZE, (j - 0.5) * TERRAIN_TILE_SIZE)) <= unitType(u.type).lineofsight Then
+         gameMap.explored(i, j) = True
+      End If
+   Next j
+Next i
+End Function
+
+
+
+
+
+
+
+
+
+
+
