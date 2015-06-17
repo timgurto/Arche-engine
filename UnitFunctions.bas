@@ -26,6 +26,13 @@ If DEBUG_MODE Then
 End If
 End Sub
 
+Public Sub drawCorpse(c As typCorpse)
+Dim t As typCorpseType
+t = corpseType(c.type)
+Dim x As Long
+x = TransparentBlt(frmGame.picGame.hdc, c.location.x - c.dimensions.x / 2 - gameMap.displacement.x, c.location.y - c.dimensions.y * (7 / 8) - gameMap.displacement.y, c.dimensions.x, c.dimensions.y, t.dc, 0, 0, t.dimensions.x, t.dimensions.y, t.background)
+End Sub
+
 Public Sub drawTarget(u As typUnit)
 Dim x As Long
 x = TransparentBlt(frmGame.picGame.hdc, u.target.x - target.dimensions.x / 2 - gameMap.displacement.x, u.target.y - target.dimensions.y / 2 - gameMap.displacement.y, target.dimensions.x, target.dimensions.y, target.dc, 0, 0, target.dimensions.x, target.dimensions.y, target.background)

@@ -74,23 +74,30 @@ Dim i As Integer
 
 frmGame.picGame.Cls
 
+'terrain
 drawMap gameMap
 
+'corpses
+For i = 0 To activeCorpses - 1
+   drawCorpse corpse(i)
+Next i
+
+'player marks, units
 For i = 0 To activeUnits - 1
    drawPlayerMark unit(i)
    drawUnit unit(i)
    drawUnit unit(i)
-   
 Next i
 
-drawSelectionRectangle
-
+'selection, targets
 For i = 0 To activeUnits - 1
    If unit(i).selected Then
       drawSelection unit(i)
       If unit(i).moving Then drawTarget unit(i)
    End If
 Next i
+
+drawSelectionRectangle
 
 frmGame.picGame.Refresh
 End Sub

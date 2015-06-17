@@ -46,6 +46,7 @@ Public Type typUnitType
    range As Integer
    isRanged As Boolean
    special As Integer
+   corpse As Byte
    hasSpecial As Boolean
    lineOfSight As Integer
    dc As Long
@@ -73,3 +74,16 @@ Public Type typUnit
    combatMode As Boolean 'whether this unit is in the combat half of its attacking cycle
 End Type
 
+Public Type typCorpseType
+   dimensions As typcoords
+   background As Long
+   dc As Long
+   timer As Integer 'how long the corpse stays in the game.  -1 = forever
+End Type
+
+Public Type typCorpse
+   type As Byte
+   location As typcoords
+   dimensions As typcoords
+   timer As Integer
+End Type

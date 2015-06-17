@@ -31,6 +31,11 @@ Dim j As Integer
             unit(j).target = unit(j).location
          End If
       Next j
+corpse(activeCorpses).dimensions = unitType(unit(n).type).dimensions
+corpse(activeCorpses).location = unit(n).location
+corpse(activeCorpses).type = unitType(unit(n).type).corpse
+corpse(activeCorpses).timer = corpseType(corpse(activeCorpses).type).timer
+increment activeCorpses
 swapUnits n, activeUnits - 1
 activeUnits = activeUnits - 1
 End Sub

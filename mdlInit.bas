@@ -9,6 +9,7 @@ Dim j As Integer
 refreshCount = 0
 
 activeUnits = 3
+activeCorpses = 1
 
 ctrlDown = False
 
@@ -98,6 +99,20 @@ Next i
 
 unit(1).type = 2
 unit(2).player = 2
+
+corpseType(0).timer = 60
+corpseType(0).dc = CreateCompatibleDC(0)
+corpseType(0).dc = LoadGraphicDC(App.Path & "\Images\Guts.bmp")
+corpseType(0).dimensions.x = 144
+corpseType(0).dimensions.y = 144
+corpseType(0).background = vbGreen
+
+corpse(0).type = 0
+corpse(0).location.x = 100
+corpse(0).location.y = 100
+corpse(0).dimensions.x = 40
+corpse(0).dimensions.y = 60
+corpse(0).timer = 10
 
 civ(1).name = "Rebel Alliance"
 civ(1).color = vbBlue

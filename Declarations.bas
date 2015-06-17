@@ -34,6 +34,10 @@ Public target As typTarget
 
 Public terrain(10) As typTerrain
 
+Public corpseType(1) As typCorpseType
+Public corpse(1000) As typCorpse
+Public activeCorpses As Integer
+
 Public gameMap As typMap
 Public fogDC As Long
 
