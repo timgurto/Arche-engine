@@ -141,6 +141,24 @@ needReExplore = False
 End Function
 
 
+Public Function getSelected() As Integer
+getSelected = -1
+Dim i As Integer
+Dim found As Boolean 'whether a unit has been found yet
+found = False
+For i = 0 To activeUnits - 1
+   If unit(i).selected Then
+      getSelected = i
+      i = activeUnits
+   End If
+Next i
+End Function
+
+
+
+
+
+
 
 
 

@@ -41,6 +41,8 @@ Next i
 
 unitType(1).name = "Standard"
 unitType(1).health = 100
+unitType(1).armor = 2
+unitType(1).attack = 1
 unitType(1).dc = CreateCompatibleDC(0)
 unitType(1).dc = LoadGraphicDC(App.Path & "\Images\Standard.bmp")
 unitType(1).background = vbWhite
@@ -52,6 +54,8 @@ unitType(1).lineOfSight = 150
 
 unitType(2).name = "Hero"
 unitType(2).health = 75
+unitType(2).armor = 0
+unitType(2).attack = 5
 unitType(2).dc = CreateCompatibleDC(0)
 unitType(2).dc = LoadGraphicDC(App.Path & "\Images\Hero.bmp")
 unitType(2).background = vbGreen

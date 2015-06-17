@@ -16,6 +16,169 @@ Begin VB.Form frmGame
    ScaleWidth      =   1024
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame fra 
+      BackColor       =   &H00000000&
+      BorderStyle     =   0  'None
+      Caption         =   "Frame1"
+      ForeColor       =   &H00FFFFFF&
+      Height          =   1695
+      Left            =   14400
+      TabIndex        =   27
+      Top             =   9120
+      Width           =   2775
+   End
+   Begin VB.Frame Frame1 
+      BackColor       =   &H00000000&
+      BorderStyle     =   0  'None
+      Caption         =   "Frame1"
+      ForeColor       =   &H00FFFFFF&
+      Height          =   1935
+      Left            =   120
+      TabIndex        =   18
+      Top             =   9480
+      Width           =   2775
+      Begin VB.Label lblCiv 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Egyptians"
+         ForeColor       =   &H00FFFFFF&
+         Height          =   255
+         Left            =   60
+         TabIndex        =   29
+         Top             =   480
+         Width           =   2655
+      End
+      Begin VB.Label lblSpeed 
+         BackStyle       =   0  'Transparent
+         Caption         =   "0"
+         ForeColor       =   &H00FFFFFF&
+         Height          =   255
+         Left            =   1860
+         TabIndex        =   26
+         Top             =   1560
+         Width           =   855
+      End
+      Begin VB.Label lblSpecial 
+         BackStyle       =   0  'Transparent
+         Caption         =   "3400/5000"
+         ForeColor       =   &H00FFFFFF&
+         Height          =   255
+         Left            =   1860
+         TabIndex        =   25
+         Top             =   840
+         Width           =   855
+      End
+      Begin VB.Label lblRange 
+         BackStyle       =   0  'Transparent
+         Caption         =   "4"
+         ForeColor       =   &H00FFFFFF&
+         Height          =   255
+         Left            =   1860
+         TabIndex        =   24
+         Top             =   1200
+         Width           =   855
+      End
+      Begin VB.Label lblArmor 
+         BackStyle       =   0  'Transparent
+         Caption         =   "0"
+         ForeColor       =   &H00FFFFFF&
+         Height          =   255
+         Left            =   480
+         TabIndex        =   23
+         Top             =   1560
+         Width           =   855
+      End
+      Begin VB.Image imgRange 
+         Height          =   360
+         Left            =   1440
+         Picture         =   "Game.frx":030A
+         Top             =   1140
+         Width           =   360
+      End
+      Begin VB.Image imgSpecial 
+         Height          =   360
+         Left            =   1440
+         Picture         =   "Game.frx":138C
+         Top             =   780
+         Width           =   360
+      End
+      Begin VB.Image imgSPeed 
+         Height          =   360
+         Left            =   1440
+         Picture         =   "Game.frx":240E
+         Top             =   1500
+         Width           =   360
+      End
+      Begin VB.Image imgAttack 
+         Height          =   360
+         Left            =   60
+         Picture         =   "Game.frx":3490
+         Top             =   1140
+         Width           =   360
+      End
+      Begin VB.Image imgHealth 
+         Height          =   360
+         Left            =   60
+         Picture         =   "Game.frx":4512
+         Top             =   780
+         Width           =   360
+      End
+      Begin VB.Label lblAttack 
+         BackStyle       =   0  'Transparent
+         Caption         =   "4"
+         ForeColor       =   &H00FFFFFF&
+         Height          =   255
+         Left            =   480
+         TabIndex        =   22
+         Top             =   1200
+         Width           =   855
+      End
+      Begin VB.Label lblHealth 
+         BackStyle       =   0  'Transparent
+         Caption         =   "3400/5000"
+         ForeColor       =   &H00FFFFFF&
+         Height          =   255
+         Left            =   480
+         TabIndex        =   21
+         Top             =   840
+         Width           =   855
+      End
+      Begin VB.Image imgArmor 
+         Height          =   360
+         Left            =   60
+         Picture         =   "Game.frx":5594
+         Top             =   1500
+         Width           =   360
+      End
+      Begin VB.Label lblPlayer 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Pharaoh Rameses"
+         ForeColor       =   &H00FFFFFF&
+         Height          =   255
+         Left            =   60
+         TabIndex        =   20
+         Top             =   240
+         Width           =   2655
+      End
+      Begin VB.Label lblType 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Axeman"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   255
+         Left            =   60
+         TabIndex        =   19
+         Top             =   0
+         Width           =   2655
+      End
+   End
    Begin VB.Timer tmrScroll 
       Interval        =   8
       Left            =   14520
@@ -42,13 +205,21 @@ Begin VB.Form frmGame
       AutoRedraw      =   -1  'True
       BackColor       =   &H00000000&
       ForeColor       =   &H80000008&
-      Height          =   10560
+      Height          =   9240
       Left            =   45
-      ScaleHeight     =   10530
+      ScaleHeight     =   9210
       ScaleWidth      =   15240
       TabIndex        =   0
       Top             =   45
       Width           =   15270
+   End
+   Begin VB.Label lblSelected 
+      Height          =   255
+      Left            =   3000
+      TabIndex        =   28
+      Top             =   10080
+      Visible         =   0   'False
+      Width           =   255
    End
    Begin VB.Label lblFrame 
       Height          =   255
@@ -68,9 +239,9 @@ Begin VB.Form frmGame
    End
    Begin VB.Label lblUnits 
       Height          =   255
-      Left            =   120
+      Left            =   3720
       TabIndex        =   16
-      Top             =   10920
+      Top             =   10800
       Visible         =   0   'False
       Width           =   1335
    End
@@ -195,9 +366,9 @@ Begin VB.Form frmGame
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   495
-      Left            =   1710
+      Left            =   3480
       TabIndex        =   3
-      Top             =   10830
+      Top             =   9960
       Width           =   4095
    End
 End
@@ -335,9 +506,11 @@ If DEBUG_MODE Then
    lblMapCoords.Visible = True
    lblUnits.Visible = True
    shpExplore.Visible = True
+   lblSelected.Visible = True
 End If
 
 gameLoop
+updateStats
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
@@ -415,6 +588,8 @@ If mouseDown Then
    Next i
 End If
 mouseDown = False
+
+updateStats
 End Sub
 
 Private Sub writeContext(text As String)
@@ -442,4 +617,60 @@ Select Case scrollDir
 End Select
 
 If DEBUG_MODE Then lblDisplacement.Caption = "Displacement: (" & gameMap.displacement.x & ", " & gameMap.displacement.y & ")"
+End Sub
+
+Public Sub updateStats()
+Dim u As typUnit
+Dim t As typUnitType
+Dim sel As Integer
+sel = getSelected
+
+If DEBUG_MODE Then lblSelected = sel
+
+If sel >= 0 Then
+   u = unit(sel)
+   t = unitType(u.type)
+
+   lblType = t.name
+   lblPlayer = player(u.player).name
+   lblCiv = civ(player(u.player).civ).name
+   lblHealth = u.health & "/" & t.health
+   lblAttack = t.attack
+   lblArmor = t.armor
+   lblRange = t.range
+   lblSpeed = t.speed
+   'lblSpecial = IIf((SPECIAL_PERCENT And t.special > 0), (u.special * 100 / t.special) & "%", u.special & "/" & t.special)
+   lblSpecial = u.special & "/" & t.special
+   
+   If SHOW_UNUSED_STATS Then
+      imgAttack.Visible = lblAttack.Visible = True
+      imgArmor.Visible = lblArmor.Visible = True
+      imgRange.Visible = lblRange.Visible = True
+      imgSpecial.Visible = lblSpecial.Visible = True
+      imgHealth.Visible = lblHealth.Visible = True
+      imgSPeed.Visible = lblSpeed.Visible = True
+   Else
+      imgAttack.Visible = lblAttack.Visible = (t.attack > 0)
+      imgArmor.Visible = lblArmor.Visible = (t.armor > 0)
+      imgRange.Visible = lblRange.Visible = (t.range > 0)
+      imgSpecial.Visible = lblSpecial.Visible = (t.special > 0)
+      imgHealth.Visible = lblHealth.Visible = (t.health > 0)
+      imgSPeed.Visible = lblSpeed.Visible = (t.speed > 0)
+   End If
+Else
+   imgAttack.Visible = False
+   imgArmor.Visible = False
+   imgRange.Visible = False
+   imgSpecial.Visible = False
+   imgHealth.Visible = False
+   imgSPeed.Visible = False
+   lblAttack = ""
+   lblArmor = ""
+   lblRange = ""
+   lblSpecial = ""
+   lblHealth = ""
+   lblSpeed = ""
+   lblPlayer = ""
+   lblType = ""
+End If
 End Sub

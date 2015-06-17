@@ -40,6 +40,12 @@ Public Type typUnitType
    name As String
    speed As Integer
    health As Integer
+   armor As Integer
+   attack As Integer
+   range As Integer
+   isRanged As Boolean
+   special As Integer
+   hasSpecial As Boolean
    lineOfSight As Integer
    dc As Long
    background As Long
@@ -49,6 +55,7 @@ End Type
 
 Public Type typUnit
    health As Integer
+   special As Integer
    location As typCoords
    target As typCoords
    player As Byte
