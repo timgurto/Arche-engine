@@ -47,24 +47,9 @@ End Sub
 
 Private Sub Form_Load()
 
-'Game = CreateCompatibleDC(0)
-unitType(1).dc = CreateCompatibleDC(0)
-
-caveman.speed = 1
-unitType(1).dc = LoadGraphicDC(App.Path & "\Images\u001.bmp")
-
-Dim x As Long
-
-unitType(1).speed = 3
-
-unit(1).location.x = 0
-unit(1).location.y = 0
-unit(1).target.x = 50
-unit(1).target.y = 30
-unit(1).type = 1
+init
 
 drawUnit unit(1)
-'x = BitBlt(picGame.hdc, y, 0, 54, 56, caveman.dc, 0, 0, vbSrcCopy)
 picGame.Refresh
 
 

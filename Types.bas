@@ -9,15 +9,14 @@ End Type
 
 Public Type typUnitType
    dc As Long
-   speed As Single
+   speed As Integer
+   dimensions As typCoords
 End Type
-
-Public caveman As typUnitType
-
 
 Public Type typUnit
    location As typCoords
    target As typCoords
    type As Byte
+   active As Boolean
 End Type
 
