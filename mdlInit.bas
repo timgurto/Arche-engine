@@ -4,6 +4,7 @@ Option Explicit
 
 Public Sub init()
 Dim i As Integer
+Dim j As Integer
 
 refreshCount = 0
 
@@ -27,19 +28,12 @@ terrain(1).dc = LoadGraphicDC(App.Path & "\Images\grass.bmp")
 terrain(2).dc = CreateCompatibleDC(0)
 terrain(2).dc = LoadGraphicDC(App.Path & "\Images\dirt.bmp")
 
-gameMap.dimensions = makeCoords(4, 3)
-gameMap.terrain(1, 1) = 2
-gameMap.terrain(1, 2) = 2
-gameMap.terrain(1, 3) = 1 '    1 2 3 4
-gameMap.terrain(2, 1) = 2 '  +--------
-gameMap.terrain(2, 2) = 1 ' 1| 2 2 1 1
-gameMap.terrain(2, 3) = 1 ' 2| 2 1 1 1
-gameMap.terrain(3, 1) = 1 ' 3| 1 1 1 1
-gameMap.terrain(3, 2) = 1
-gameMap.terrain(3, 3) = 1
-gameMap.terrain(4, 1) = 1
-gameMap.terrain(4, 2) = 1
-gameMap.terrain(4, 3) = 1
+gameMap.dimensions = makeCoords(15, 15)
+For i = 1 To 15
+   For j = 1 To 15
+      gameMap.terrain(i, j) = Int(Rnd * (2) + 1)
+   Next j
+Next i
 
 unitType(1).name = "Standard"
 unitType(1).dc = CreateCompatibleDC(0)

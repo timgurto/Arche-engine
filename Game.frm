@@ -50,6 +50,14 @@ Begin VB.Form frmGame
       Top             =   255
       Width           =   11910
    End
+   Begin VB.Label lblUnits 
+      Height          =   255
+      Left            =   120
+      TabIndex        =   16
+      Top             =   7440
+      Visible         =   0   'False
+      Width           =   1335
+   End
    Begin VB.Label lblMapCoords 
       Height          =   255
       Left            =   5880
@@ -196,32 +204,36 @@ End Sub
 Private Sub Command2_Click()
 Dim i As Integer
 Dim n As Integer
+Dim collides As Boolean
+
 n = activeUnits
 activeUnits = activeUnits + 1
 
-unit(n).location.X = Int(Rnd * (800) + 1)
-unit(n).location.Y = Int(Rnd * (481) + 1)
+If DEBUG_MODE Then lblUnits.Caption = "Units: " & activeUnits
 
-Dim collides As Boolean
-Do
-collides = False
 
-For i = 0 To activeUnits - 1
-   If i <> n Then
-      If collision(screenCoords(unit(n)), unitType(unit(n).type).dimensions, screenCoords(unit(i)), unitType(unit(i).type).dimensions) Then
-         collides = True
-      End If
-   End If
-Next i
-Loop Until Not collides
-
-unit(n).type = 2
+unit(n).type = Int(Rnd * (2) + 1)
 unit(n).moving = False
 unit(n).direction = Int(Rnd * (3))
 unit(n).frame = 1
 unit(n).selected = False
-unit(n).target = unit(n).location
 unit(n).freezeFrame = False
+
+Do
+   unit(n).location.X = Int(Rnd * (gameMap.dimensions.X * 48) + 1)
+   unit(n).location.Y = Int(Rnd * (gameMap.dimensions.Y * 48) + 1)
+   collides = False
+   
+   For i = 0 To activeUnits - 1
+      If i <> n Then
+         If collision(screenCoords(unit(n)), unitType(unit(n).type).dimensions, screenCoords(unit(i)), unitType(unit(i).type).dimensions) Then
+            collides = True
+         End If
+      End If
+   Next i
+Loop Until Not collides
+
+unit(n).target = unit(n).location
 
 End Sub
 
@@ -287,6 +299,7 @@ If DEBUG_MODE Then
    lblCoords.Visible = True
    lblDisplacement.Visible = True
    lblMapCoords.Visible = True
+   lblUnits.Visible = True
 End If
 
 gameLoop

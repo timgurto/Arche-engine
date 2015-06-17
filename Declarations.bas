@@ -2,7 +2,6 @@ Attribute VB_Name = "mdlDeclarations"
 Option Explicit
 
 Public Const DEBUG_MODE = False
-
 Public Const Red = &HFF
 Public Const Green = &HFF00&
 Public Const Blue = &HFF0000
