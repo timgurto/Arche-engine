@@ -9,7 +9,6 @@ refreshCount = 0
 activeUnits = 3
 
 ctrlDown = False
-mouseDown = False: frmGame.mouseDownIndicator = mouseDown
 
 '***GAME OPTIONS - USE THESE TO CUSTOMIZE YOUR GAME***
 selectionRectangleShadow = False

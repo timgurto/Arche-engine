@@ -1,60 +1,46 @@
 VERSION 5.00
 Begin VB.Form frmGame 
+   BorderStyle     =   0  'None
    Caption         =   "Form1"
-   ClientHeight    =   6840
-   ClientLeft      =   45
-   ClientTop       =   360
-   ClientWidth     =   9000
+   ClientHeight    =   9000
+   ClientLeft      =   -15
+   ClientTop       =   -15
+   ClientWidth     =   12000
    LinkTopic       =   "Form1"
-   ScaleHeight     =   456
+   MaxButton       =   0   'False
+   MinButton       =   0   'False
+   ScaleHeight     =   600
    ScaleMode       =   3  'Pixel
-   ScaleWidth      =   600
-   StartUpPosition =   3  'Windows Default
+   ScaleWidth      =   800
+   ShowInTaskbar   =   0   'False
+   StartUpPosition =   1  'CenterOwner
+   Begin VB.Frame Frame1 
+      BackColor       =   &H00000000&
+      BorderStyle     =   0  'None
+      Height          =   1695
+      Left            =   0
+      TabIndex        =   2
+      Top             =   7320
+      Width           =   1695
+   End
    Begin VB.PictureBox picGame 
       AutoRedraw      =   -1  'True
       BackColor       =   &H00008000&
-      Height          =   5172
-      Left            =   720
-      ScaleHeight     =   5115
-      ScaleWidth      =   5835
+      Height          =   7335
+      Left            =   0
+      ScaleHeight     =   7275
+      ScaleWidth      =   11955
       TabIndex        =   0
-      Top             =   480
-      Width           =   5892
-   End
-   Begin VB.Label selectiony2 
-      Height          =   255
-      Left            =   7680
-      TabIndex        =   5
-      Top             =   1560
-      Width           =   615
-   End
-   Begin VB.Label selectionx2 
-      Height          =   255
-      Left            =   7080
-      TabIndex        =   4
-      Top             =   1560
-      Width           =   495
-   End
-   Begin VB.Label selectiony1 
-      Height          =   255
-      Left            =   7680
-      TabIndex        =   3
-      Top             =   1320
-      Width           =   615
-   End
-   Begin VB.Label selectionx1 
-      Height          =   255
-      Left            =   7080
-      TabIndex        =   2
-      Top             =   1320
-      Width           =   495
-   End
-   Begin VB.Label mouseDownIndicator 
-      Height          =   255
-      Left            =   7080
-      TabIndex        =   1
-      Top             =   840
-      Width           =   1215
+      Top             =   0
+      Width           =   12015
+      Begin VB.CommandButton Command1 
+         Caption         =   "X"
+         Height          =   255
+         Left            =   11760
+         TabIndex        =   1
+         Top             =   0
+         Width           =   255
+      End
    End
 End
 Attribute VB_Name = "frmGame"
@@ -65,7 +51,8 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub Command1_Click()
-
+Call ChangeRes(1680, 1050)
+End
 End Sub
 
 Private Sub picGame_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -78,11 +65,16 @@ End Sub
 
 Private Sub Form_Load()
 init
+
+Call ChangeRes(800, 600)
 Me.Show
+picGame.SetFocus
+
 gameLoop
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
+Call ChangeRes(1680, 1050)
 End
 End Sub
 
@@ -97,9 +89,7 @@ If Button = 2 Then 'RMB
    Next i
 
 ElseIf Button = 1 Then 'LMB
-
-   mouseDown = True: frmGame.mouseDownIndicator = mouseDown
-
+   mouseDown = True
 End If
 End Sub
 
@@ -110,11 +100,6 @@ If Not mouseDown Then
 End If
 selectionRectangleLoc2.x = x / Screen.TwipsPerPixelX
 selectionRectangleLoc2.y = y / Screen.TwipsPerPixelY
-
-frmGame.selectionx1 = selectionRectangleLoc1.x
-frmGame.selectionx2 = selectionRectangleLoc2.x
-frmGame.selectiony1 = selectionRectangleLoc1.y
-frmGame.selectiony2 = selectionRectangleLoc2.y
 
 drawEverything
 
@@ -137,6 +122,5 @@ If mouseDown Then
       End If
    Next i
 End If
-
-mouseDown = False: frmGame.mouseDownIndicator = mouseDown
+mouseDown = False
 End Sub
