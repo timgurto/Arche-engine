@@ -36,7 +36,7 @@ Public Sub drawCorpse(c As typCorpse)
 Dim t As typCorpseType
 t = corpseType(c.type)
 Dim x As Long
-x = TransparentBlt(frmGame.picGame.hdc, c.location.x - c.dimensions.x / 2 - gameMap.displacement.x, c.location.y - c.dimensions.y * (7 / 8) - gameMap.displacement.y, c.dimensions.x, c.dimensions.y, t.dc, 0, 0, t.dimensions.x, t.dimensions.y, t.background)
+x = TransparentBlt(frmGame.picGame.hdc, c.location.x - c.dimensions.x / 2 - gameMap.displacement.x, c.location.y - c.dimensions.y / 2 - gameMap.displacement.y, c.dimensions.x, c.dimensions.y, t.dc, 0, 0, t.dimensions.x, t.dimensions.y, t.background)
 End Sub
 
 Public Sub drawTarget(u As typUnit)
@@ -46,20 +46,23 @@ End Sub
 
 Public Sub drawPlayerMark(u As typUnit)
 Dim t As typUnitType
-t = unitType(u.type)
 Dim x As Long
-frmGame.picGame.ForeColor = civ(player(u.player).civ).color
-frmGame.picGame.FillStyle = 0
-frmGame.picGame.FillColor = civ(player(u.player).civ).color
-'x = Ellipse(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y / 8 - gameMap.displacement.y, u.location.x + t.dimensions.x / 2 - gameMap.displacement.x, u.location.y + t.dimensions.y / 8 - gameMap.displacement.y) 'frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y - 2, u.location.x + 25 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y)
-x = Ellipse( _
-   frmGame.picGame.hdc, _
-   t.collisionLoc.x + screenCoords(u).x - gameMap.displacement.x, _
-   t.collisionLoc.y + screenCoords(u).y - gameMap.displacement.y, _
-   t.collisionLoc.x + screenCoords(u).x + t.collisionDim.x - gameMap.displacement.x, _
-   t.collisionLoc.y + screenCoords(u).y + t.collisionDim.y - gameMap.displacement.y)
-   'frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y - 2, u.location.x + 25 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y)
-frmGame.picGame.FillStyle = 1
+
+If IIf(u.player = you, YOU_HAVE_ELLIPSES, ENEMIES_HAVE_ELLIPSES) Then
+   t = unitType(u.type)
+   frmGame.picGame.ForeColor = civ(player(u.player).civ).color
+   frmGame.picGame.FillStyle = 0
+   frmGame.picGame.FillColor = civ(player(u.player).civ).color
+   'x = Ellipse(frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y / 8 - gameMap.displacement.y, u.location.x + t.dimensions.x / 2 - gameMap.displacement.x, u.location.y + t.dimensions.y / 8 - gameMap.displacement.y) 'frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y - 2, u.location.x + 25 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y)
+   x = Ellipse( _
+      frmGame.picGame.hdc, _
+      t.collisionLoc.x + screenCoords(u).x - gameMap.displacement.x, _
+      t.collisionLoc.y + screenCoords(u).y - gameMap.displacement.y, _
+      t.collisionLoc.x + screenCoords(u).x + t.collisionDim.x - gameMap.displacement.x, _
+      t.collisionLoc.y + screenCoords(u).y + t.collisionDim.y - gameMap.displacement.y)
+      'frmGame.picGame.hdc, u.location.x - t.dimensions.x / 2 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y - 2, u.location.x + 25 - gameMap.displacement.x, u.location.y - t.dimensions.y * (7 / 8) - gameMap.displacement.y)
+   frmGame.picGame.FillStyle = 1
+End If
 End Sub
 
 Public Sub drawSelection(u As typUnit)
@@ -79,6 +82,7 @@ Public Sub drawHealthBar(u As typUnit)
 Dim t As typUnitType
 t = unitType(u.type)
 Dim x As Long
+If HEALTH_BAR_CIV_COLOR Then HEALTH_BAR_COLOR = civ(player(u.player).civ).color
 frmGame.picGame.DrawWidth = 1
 frmGame.picGame.ForeColor = vbBlack
 frmGame.picGame.FillColor = vbBlack

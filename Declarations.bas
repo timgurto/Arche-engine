@@ -44,6 +44,8 @@ Public activeCorpseTypes As Integer
 Public Const MAX_CORPSES = 1000
 Public activeCorpses As Integer
 
+Public gamePath As String
+
 Public refreshCount As Integer
 
 Public scrollDir As Byte 'the direction the map is currently scrolling
@@ -76,23 +78,25 @@ Public needReExplore As Boolean
 Public selectionRectangle As Boolean
 
 '***GAME OPTIONS - USE THESE TO CUSTOMIZE YOUR GAME***
-Public Const SELECTION_RECTANGLE_SHADOW As Boolean = True 'whether the selection rectangle has a shadow
-Public Const KEEP_WALKING_ON_COLLISION As Boolean = False 'whether units continue their walking animation while waiting for an obstructin to be removed
-Public Const SHOW_SELECTED_TARGETS As Boolean = True 'whether selected units' targets are displayed
-Public Const TERRAIN_TILE_SIZE As Integer = 48 'the x and y dimensions of each terrain tile
-Public Const FOG_OF_WAR As Boolean = False
-Public Const ENEMIES_SELECTABLE As Boolean = True
-Public Const ENEMIES_HAVE_ELLIPSES As Boolean = False
-Public Const SELECTION_ELLIPSE_WIDTH As Integer = 1
-Public Const HEALTH_BAR_WIDTH As Integer = 4
-Public Const HEALTH_BAR_COLOR As Single = vbGreen
-Public Const SHOW_UNUSED_STATS As Boolean = False 'Whether stats are displayed if a unit doesn't have them, eg. 0 armor, no special
-Public Const SPECIAL_PERCENT As Boolean = False 'Whether a unit's 'special' is displayed as a percentage or not
-Public Const SPECIAL_NAME As String = "Mana"
-Public Const PORTRAIT_WIDTH As Integer = 15
-Public Const PORTRAIT_HEIGHT As Integer = 15
-Public Const AUTO_ATTACKING As Boolean = True
-Public Const AUTO_ATTACK_RANGE As Integer = 150
-Public Const RANGED_UNIT As Integer = 50
-Public Const TERRAIN_FRAME_LENGTH = 200 'ms
+Public HEALTH_BAR_CIV_COLOR As Boolean
+Public SELECTION_RECTANGLE_SHADOW As Boolean
+Public KEEP_WALKING_ON_COLLISION As Boolean
+Public SHOW_SELECTED_TARGETS As Boolean
+Public TERRAIN_TILE_SIZE As Integer
+Public FOG_OF_WAR As Boolean
+Public ENEMIES_SELECTABLE As Boolean
+Public ENEMIES_HAVE_ELLIPSES As Boolean
+Public YOU_HAVE_ELLIPSES As Boolean
+Public SELECTION_ELLIPSE_WIDTH As Integer
+Public HEALTH_BAR_WIDTH As Integer
+Public HEALTH_BAR_COLOR As Single
+Public SHOW_UNUSED_STATS As Boolean
+Public SPECIAL_PERCENT As Boolean
+Public SPECIAL_NAME As String
+Public PORTRAIT_WIDTH As Integer
+Public PORTRAIT_HEIGHT As Integer
+Public AUTO_ATTACKING As Boolean
+Public AUTO_ATTACK_RANGE As Integer
+Public RANGED_UNIT As Integer
+Public TERRAIN_FRAME_LENGTH As Integer
 '*****************************************************

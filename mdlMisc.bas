@@ -3,12 +3,12 @@ Option Explicit
 
 Public Function makeDC(file As String)
 makeDC = CreateCompatibleDC(0)
-makeDC = LoadGraphicDC(App.path & "\Images\" & file)
+makeDC = LoadGraphicDC(gamePath & " Data\Images\" & file)
 End Function
 
 Public Sub sound(n As Integer)
 Dim x As Long
-If Not DEBUG_MODE Then x = sndPlaySound(App.path & "\Sounds\s" & n & ".wav", sndAsync)
+If Not DEBUG_MODE Then x = sndPlaySound(gamePath & " Data\Sounds\s" & n & ".wav", sndAsync)
 End Sub
 
 Public Function increment(ByRef n As Variant)

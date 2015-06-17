@@ -70,11 +70,15 @@ End Sub
 
 Public Sub deleteUnit(n As Integer)
 Dim i As Integer
+Dim j As Integer
+Dim isVictory As Boolean
 
 unit(n).selected = False
 
 'Play a death sound
 If unitType(unit(n).type).deathSound > -1 Then sound (unitType(unit(n).type).deathSound)
+
+player(unit(n).player).population = player(unit(n).player).population - 1
 
 'Assess victories
 If victoryType = REGICIDE Then
@@ -85,9 +89,20 @@ If victoryType = REGICIDE Then
       End If
    Next i
 End If
+If victoryType = CONQUEST Then
+   For i = 0 To activePlayers - 1
+      isVictory = True
+      For j = 0 To activePlayers - 1
+         If player(j).population > 0 And j <> i Then
+            isVictory = False
+            j = activePlayers
+         End If
+      Next j
+      If isVictory Then victory (i)
+   Next i
+End If
 
 'Fix units targetting it
-Dim j As Integer
 For j = 0 To activeUnits - 1
    If unit(j).targetUnit = n Then
       unit(j).targetUnit = -1
@@ -112,6 +127,10 @@ increment activeCorpses
 '   unit(entity(j).index).entity = j 'unit?
 'Next j
 'activeEntities = activeEntities - 1
+
+For i = 0 To activePlayers - 1
+   Debug.Print "Player " & i & "'s population = " & player(i).population
+Next i
 
 swapUnits n, activeUnits - 1
 For j = 0 To activeUnits - 1
@@ -339,7 +358,7 @@ t = unitType(u.type)
 s = unitType(v.type)
 'tar = muxCoords(unitType(unit(u.targetUnit).type).dimensions, -1)
 'unitSize = distance(t.dimensions, tar) / 2
-unitSize = 1.5 * max(max(t.dimensions.x, t.dimensions.y), max(s.dimensions.x, s.dimensions.y))
+unitSize = 1# * max(max(t.dimensions.x, t.dimensions.y), max(s.dimensions.x, s.dimensions.y))
 End Function
 
 Public Sub reSortUnits(n As Integer, displacement As Integer, val As Integer)

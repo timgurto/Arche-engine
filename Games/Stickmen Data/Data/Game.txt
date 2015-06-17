@@ -1,0 +1,21 @@
+true, Health bar colors are player colors
+True, Selection rectangle shadow?
+False, Keep walking on collision?
+false, Show targets of selected units?
+False, Fog of war
+True, Enemies selectable
+True, Enemy units have ellipses
+false, Your units have ellipses
+False, Show unit stats that are unused
+False, Whether the 'special' stat (mana etc.) is displayed as a percentage
+True, whether units auto-attack if in range
+24, Terrain tile size
+1, Selection ellipse width
+4, Health bar width
+65280, Health bar color
+"Sticks", The name of the special stat
+15, The width of units' portraits
+15, The height of units' portraits
+150, The maximum distance at which units will auto-attack
+50, The distance covered by one unit of "range"
+200, The time in ms that each frame lasts in multi-frame terrain

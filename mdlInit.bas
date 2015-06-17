@@ -8,8 +8,46 @@ Dim j As Integer
 Dim x As Integer, y As Integer
 Dim s As String
 Dim temp1 As String
+Dim temp2 As String
+Dim temp3 As String
+Dim temp4 As String
 
-Open App.path & "\Data\demo.txt" For Input As #1
+Open gamePath & " Data\Data\Game.txt" For Input As #1
+Input #1, temp1, s
+HEALTH_BAR_CIV_COLOR = str2Bool(temp1)
+Input #1, temp1, s
+SELECTION_RECTANGLE_SHADOW = str2Bool(temp1)
+Input #1, temp1, s
+KEEP_WALKING_ON_COLLISION = str2Bool(temp1)
+Input #1, temp1, s
+SHOW_SELECTED_TARGETS = str2Bool(temp1)
+Input #1, temp1, s
+FOG_OF_WAR = str2Bool(temp1)
+Input #1, temp1, s
+ENEMIES_SELECTABLE = str2Bool(temp1)
+Input #1, temp1, s
+ENEMIES_HAVE_ELLIPSES = str2Bool(temp1)
+Input #1, temp1, s
+YOU_HAVE_ELLIPSES = str2Bool(temp1)
+Input #1, temp1, s
+SHOW_UNUSED_STATS = str2Bool(temp1)
+Input #1, temp1, s
+SPECIAL_PERCENT = str2Bool(temp1)
+Input #1, temp1, s
+AUTO_ATTACKING = str2Bool(temp1)
+Input #1, TERRAIN_TILE_SIZE, s, _
+SELECTION_ELLIPSE_WIDTH, s, _
+HEALTH_BAR_WIDTH, s, _
+HEALTH_BAR_COLOR, s, _
+SPECIAL_NAME, s, _
+PORTRAIT_WIDTH, s, _
+PORTRAIT_HEIGHT, s, _
+AUTO_ATTACK_RANGE, s, _
+RANGED_UNIT, s, _
+TERRAIN_FRAME_LENGTH
+Close #1
+
+Open gamePath & " Data\Data\Data.txt" For Input As #1
 
 Debug.Print "Loading factions"
 Input #1, activeCivs, s, s
@@ -59,7 +97,8 @@ Input #1, s
 Input #1, s
 For y = 0 To gameMap.dimensions.y - 1
    For x = 0 To gameMap.dimensions.x - 1
-      Input #1, gameMap.explored(x, y)
+      Input #1, temp1
+      gameMap.explored(x, y) = str2Bool(temp1)
    Next x
 Next y
 Input #1, s
@@ -83,9 +122,13 @@ Input #1, activeUnits, s, s
 For i = 0 To activeUnits - 1
    With unit(i)
       Input #1, .type, .health, .location.x, .location.y, .targetUnit, _
-      .target.x, .target.y, .player, .moving, .frame, .attackTimer, _
-      .direction, .selected, .freezeFrame, .combatMode
+      .target.x, .target.y, .player, temp1, .frame, .attackTimer, _
+      .direction, temp2, temp3, temp4
       .exploring = True
+      .moving = str2Bool(temp1)
+      .selected = str2Bool(temp2)
+      .freezeFrame = str2Bool(temp3)
+      .combatMode = str2Bool(temp4)
    End With
 Next i
 Input #1, s
@@ -97,6 +140,7 @@ If victoryType = REGICIDE Then
       Input #1, regicideTarget(i)
    Next i
 End If
+If victoryType = CONQUEST Then Input #1, s
 Input #1, s
 
 Debug.Print "Loading corpses"
@@ -117,15 +161,17 @@ For i = 0 To activeCorpses - 1
 Next i
 Input #1, s
 
-Input #1, s, s
-With target
-   Input #1, .dimensions.x, .dimensions.y, .background
-   .dc = makeDC("_target.bmp")
-End With
+If SHOW_SELECTED_TARGETS Then
+   Input #1, s, s
+   With target
+      Input #1, .dimensions.x, .dimensions.y, .background
+      .dc = makeDC("_target.bmp")
+   End With
+End If
 
 Close #1
 
-fogDC = makeDC("_fog.bmp")
+If FOG_OF_WAR Then fogDC = makeDC("_fog.bmp")
 
 sortUnits
 

@@ -7,6 +7,7 @@ Begin VB.Form frmGame
    ClientLeft      =   795
    ClientTop       =   0
    ClientWidth     =   15360
+   Enabled         =   0   'False
    Icon            =   "Game.frx":0000
    LinkTopic       =   "Form1"
    LockControls    =   -1  'True
@@ -62,6 +63,7 @@ Begin VB.Form frmGame
          Height          =   255
          Left            =   1860
          TabIndex        =   26
+         ToolTipText     =   "Speed"
          Top             =   1560
          Width           =   855
       End
@@ -72,6 +74,7 @@ Begin VB.Form frmGame
          Height          =   255
          Left            =   1860
          TabIndex        =   25
+         ToolTipText     =   "Healing"
          Top             =   840
          Width           =   855
       End
@@ -82,6 +85,7 @@ Begin VB.Form frmGame
          Height          =   255
          Left            =   1860
          TabIndex        =   24
+         ToolTipText     =   "Range"
          Top             =   1200
          Width           =   855
       End
@@ -92,6 +96,7 @@ Begin VB.Form frmGame
          Height          =   255
          Left            =   480
          TabIndex        =   23
+         ToolTipText     =   "Armor"
          Top             =   1560
          Width           =   855
       End
@@ -99,6 +104,7 @@ Begin VB.Form frmGame
          Height          =   360
          Left            =   1440
          Picture         =   "Game.frx":000C
+         ToolTipText     =   "Range"
          Top             =   1140
          Width           =   360
       End
@@ -106,6 +112,7 @@ Begin VB.Form frmGame
          Height          =   360
          Left            =   1440
          Picture         =   "Game.frx":108E
+         ToolTipText     =   "Healing"
          Top             =   780
          Width           =   360
       End
@@ -113,6 +120,7 @@ Begin VB.Form frmGame
          Height          =   360
          Left            =   1440
          Picture         =   "Game.frx":2110
+         ToolTipText     =   "Speed"
          Top             =   1500
          Width           =   360
       End
@@ -120,6 +128,7 @@ Begin VB.Form frmGame
          Height          =   360
          Left            =   60
          Picture         =   "Game.frx":3192
+         ToolTipText     =   "Attack"
          Top             =   1140
          Width           =   360
       End
@@ -127,6 +136,7 @@ Begin VB.Form frmGame
          Height          =   360
          Left            =   60
          Picture         =   "Game.frx":4214
+         ToolTipText     =   "Health"
          Top             =   780
          Width           =   360
       End
@@ -137,6 +147,7 @@ Begin VB.Form frmGame
          Height          =   255
          Left            =   480
          TabIndex        =   22
+         ToolTipText     =   "Attack"
          Top             =   1200
          Width           =   855
       End
@@ -147,6 +158,7 @@ Begin VB.Form frmGame
          Height          =   255
          Left            =   480
          TabIndex        =   21
+         ToolTipText     =   "Health"
          Top             =   840
          Width           =   855
       End
@@ -154,6 +166,7 @@ Begin VB.Form frmGame
          Height          =   360
          Left            =   60
          Picture         =   "Game.frx":5296
+         ToolTipText     =   "Armor"
          Top             =   1500
          Width           =   360
       End
@@ -442,12 +455,16 @@ If n < MAX_UNITS Then
    
    increment player(unit(n).player).population
    
+   For i = 0 To activePlayers - 1
+   Debug.Print "Player " & i & "'s population = " & player(i).population
+Next i
+   
    Do
       unit(n).location.x = Int(Rnd * ((gameMap.dimensions.x - 1) * TERRAIN_TILE_SIZE) + 1)
       unit(n).location.y = Int(Rnd * ((gameMap.dimensions.y - 1) * TERRAIN_TILE_SIZE) + 1)
       count = count + 1
    Loop Until validLocation(collisionLoc(n), unitType(unit(n).type).collisionDim, n)
-   Debug.Print "Creted unit after " & count & " attempts."
+   Debug.Print "Created unit after " & count & " attempts."
    unit(n).target = unit(n).location
    unit(n).exploring = True
    needReExplore = True
@@ -530,6 +547,7 @@ init 'includes reading of user's screen res
 
 Call ChangeRes(1024, 768)
 Me.Show
+Me.Enabled = True
 picGame.SetFocus
 
 If DEBUG_MODE Then
@@ -610,6 +628,7 @@ End Sub
 
 Private Sub picGame_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
 Dim i As Integer
+Dim j As Integer
 
 If mouseDown Then
    'For i = 0 To activeUnits - 1
@@ -625,7 +644,12 @@ If mouseDown Then
                (selectionRectangleLoc2.y + gameMap.displacement.y <= unit(i).location.y + unitType(unit(i).type).dimensions.y * (1 / 8) And _
                 selectionRectangleLoc1.y + gameMap.displacement.y >= unit(i).location.y - unitType(unit(i).type).dimensions.y * (7 / 8)) Then
                unit(i).selected = Not (unit(i).selected = True And ctrlDown)
-               If Not selectionRectangle Then i = -1
+               If Not selectionRectangle Then
+                  For j = 0 To i - 1
+                     unit(j).selected = False
+                  Next j
+                  i = -1
+               End If
             End If
          End If
       End If

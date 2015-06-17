@@ -1,0 +1,87 @@
+2,Civs
+Name           Color
+Stick Men,     16777215
+Line Monsters, 255
+
+2,Players
+Name            Civ Population
+Superior Human, 0,  3
+Evil Computer,  1,  4
+
+1,Terrains
+Name     Impassable Frames Frame
+"Blank", False,     1,     0
+
+Camera displacement
+-242,X
+-106,Y
+
+Map
+24,X
+18,Y
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+
+Explored
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T
+
+1,Unit types
+Name          Health Armor Attack Healing Range Background Portrait background Dimensions X Y CollisionLoc X Y CollisionDim X Y Corpse Select sound Attack sound Death sound Speed Attack speed Frames Line of Sight Taunting
+Grunt,        100,   5,    10,    0,      0,    65280,     65280,              48,48,         13,37,           19,11,           0,     -1,          1,           0,          2,    2500,        4,     150,          FALSE
+
+7,Units
+Type Health Location X Y Target unit Target X Y Player Moving? Frame Attack timer Direction Selected? Freeze frame Combat mode?
+0,   100,   100,50,      -1,         100,50,    0,     FALSE,  1,    2000,        1,        FALSE,    FALSE,       FALSE
+0,   100,   25,100,      -1,         100,100,   0,     TRUE,   1,    1000,        1,        TRUE,     FALSE,       FALSE
+0,   100,   100,150,     -1,         100,150,   0,     FALSE,  1,    750,         1,        FALSE,    FALSE,       FALSE
+0,   100,   500,25,      -1,         500,25,    1,     FALSE,  1,    2100,        3,        FALSE,    FALSE,       FALSE
+0,   100,   500,75,      -1,         500,75,    1,     FALSE,  1,    40,          3,        FALSE,    FALSE,       FALSE
+0,   100,   500,125,     -1,         500,125,   1,     FALSE,  1,    650,         3,        FALSE,    FALSE,       FALSE
+0,   100,   500,175,     -1,         500,175,   1,     FALSE,  1,    1337,        3,        FALSE,    FALSE,       FALSE
+
+
+0,Victory type
+
+1,Corpse types
+Timer Dimensions X Y Background
+90,   48,48,         16711935
+
+0,Corpses
+Type Location X Y Dimensions X Y Timer
+
+Target
+Dimensions X Y Background
+16,16,         255
